@@ -10,16 +10,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
-public class Category {
+public class Attachment {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private String name;
+    private int id;
 
-    public Category(String name) {
-        this.name = name;
-    }
+    private String fileOriginalName;
+    private long size;
+    private String contentType;
+    //systemadagi papkasini nomi
+    private String name;
 }

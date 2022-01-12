@@ -5,8 +5,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import uz.pdp.springsecurity.entity.Category;
-import uz.pdp.springsecurity.repository.CategoryRepository;
 
 import java.util.List;
 
@@ -25,7 +23,7 @@ public class CategoryController {
         return ResponseEntity.ok("Saved!");
     }
 
-    //    @PreAuthorize(value = "hasAnyRole('ADMIN','USER')")
+      @PreAuthorize(value = "hasAnyAuthority('DELETE_CATEGORY')")
     @GetMapping("/list")
     public HttpEntity<?> getAll() {
         List<Category> all = categoryRepository.findAll();
