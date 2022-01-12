@@ -60,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers(HttpMethod.POST,"/api/category").hasAuthority("ADD_CATEGORY")
 //                .antMatchers(HttpMethod.DELETE,"/api/category/*").hasAuthority("DELETE_CATEGORY")
 
-                .antMatchers("/api/login", "/api/register").permitAll()
+                .antMatchers("/api/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

@@ -27,6 +27,5 @@ public class User extends AbsEntity {
     private String phone;
 
 
-
 }
 
