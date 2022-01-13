@@ -15,7 +15,5 @@ import javax.persistence.Entity;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Category extends AbsEntity {
-
-
     private String name;
 }
