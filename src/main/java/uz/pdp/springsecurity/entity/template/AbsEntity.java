@@ -25,10 +25,7 @@ public abstract class AbsEntity {
     @Column(nullable = false, updatable = false)
     private Timestamp createdAt;
 
-
     @Column(updatable = false)
     @UpdateTimestamp
     private Timestamp updateAt;
-
-
 }
