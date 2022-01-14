@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import uz.pdp.springsecurity.payload.ApiResponse;
 import uz.pdp.springsecurity.payload.ProductDto;
 import uz.pdp.springsecurity.repository.ProductRepository;
-import uz.pdp.springsecurity.service.ProductService;
 
 import javax.validation.Valid;
 

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
+import java.sql.Date;
 import java.util.List;
 
 @Data
@@ -13,6 +14,8 @@ import java.util.List;
 public class ProductDto {
     @NotNull(message = "required line")
     private String name;
+    @NotNull(message = "required line")
+    private Integer quantity;
     @NotNull(message = "required line")
     private long barcode;
     private Integer brandId;
@@ -27,6 +30,6 @@ public class ProductDto {
     private double tax;
     @NotNull(message = "required line")
     private List<Integer> branchId;
-    @NotNull(message = "required line")
-    private Integer quantity;
+    private Date expireDateFrom;
+    private Date expireDateTo;
 }

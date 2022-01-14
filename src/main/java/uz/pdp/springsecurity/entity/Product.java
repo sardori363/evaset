@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import uz.pdp.springsecurity.entity.template.AbsEntity;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
@@ -18,6 +19,8 @@ public class Product extends AbsEntity {
 
     @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
+    private Integer quantity;
     @Column(nullable = false,unique = true)
     private long barcode;
     @OneToOne
@@ -34,5 +37,7 @@ public class Product extends AbsEntity {
     private double tax;
     @OneToMany
     private List<Branch> branchId;
-    private Integer quantity;
+    private Date expireDateFrom;
+    private Date expireDateTo;
+
 }
