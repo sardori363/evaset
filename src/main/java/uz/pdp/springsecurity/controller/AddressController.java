@@ -9,6 +9,8 @@ import uz.pdp.springsecurity.payload.ApiResponse;
 import uz.pdp.springsecurity.repository.AddressRepository;
 import uz.pdp.springsecurity.service.AddressService;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/address")
 public class AddressController {
@@ -19,7 +21,7 @@ public class AddressController {
     AddressService addressService;
 
     @PostMapping("/add")
-    public HttpEntity<?> addAddress(@RequestBody AddressDto addressDto) {
+    public HttpEntity<?> addAddress(@Valid @RequestBody AddressDto addressDto) {
         ApiResponse apiResponse = addressService.addAddress(addressDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }

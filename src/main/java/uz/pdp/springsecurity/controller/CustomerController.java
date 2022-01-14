@@ -9,6 +9,8 @@ import uz.pdp.springsecurity.payload.CustomerDto;
 import uz.pdp.springsecurity.repository.CustomerRepository;
 import uz.pdp.springsecurity.service.CustomerService;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/customer")
 public class CustomerController {
@@ -19,7 +21,7 @@ public class CustomerController {
     CustomerService customerService;
 
     @PostMapping("/add")
-    public HttpEntity<?> addAddress(@RequestBody CustomerDto customerDto) {
+    public HttpEntity<?> addAddress(@Valid @RequestBody CustomerDto customerDto) {
         ApiResponse apiResponse = customerService.add(customerDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }

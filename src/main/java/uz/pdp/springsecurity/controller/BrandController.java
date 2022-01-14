@@ -9,6 +9,8 @@ import uz.pdp.springsecurity.payload.BrandDto;
 import uz.pdp.springsecurity.repository.BrandRepository;
 import uz.pdp.springsecurity.service.BrandService;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/brand")
 public class BrandController {
@@ -19,7 +21,7 @@ public class BrandController {
     BrandService brandService;
 
     @PostMapping("/add")
-    public HttpEntity<?> add(@RequestBody BrandDto brandDto) {
+    public HttpEntity<?> add(@Valid @RequestBody BrandDto brandDto) {
         ApiResponse apiResponse = brandService.addBrand(brandDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }

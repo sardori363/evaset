@@ -50,7 +50,7 @@ public class AttachmentController {
     }
 
     @GetMapping("/info")
-    public List<Attachment> getInfoo(HttpServletResponse response) {
+    public List<Attachment> getInfo(HttpServletResponse response) {
         List<Attachment> all = attachmentRepository.findAll();
         return all;
     }

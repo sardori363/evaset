@@ -9,6 +9,8 @@ import uz.pdp.springsecurity.payload.CategoryDto;
 import uz.pdp.springsecurity.repository.CategoryRepository;
 import uz.pdp.springsecurity.service.CategoryService;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/category")
 public class CategoryController {
@@ -19,7 +21,7 @@ public class CategoryController {
     CategoryService categoryService;
 
     @PostMapping("/add")
-    public HttpEntity<?> add(@RequestBody CategoryDto categoryDto) {
+    public HttpEntity<?> add(@Valid @RequestBody CategoryDto categoryDto) {
         ApiResponse apiResponse = categoryService.add(categoryDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }

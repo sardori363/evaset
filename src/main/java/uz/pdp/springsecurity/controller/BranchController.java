@@ -10,6 +10,8 @@ import uz.pdp.springsecurity.payload.BranchDto;
 import uz.pdp.springsecurity.repository.BranchRepository;
 import uz.pdp.springsecurity.service.BranchService;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/branch")
 public class BranchController {
@@ -20,7 +22,7 @@ public class BranchController {
     BranchService branchService;
 
     @PostMapping("/add")
-    public HttpEntity<?> add(@RequestBody BranchDto branchDto) {
+    public HttpEntity<?> add(@Valid @RequestBody BranchDto branchDto) {
         ApiResponse apiResponse = branchService.addBranch(branchDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
