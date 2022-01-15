@@ -14,7 +14,7 @@ import uz.pdp.springsecurity.service.ProductService;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/address")
+@RequestMapping("/api/product")
 public class ProductController {
 
     @Autowired
