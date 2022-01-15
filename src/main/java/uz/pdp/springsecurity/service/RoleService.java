@@ -18,7 +18,6 @@ public class RoleService {
     public ApiResponse add(RoleDto roleDto) {
         boolean b = roleRepository.existsByName(roleDto.getName());
         if (b) return new ApiResponse("Role already exist", false);
-
         Role role = new Role();
         role.setName(roleDto.getName());
         role.setPermissions(roleDto.getPermissions());

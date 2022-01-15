@@ -38,7 +38,6 @@ public class DataLoader implements CommandLineRunner {
                     Arrays.asList(permissions)
             ));
 
-
             userRepository.save(new User(
                     "Admin",
                     "Admin",

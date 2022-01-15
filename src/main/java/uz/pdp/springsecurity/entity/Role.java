@@ -29,13 +29,6 @@ public class Role {
 
     private String description;
 
-    public Role(String name, List<Permissions> permissionList) {
-        this.name = name;
-        this.permissions = permissionList;
-    }
-
-
-
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
@@ -44,4 +37,10 @@ public class Role {
     @Column(updatable = false)
     @UpdateTimestamp
     private Timestamp updateAt;
+
+    public Role(String name, List<Permissions> permissions) {
+        this.name = name;
+        this.permissions = permissions;
+    }
+
 }
