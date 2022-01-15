@@ -20,25 +20,25 @@ public class CustomerController {
     @Autowired
     CustomerService customerService;
 
-    @PostMapping("/add")
+    @PostMapping
     public HttpEntity<?> addAddress(@Valid @RequestBody CustomerDto customerDto) {
         ApiResponse apiResponse = customerService.add(customerDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @PutMapping("/edit/{id}")
+    @PutMapping("/{id}")
     public HttpEntity<?> edit(@PathVariable Integer id, @RequestBody CustomerDto customerDto) {
         ApiResponse apiResponse = customerService.edit(id, customerDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     public HttpEntity<?> get(@PathVariable Integer id) {
         ApiResponse apiResponse = customerService.get(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @GetMapping("/get")
+    @GetMapping
     public HttpEntity<?> getAll() {
         ApiResponse apiResponse = customerService.getAll();
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);

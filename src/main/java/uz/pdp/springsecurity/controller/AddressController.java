@@ -20,38 +20,38 @@ public class AddressController {
     @Autowired
     AddressService addressService;
 
-    @PostMapping("/add")
-    public HttpEntity<?> addAddress(@Valid @RequestBody AddressDto addressDto) {
+    @PostMapping
+    public HttpEntity<?> add(@Valid @RequestBody AddressDto addressDto) {
         ApiResponse apiResponse = addressService.addAddress(addressDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @PutMapping("/edit/{id}")
-    public HttpEntity<?> editAddress(@PathVariable Integer id, @RequestBody AddressDto addressDto) {
+    @PutMapping("/{id}")
+    public HttpEntity<?> edit(@PathVariable Integer id, @RequestBody AddressDto addressDto) {
         ApiResponse apiResponse = addressService.editAddress(id, addressDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @GetMapping("/get/{id}")
-    public HttpEntity<?> getAddress(@PathVariable Integer id) {
+    @GetMapping("/{id}")
+    public HttpEntity<?> get(@PathVariable Integer id) {
         ApiResponse apiResponse = addressService.getAddress(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @GetMapping("/get")
-    public HttpEntity<?> getAddresses() {
+    @GetMapping
+    public HttpEntity<?> get() {
         ApiResponse apiResponse = addressService.getAddresses();
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public HttpEntity<?> deleteAddress(@PathVariable Integer id) {
+    @DeleteMapping("/{id}")
+    public HttpEntity<?> delete(@PathVariable Integer id) {
         ApiResponse apiResponse = addressService.deleteAddress(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @DeleteMapping("/delete")
-    public HttpEntity<?> deleteAddresses() {
+    @DeleteMapping
+    public HttpEntity<?> delete() {
         ApiResponse apiResponse = addressService.deleteAddresses();
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
