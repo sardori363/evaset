@@ -21,37 +21,37 @@ public class OutlayCategoryController {
     @Autowired
     OutlayCategoryService outlayCategoryService;
 
-    @PostMapping("/add")
+    @PostMapping
     public HttpEntity<?> add(@Valid @RequestBody OutlayCategoryDto outlayCategoryDto) {
         ApiResponse apiResponse = outlayCategoryService.add(outlayCategoryDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @PutMapping("/edit/{id}")
+    @PutMapping("/{id}")
     public HttpEntity<?> edit(@PathVariable Integer id, @RequestBody OutlayCategoryDto outlayCategoryDto) {
         ApiResponse apiResponse = outlayCategoryService.edit(id, outlayCategoryDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     public HttpEntity<?> get(@PathVariable Integer id) {
         ApiResponse apiResponse = outlayCategoryService.get(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @GetMapping("/get")
+    @GetMapping
     public HttpEntity<?> getAll() {
         ApiResponse apiResponse = outlayCategoryService.getAll();
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public HttpEntity<?> delete(@PathVariable Integer id) {
         ApiResponse apiResponse = outlayCategoryService.delete(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping
     public HttpEntity<?> deleteAll() {
         ApiResponse apiResponse = outlayCategoryService.deleteAll ();
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
