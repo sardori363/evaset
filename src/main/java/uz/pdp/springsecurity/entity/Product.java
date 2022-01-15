@@ -30,18 +30,14 @@ public class Product extends AbsEntity {
     @OneToOne
     private Measurement MeasurementId;
     private Integer minQuantity;
-
+    @OneToMany
+    private List<Attachment> photoId;
     private double buyPrice;
-
     private double salePrice;
-
     private double tax;
-
     @OneToMany
     private List<Branch> branchId;
-
     private Date expireDateFrom;
-
     private Date expireDateTo;
 
 }

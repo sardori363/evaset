@@ -19,4 +19,14 @@ public class ApiResponse {
         this.message = message;
         this.success = success;
     }
+
+    public ApiResponse(boolean success) {
+        this.success = success;
+    }
+
+    public ApiResponse(boolean success, Object object) {
+        this.success = success;
+        this.object = object;
+    }
+
 }
