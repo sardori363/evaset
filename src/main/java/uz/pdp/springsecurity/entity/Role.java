@@ -23,15 +23,15 @@ public class Role {
     @Column(nullable = false,unique = true)
     private String name;
 
-
-
     @Enumerated(EnumType.STRING)
     @ElementCollection
-    private List<Permissions> permissionList;
+    private List<Permissions> permissions;
+
+    private String description;
 
     public Role(String name, List<Permissions> permissionList) {
         this.name = name;
-        this.permissionList = permissionList;
+        this.permissions = permissionList;
     }
 
 

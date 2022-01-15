@@ -62,7 +62,7 @@ public class User extends AbsEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<Permissions> permissionList = this.role.getPermissionList();
+        List<Permissions> permissionList = this.role.getPermissions();
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         for (Permissions permission : permissionList) {
             grantedAuthorities.add(new SimpleGrantedAuthority(permission.name()));
