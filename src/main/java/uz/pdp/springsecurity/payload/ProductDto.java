@@ -23,7 +23,6 @@ public class ProductDto {
     @NotNull(message = "required line")
     private Integer MeasurementId;
     private Integer minQuantity;
-    private List<Integer> photoId;
     @NotNull(message = "required line")
     private double buyPrice;
     private double salePrice;
