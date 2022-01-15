@@ -30,8 +30,8 @@ public class Product extends AbsEntity {
     @OneToOne
     private Measurement MeasurementId;
     private Integer minQuantity;
-    @OneToMany
-    private List<Attachment> photoId;
+//    @OneToMany
+//    private List<Attachment> photoId;
     private double buyPrice;
     private double salePrice;
     private double tax;
