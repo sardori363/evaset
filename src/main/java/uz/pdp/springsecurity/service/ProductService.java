@@ -55,7 +55,7 @@ public class ProductService {
 
     public ApiResponse getProduct(Integer id) {
         Optional<Product> optionalProduct = productRepository.findById(id);
-        if (optionalProduct.isEmpty()) {
+        if (!optionalProduct.isPresent()) {
             return new ApiResponse("NOT FOUND!", false);
         }
         Product product = optionalProduct.get();
