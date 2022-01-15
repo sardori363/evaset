@@ -27,7 +27,7 @@ public class ProductDto {
 
     @NotNull(message = "required line")
 
-    private Integer MeasurementId;
+    private Integer measurementId;
 
     private List<Integer> photoIds;
 

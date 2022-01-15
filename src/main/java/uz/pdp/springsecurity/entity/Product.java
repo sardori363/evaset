@@ -33,7 +33,7 @@ public class Product extends AbsEntity {
     private Category categoryId;
 
     @OneToOne
-    private Measurement MeasurementId;
+    private Measurement measurementId;
 
     private Integer minQuantity;
 
