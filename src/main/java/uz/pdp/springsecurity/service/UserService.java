@@ -35,7 +35,7 @@ public class UserService {
         user.setUsername(userDto.getUsername());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setRole((Role) response.getObject());
-
+        user.setEnabled(userDto.getEnabled());
         userRepository.save(user);
         return new ApiResponse("Saved", true);
     }
