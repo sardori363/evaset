@@ -28,6 +28,16 @@ public class User extends AbsEntity implements UserDetails {
 
     @Column(nullable = false)
     private String firstName;
+
+    public User(String firstName, String lastName, String username, String password, Role role, boolean enabled) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.enabled = enabled;
+    }
+
     @Column(nullable = false)
     private String lastName;
 
