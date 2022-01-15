@@ -53,7 +53,7 @@ public class OutlayCategoryController {
 
     @DeleteMapping("/delete")
     public HttpEntity<?> deleteAll() {
-        ApiResponse apiResponse = outlayCategoryService.deleteAll();
+        ApiResponse apiResponse = outlayCategoryService.deleteAll ();
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 }
