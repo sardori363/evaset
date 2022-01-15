@@ -29,4 +29,7 @@ public class ApiResponse {
         this.object = object;
     }
 
+    public ApiResponse(Object object) {
+        this.object = object;
+    }
 }

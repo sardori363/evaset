@@ -39,33 +39,50 @@ public class ProductService {
     BranchRepository branchRepository;
 
     public ApiResponse addProduct(@Valid ProductDto productDto) throws ParseException {
-        Product product  = addProductDtotoProduct(productDto);
+        Product product = new Product();
+        product = addProductDtotoProduct(product, productDto);
         productRepository.save(product);
         return new ApiResponse(true, product);
     }
 
     public ApiResponse editProduct(Integer id, ProductDto productDto) {
-        return null;
+        Optional<Product> optionalProduct = productRepository.findById(id);
+        Product product = optionalProduct.get();
+        product = addProductDtotoProduct(product, productDto);
+        productRepository.save(product);
+        return new ApiResponse(true, product);
     }
 
     public ApiResponse getProduct(Integer id) {
-        return null;
+        Optional<Product> optionalProduct = productRepository.findById(id);
+        if (optionalProduct.isEmpty()) {
+            return new ApiResponse("NOT FOUND!", false);
+        }
+        Product product = optionalProduct.get();
+        return new ApiResponse(true, product);
     }
 
     public ApiResponse getProducts() {
-        return null;
+        List<Product> allProduct = productRepository.findAll();
+        return new ApiResponse(allProduct);
     }
 
     public ApiResponse deleteProduct(Integer id) {
-        return null;
+        Optional<Product> optionalProduct = productRepository.findById(id);
+        if (optionalProduct.isPresent()) {
+            productRepository.deleteById(id);
+        }else {
+            return new ApiResponse("NOT FOUND!",false);
+        }
+        return new ApiResponse(true);
     }
 
     public ApiResponse deleteProducts() {
-        return null;
+        productRepository.deleteAll();
+        return new ApiResponse(true);
     }
 
-    Product addProductDtotoProduct(ProductDto productDto) {
-        Product product = new Product();
+    Product addProductDtotoProduct(Product product, ProductDto productDto) {
         product.setName(productDto.getName());
         product.setQuantity(productDto.getQuantity());
         product.setBarcode(productDto.getBarcode());
@@ -88,8 +105,8 @@ public class ProductService {
         product.setSalePrice(productDto.getSalePrice());
         product.setTax(productDto.getTax());
 
-    //        List<Branch> branchRepositoryAllById = branchRepository.findAllById(productDto.getPhotoIds());
-    //        product.setBranchId(branchRepositoryAllById);
+        List<Branch> branchRepositoryAllById = branchRepository.findAllById(productDto.getPhotoIds());
+        product.setBranchId(branchRepositoryAllById);
 
         if (product.getExpireDate() == null) {
             Date date = new Date(System.currentTimeMillis());

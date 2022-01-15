@@ -59,8 +59,7 @@ public class User extends AbsEntity implements UserDetails {
     private boolean credentialsNonExpired = true;
 
 
-    //Shunchaki Userni hamma permissionlarini Listda qaytaryabman
-    //unaqa qorqinchli ish qilmayabman
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<Permissions> permissionList = this.role.getPermissionList();
