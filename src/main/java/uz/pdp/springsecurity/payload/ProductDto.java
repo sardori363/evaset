@@ -41,8 +41,8 @@ public class ProductDto {
 
     private double tax;
 
-    @NotNull(message = "required line")
-    private List<Integer> branchId;
+//    @NotNull(message = "required line")
+//    private List<Integer> branchId;
 
     private Date expireDate;
 

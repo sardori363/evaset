@@ -12,9 +12,10 @@ import uz.pdp.springsecurity.service.AddressService;
 import uz.pdp.springsecurity.service.ProductService;
 
 import javax.validation.Valid;
+import java.text.ParseException;
 
 @RestController
-@RequestMapping("/api/address")
+@RequestMapping("/api/product")
 public class ProductController {
 
     @Autowired
@@ -22,7 +23,7 @@ public class ProductController {
 
 
     @PostMapping()
-    public HttpEntity<?> add(@Valid @RequestBody ProductDto productDto) {
+    public HttpEntity<?> add(@Valid @RequestBody ProductDto productDto) throws ParseException {
         ApiResponse apiResponse = productService.addProduct(productDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }

@@ -9,6 +9,11 @@ import uz.pdp.springsecurity.payload.ProductDto;
 import uz.pdp.springsecurity.repository.*;
 
 import javax.validation.Valid;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,9 +38,34 @@ public class ProductService {
     @Autowired
     BranchRepository branchRepository;
 
-    public ApiResponse addProduct(@Valid ProductDto productDto) {
-        Product product = new Product();
+    public ApiResponse addProduct(@Valid ProductDto productDto) throws ParseException {
+        Product product  = addProductDtotoProduct(productDto);
+        productRepository.save(product);
+        return new ApiResponse(true, product);
+    }
 
+    public ApiResponse editProduct(Integer id, ProductDto productDto) {
+        return null;
+    }
+
+    public ApiResponse getProduct(Integer id) {
+        return null;
+    }
+
+    public ApiResponse getProducts() {
+        return null;
+    }
+
+    public ApiResponse deleteProduct(Integer id) {
+        return null;
+    }
+
+    public ApiResponse deleteProducts() {
+        return null;
+    }
+
+    Product addProductDtotoProduct(ProductDto productDto) {
+        Product product = new Product();
         product.setName(productDto.getName());
         product.setQuantity(productDto.getQuantity());
         product.setBarcode(productDto.getBarcode());
@@ -58,32 +88,19 @@ public class ProductService {
         product.setSalePrice(productDto.getSalePrice());
         product.setTax(productDto.getTax());
 
-        List<Branch> branchRepositoryAllById = branchRepository.findAllById(productDto.getPhotoIds());
-        product.setBranchId(branchRepositoryAllById);
+    //        List<Branch> branchRepositoryAllById = branchRepository.findAllById(productDto.getPhotoIds());
+    //        product.setBranchId(branchRepositoryAllById);
 
+        if (product.getExpireDate() == null) {
+            Date date = new Date(System.currentTimeMillis());
+            product.setExpireDate(date);
+        } else {
+            product.setExpireDate(productDto.getExpireDate());
+        }
 
-
-
-        return null;
+        product.setDueDate(productDto.getDueDate());
+        return product;
     }
 
-    public ApiResponse editProduct(Integer id, ProductDto productDto) {
-        return null;
-    }
 
-    public ApiResponse getProduct(Integer id) {
-        return null;
-    }
-
-    public ApiResponse getProducts() {
-        return null;
-    }
-
-    public ApiResponse deleteProduct(Integer id) {
-        return null;
-    }
-
-    public ApiResponse deleteProducts() {
-        return null;
-    }
 }
