@@ -1,13 +1,18 @@
 package uz.pdp.springsecurity.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import uz.pdp.springsecurity.entity.Role;
 import uz.pdp.springsecurity.entity.User;
+import uz.pdp.springsecurity.exeptions.RescuersNotFoundEx;
 import uz.pdp.springsecurity.payload.ApiResponse;
+import uz.pdp.springsecurity.payload.ProfileDto;
 import uz.pdp.springsecurity.payload.UserDto;
 import uz.pdp.springsecurity.repository.UserRepository;
+
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -38,5 +43,69 @@ public class UserService {
         user.setEnabled(userDto.getEnabled());
         userRepository.save(user);
         return new ApiResponse("Saved", true);
+    }
+
+    public ApiResponse edit(Integer id, UserDto userDto) {
+        Optional<User> optionalUser = userRepository.findById(id);
+
+        if (!optionalUser.isPresent()) return new ApiResponse("User not found", false);
+        boolean b = userRepository.existsByUsername(userDto.getUsername());
+
+        if (b) return new ApiResponse("Username already exist", false);
+
+        ApiResponse response = roleService.get((int) userDto.getRoleId().longValue());
+        if (!response.isSuccess())
+            return response;
+
+        User user = optionalUser.get();
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+        user.setUsername(userDto.getUsername());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        user.setRole((Role) response.getObject());
+        user.setEnabled(userDto.getEnabled());
+
+        userRepository.save(user);
+        return new ApiResponse("edited", true);
+    }
+
+    public ApiResponse get(Integer id) {
+        if (!userRepository.existsById(id)) return new ApiResponse("not found",false);
+//        return userOptional.map(user -> new ApiResponse("User by id!", true, user)).orElseThrow(() -> new RescuersNotFoundEx("user", "id", id));
+    return new ApiResponse("found",true,userRepository.findById(id).get());
+    }
+
+    public ApiResponse getAll() {
+        return new ApiResponse("User's list", true, userRepository.findAll());
+    }
+
+    public ApiResponse delete(Integer id) {
+        Optional<User> byId = userRepository.findById(id);
+        if (!byId.isPresent()) return new ApiResponse("User not found", false);
+        userRepository.deleteById(id);
+        return new ApiResponse("Deleted", true);
+    }
+
+    public ApiResponse deleteAll() {
+        userRepository.deleteAll();
+        return new ApiResponse("users removed", true);
+    }
+
+    public ApiResponse editMyProfile(ProfileDto profileDto) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (userRepository.existsByUsernameAndIdNot(profileDto.getUserName(), user.getId()))
+            return new ApiResponse("Username already exists!", false);
+
+        if (!profileDto.getPassword().equals(profileDto.getPrePassword()))
+            return new ApiResponse("Passwords are not compatible!", false);
+
+
+        user.setFirstName(profileDto.getFirstName());
+        user.setLastName(profileDto.getLastName());
+        user.setUsername(profileDto.getUserName());
+        user.setPassword(passwordEncoder.encode(profileDto.getPassword()));
+
+        userRepository.save(user);
+        return new ApiResponse("User saved!", true);
     }
 }
