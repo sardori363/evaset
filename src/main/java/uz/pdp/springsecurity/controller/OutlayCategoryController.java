@@ -13,7 +13,7 @@ import uz.pdp.springsecurity.service.OutlayCategoryService;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/outlay")
+@RequestMapping("/api/outlayCategory")
 public class OutlayCategoryController {
     @Autowired
     OutlayCategoryRepository outlayCategoryRepository;

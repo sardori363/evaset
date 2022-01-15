@@ -20,37 +20,37 @@ public class BrandController {
     @Autowired
     BrandService brandService;
 
-    @PostMapping("/add")
+    @PostMapping
     public HttpEntity<?> add(@Valid @RequestBody BrandDto brandDto) {
         ApiResponse apiResponse = brandService.addBrand(brandDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @PutMapping("/edit/{id}")
+    @PutMapping("/{id}")
     public HttpEntity<?> edit(@PathVariable Integer id, @RequestBody BrandDto brandDto) {
         ApiResponse apiResponse = brandService.editBrand(id,brandDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     public HttpEntity<?> get(@PathVariable Integer id) {
         ApiResponse apiResponse = brandService.getBrand(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @GetMapping("/get")
+    @GetMapping
     public HttpEntity<?> getAll() {
         ApiResponse apiResponse = brandService.getBrands();
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public HttpEntity<?> delete(@PathVariable Integer id) {
         ApiResponse apiResponse = brandService.deleteBrand(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping
     public HttpEntity<?> deleteAll() {
         ApiResponse apiResponse = brandService.deleteBrands();
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);

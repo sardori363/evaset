@@ -20,37 +20,37 @@ public class CategoryController {
     @Autowired
     CategoryService categoryService;
 
-    @PostMapping("/add")
+    @PostMapping
     public HttpEntity<?> add(@Valid @RequestBody CategoryDto categoryDto) {
         ApiResponse apiResponse = categoryService.add(categoryDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @PutMapping("/edit/{id}")
+    @PutMapping("/{id}")
     public HttpEntity<?> edit(@PathVariable Integer id, @RequestBody CategoryDto categoryDto) {
         ApiResponse apiResponse = categoryService.edit(id, categoryDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     public HttpEntity<?> get(@PathVariable Integer id) {
         ApiResponse apiResponse = categoryService.get(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @GetMapping("/get")
+    @GetMapping
     public HttpEntity<?> getAll() {
         ApiResponse apiResponse = categoryService.getAll();
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public HttpEntity<?> delete(@PathVariable Integer id) {
         ApiResponse apiResponse = categoryService.delete(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping
     public HttpEntity<?> deleteAll() {
         ApiResponse apiResponse = categoryService.deleteAll();
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
