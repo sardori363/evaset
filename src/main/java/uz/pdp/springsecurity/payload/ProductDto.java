@@ -14,21 +14,37 @@ import java.util.List;
 public class ProductDto {
     @NotNull(message = "required line")
     private String name;
+
     @NotNull(message = "required line")
     private Integer quantity;
+
     @NotNull(message = "required line")
     private long barcode;
+
     private Integer brandId;
+
     private Integer categoryId;
+
     @NotNull(message = "required line")
+
     private Integer MeasurementId;
+
+    private List<Integer> photoIds;
+
     private Integer minQuantity;
+
     @NotNull(message = "required line")
+
     private double buyPrice;
+
     private double salePrice;
+
     private double tax;
+
     @NotNull(message = "required line")
     private List<Integer> branchId;
-    private Date expireDateFrom;
-    private Date expireDateTo;
+
+    private Date expireDate;
+
+    private Date dueDate;
 }
