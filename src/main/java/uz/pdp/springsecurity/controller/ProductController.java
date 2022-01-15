@@ -16,42 +16,43 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api/address")
 public class ProductController {
+
     @Autowired
     ProductService productService;
 
 
     @PostMapping()
-    public HttpEntity<?> addAddress(@Valid @RequestBody ProductDto productDto) {
+    public HttpEntity<?> add(@Valid @RequestBody ProductDto productDto) {
         ApiResponse apiResponse = productService.addProduct(productDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
     @PutMapping("{id}")
-    public HttpEntity<?> editAddress(@PathVariable Integer id, @RequestBody ProductDto productDto) {
+    public HttpEntity<?> edit(@PathVariable Integer id, @RequestBody ProductDto productDto) {
         ApiResponse apiResponse = productService.editProduct(id, productDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
     @GetMapping("/{id}")
-    public HttpEntity<?> getAddress(@PathVariable Integer id) {
+    public HttpEntity<?> get(@PathVariable Integer id) {
         ApiResponse apiResponse = productService.getProduct(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
     @GetMapping()
-    public HttpEntity<?> getAddresses() {
+    public HttpEntity<?> getAll() {
         ApiResponse apiResponse = productService.getProducts();
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
     @DeleteMapping("/{id}")
-    public HttpEntity<?> deleteAddress(@PathVariable Integer id) {
+    public HttpEntity<?> deleteOne(@PathVariable Integer id) {
         ApiResponse apiResponse = productService.deleteProduct(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
     @DeleteMapping()
-    public HttpEntity<?> deleteAddresses() {
+    public HttpEntity<?> deleteAll() {
         ApiResponse apiResponse = productService.deleteProducts();
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }

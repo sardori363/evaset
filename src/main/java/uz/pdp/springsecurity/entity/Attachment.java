@@ -17,11 +17,13 @@ public class Attachment {
     private int id;
 
     private String fileOriginalName;
+
     private long size;
+
     private String contentType;
-    //systemadagi papkasini nomi
+
     private String name;
 
-    @ManyToOne
-    private Product product;
+
+
 }
