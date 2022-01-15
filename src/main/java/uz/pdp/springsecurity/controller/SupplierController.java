@@ -20,37 +20,37 @@ public class SupplierController {
     @Autowired
     SupplierService supplierService;
 
-    @PostMapping("/add")
+    @PostMapping
     public HttpEntity<?> add(@Valid @RequestBody SupplierDto supplierDto) {
         ApiResponse apiResponse = supplierService.add(supplierDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @PutMapping("/edit/{id}")
+    @PutMapping("/{id}")
     public HttpEntity<?> edit(@PathVariable Integer id, @RequestBody SupplierDto supplierDto) {
         ApiResponse apiResponse = supplierService.edit(id,supplierDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     public HttpEntity<?> get(@PathVariable Integer id) {
         ApiResponse apiResponse = supplierService.get(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @GetMapping("/get")
+    @GetMapping
     public HttpEntity<?> getAll() {
         ApiResponse apiResponse = supplierService.getAll();
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public HttpEntity<?> delete(@PathVariable Integer id) {
         ApiResponse apiResponse = supplierService.delete(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping
     public HttpEntity<?> deleteAll() {
         ApiResponse apiResponse = supplierService.deleteAll();
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);

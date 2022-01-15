@@ -5,10 +5,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uz.pdp.springsecurity.payload.ApiResponse;
-import uz.pdp.springsecurity.payload.OutlayCategoryDto;
 import uz.pdp.springsecurity.payload.OutlayDto;
-import uz.pdp.springsecurity.repository.OutlayCategoryRepository;
-import uz.pdp.springsecurity.service.OutlayCategoryService;
 import uz.pdp.springsecurity.service.OutlayService;
 
 import javax.validation.Valid;
