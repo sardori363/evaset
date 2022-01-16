@@ -15,4 +15,6 @@ public class RescuersNotFoundEx extends RuntimeException{
     private String resourceField;// name
 
     private Object object; // admin, user ....
+
+
 }
