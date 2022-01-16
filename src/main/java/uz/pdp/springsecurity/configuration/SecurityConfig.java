@@ -48,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
 
-                // slash belgisini qoyish kk apidaan oldin
+                // ssh belgisini qoyish kk apidaan oldin
                 .csrf().disable()
                 .authorizeRequests()
 //                .antMatchers(HttpMethod.GET, "/api/region/**").hasAnyRole("USER", "OPERATOR","ADMIN")

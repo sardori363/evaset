@@ -11,7 +11,8 @@ public enum Permissions {
      */
 
     USER,
-    ADMIN
+    ADMIN,
+    OPERATOR
 
 
 }
