@@ -12,6 +12,7 @@ import uz.pdp.springsecurity.payload.ProfileDto;
 import uz.pdp.springsecurity.payload.UserDto;
 import uz.pdp.springsecurity.repository.UserRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -76,7 +77,8 @@ public class UserService {
     }
 
     public ApiResponse getAll() {
-        return new ApiResponse("User's list", true, userRepository.findAll());
+        List<User> userRepositoryAll = userRepository.findAll();
+        return new ApiResponse(true , userRepositoryAll);
     }
 
     public ApiResponse delete(Integer id) {

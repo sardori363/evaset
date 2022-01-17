@@ -21,7 +21,6 @@ public class UserController {
     UserService userService;
 
     @CheckPermission("ADD_USERS")
-//    @PreAuthorize(value = "hasAnyAuthority('ADD_USERS')")
     @PostMapping()
     public HttpEntity<?> add(@Valid @RequestBody UserDto userDto) {
         ApiResponse apiResponse = userService.add(userDto);
@@ -42,7 +41,7 @@ public class UserController {
 
     }
 
-
+    @CheckPermission("VIEW_USERS")
     @GetMapping
     public HttpEntity<?> getAll() {
         ApiResponse apiResponse = userService.getAll();

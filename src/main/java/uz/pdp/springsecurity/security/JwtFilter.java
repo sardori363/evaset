@@ -23,43 +23,23 @@ public class JwtFilter extends OncePerRequestFilter {
     AuthService authService;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest httpServletRequest,
-                                    HttpServletResponse httpServletResponse,
-                                    FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
         //REQUESTDAN TOKENNI OLISH
         String token = httpServletRequest.getHeader("Authorization");
-
-        //TOKEN BORLIGINI VA TOKENNING BOSHLANISHI BEARER BO'LISHINI TEKSHIRYAPMIZ
         if (token != null && token.startsWith("Bearer")) {
-
-            //AYNAN TOKENNI O'ZINI QIRQIB OLDIK
-            token = token.substring(7);
-
-            //TOKENNI VALIDATSIYADAN O'TKAZDIK (TOKEN BUZILMAGNALIGINI, MUDDATI O'TMAGANLIGINI VA H.K)
+            token = token.substring(7); //  ( Bearer < ...
             boolean validateToken = jwtProvider.validateToken(token);
-            if (validateToken) {
 
-                //TOKENNI ICHIDAN USERNAME NI OLDIK
+            if (validateToken) {
                 String username = jwtProvider.getUsernameFromToken(token);
 
-                //USERNAME ORQALI USERDETAILSNI OLDIK
                 UserDetails userDetails = authService.loadUserByUsername(username);
 
-                //USERDETAILS ORQALI AUTHENTICATION YARATIB OLDIK
-                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                        new UsernamePasswordAuthenticationToken(userDetails,
-                                null,
-                                userDetails.getAuthorities());
-
-//                System.out.println(SecurityContextHolder.getContext().getAuthentication());
-
-                //SISTEMAGA KIM KIRGANLIGINI O'RNATDIK
-                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-
-//                System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-            }
+                UsernamePasswordAuthenticationToken passwordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(passwordAuthenticationToken);
+                SecurityContextHolder.getContext().setAuthentication(passwordAuthenticationToken);
+            } // else nothing
         }
-
         filterChain.doFilter(httpServletRequest, httpServletResponse);
 
     }
