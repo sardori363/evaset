@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import uz.pdp.springsecurity.repository.RoleRepository;
 import uz.pdp.springsecurity.repository.UserRepository;
+
 @Service
 public class  AuthService implements UserDetailsService {
     @Autowired
@@ -19,8 +20,9 @@ public class  AuthService implements UserDetailsService {
     @Autowired
     RoleRepository roleRepository;
 
+
     public UserDetails loadUserByUsername(String username) {
-        return userRepository.findByUsername(username)
+        return userRepository.findByFirstName(username)
                 .orElseThrow(() -> new UsernameNotFoundException(username));
     }
 }

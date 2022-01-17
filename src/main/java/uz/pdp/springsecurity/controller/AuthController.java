@@ -25,7 +25,7 @@ public class AuthController {
     @Autowired
     AuthService authService;
 
-    @Autowired
+    final
     AuthenticationManager authenticationManager;
 
     @Autowired
