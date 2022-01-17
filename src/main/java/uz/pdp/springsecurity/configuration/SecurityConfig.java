@@ -10,24 +10,18 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import uz.pdp.springsecurity.enums.Permissions;
-import uz.pdp.springsecurity.security.JwtFilter;
 import uz.pdp.springsecurity.service.AuthService;
 
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    JwtFilter jwtFilter;
 
     @Autowired
     AuthService authService;
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(authService);
@@ -46,17 +40,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // slesh belgisini qoyish kk apidaan oldin
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST,"/api/auth/**").permitAll()
-//                .antMatchers("/api/user/**").permitAll()
-//                .antMatchers("/api/role/**").permitAll()
+                .antMatchers("/api/auth/login").permitAll()
+//                .antMatchers("/api/**").hasRole("Admin")
                 .anyRequest()
                 .authenticated()
                 .and()
                 .httpBasic();
-        http
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-        http
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     @Bean

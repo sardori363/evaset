@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import uz.pdp.springsecurity.enums.Permissions;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

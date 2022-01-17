@@ -12,9 +12,7 @@ import uz.pdp.springsecurity.enums.Permissions;
 
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity(name = "users")
@@ -29,15 +27,6 @@ public class User extends AbsEntity implements UserDetails {
     @Column(nullable = false)
     private String firstName;
 
-    public User(String firstName, String lastName, String username, String password, Role role, boolean enabled) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.username = username;
-        this.password = password;
-        this.role = role;
-        this.enabled = enabled;
-    }
-
     @Column(nullable = false)
     private String lastName;
 
@@ -49,22 +38,31 @@ public class User extends AbsEntity implements UserDetails {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Role role;
-                    //yoqilgan
+
+    //yoqilgan
     private boolean enabled = false;
-                   //muddati tugamagan
+    //muddati tugamagan
     private boolean accountNonExpired = true;
-                    //qulflanmagan
+    //qulflanmagan
     private boolean accountNonLocked = true;
-                    //Foydalanuvchining hisob ma'lumotlari (parol) muddati tugaganligini ko'rsatadi.
+    //Foydalanuvchining hisob ma'lumotlari (parol) muddati tugaganligini ko'rsatadi.
     private boolean credentialsNonExpired = true;
 
 
+    public User(String firstName, String lastName, String username, String password, Role role, boolean enabled) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.enabled = enabled;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<Permissions> permissionList = this.role.getPermissions();
-        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        for (Permissions permission : permissionList) {
+        List<Permissions> permissions = this.role.getPermissions();
+        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+        for (Permissions permission : permissions) {
             grantedAuthorities.add(new SimpleGrantedAuthority(permission.name()));
         }
         return grantedAuthorities;

@@ -73,13 +73,7 @@ public enum Permissions {
 
 
 
-    /**
-     *POSITION
-     */
 
-    USER,
-    ADMIN,
-    OPERATOR
 
 
 }
