@@ -10,7 +10,7 @@ import uz.pdp.springsecurity.exeptions.ForBiddenEx;
 
 @Component
 @Aspect
-public class CheckPermissionService {
+public class CheckPermissionExecutor {
     @Before(value = "@annotation(checkPermission)")
     public void checkUserPermissionMyMethod(CheckPermission checkPermission) {
         User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal(); // Get current user

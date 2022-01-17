@@ -6,12 +6,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uz.pdp.springsecurity.aotations.CheckPermission;
-import uz.pdp.springsecurity.enums.Permissions;
 import uz.pdp.springsecurity.payload.ApiResponse;
 import uz.pdp.springsecurity.payload.ProfileDto;
 import uz.pdp.springsecurity.payload.UserDto;
 import uz.pdp.springsecurity.service.UserService;
-import uz.pdp.springsecurity.enums.Permissions.*;
 
 import javax.validation.Valid;
 
@@ -21,11 +19,11 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @CheckPermission("ADD_USER")
+
     @PostMapping()
-    public HttpEntity<?> add(@Valid @RequestBody UserDto userDto){
+    public HttpEntity<?> add(@Valid @RequestBody UserDto userDto) {
         ApiResponse apiResponse = userService.add(userDto);
-        return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
     @PutMapping("/{id}")
@@ -34,12 +32,14 @@ public class UserController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+
     @GetMapping("/{id}")
     public HttpEntity<?> get(@PathVariable Integer id) {
         ApiResponse apiResponse = userService.get(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
 
     }
+
 
     @GetMapping
     public HttpEntity<?> getAll() {
@@ -48,11 +48,13 @@ public class UserController {
 
     }
 
+
     @DeleteMapping("/{id}")
     public HttpEntity<?> deleteById(@PathVariable Integer id) {
         ApiResponse apiResponse = userService.delete(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 404).body(apiResponse);
     }
+
 
     @DeleteMapping
     public HttpEntity<?> deleteAll() {
