@@ -15,11 +15,11 @@ import uz.pdp.springsecurity.enums.Permissions;
 import javax.persistence.*;
 import java.util.*;
 
-@EqualsAndHashCode(callSuper = true)
+@Data
 @Entity(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@EqualsAndHashCode(callSuper = true)
 @EntityListeners(AuditingEntityListener.class)
 
 public class User extends AbsEntity implements UserDetails {

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import uz.pdp.springsecurity.aotations.CheckPermission;
 import uz.pdp.springsecurity.payload.ApiResponse;
 import uz.pdp.springsecurity.payload.CustomerDto;
 import uz.pdp.springsecurity.repository.CustomerRepository;
@@ -20,36 +21,42 @@ public class CustomerController {
     @Autowired
     CustomerService customerService;
 
+    @CheckPermission("ADD_CUSTOMER")
     @PostMapping
     public HttpEntity<?> addAddress(@Valid @RequestBody CustomerDto customerDto) {
         ApiResponse apiResponse = customerService.add(customerDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    @CheckPermission("EDIT_CUSTOMER")
     @PutMapping("/{id}")
     public HttpEntity<?> edit(@PathVariable Integer id, @RequestBody CustomerDto customerDto) {
         ApiResponse apiResponse = customerService.edit(id, customerDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    @CheckPermission("VIEW_CUSTOMER")
     @GetMapping("/{id}")
     public HttpEntity<?> get(@PathVariable Integer id) {
         ApiResponse apiResponse = customerService.get(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    @CheckPermission("VIEW_CUSTOMER")
     @GetMapping
     public HttpEntity<?> getAll() {
         ApiResponse apiResponse = customerService.getAll();
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    @CheckPermission("DELETE_CUSTOMER")
     @DeleteMapping("/{id}")
     public HttpEntity<?> delete(@PathVariable Integer id) {
         ApiResponse apiResponse = customerService.delete(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    @CheckPermission("DELETE_CUSTOMER")
     @DeleteMapping
     public HttpEntity<?> deleteAll() {
         ApiResponse apiResponse = customerService.deleteAll();

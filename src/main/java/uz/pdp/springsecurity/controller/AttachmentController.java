@@ -5,6 +5,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import uz.pdp.springsecurity.aotations.CheckPermission;
 import uz.pdp.springsecurity.entity.Attachment;
 import uz.pdp.springsecurity.entity.AttachmentContent;
 import uz.pdp.springsecurity.payload.ApiResponse;
@@ -26,6 +27,7 @@ public class AttachmentController {
     @Autowired
     AttachmentContentRepository attachmentContentRepository;
 
+    @CheckPermission("UPLOAD_MEDIA")
     @PostMapping("/upload")
     public ApiResponse uploadFile(MultipartHttpServletRequest request) throws IOException {
         Iterator<String> fileNames = request.getFileNames();
@@ -44,17 +46,19 @@ public class AttachmentController {
             attachmentContent.setMainContent(file.getBytes());
             attachmentContent.setAttachment(savedAttachment);
             attachmentContentRepository.save(attachmentContent);
-            return new ApiResponse("File successfully saved",true);
+            return new ApiResponse("File successfully saved", true);
         }
-        return new ApiResponse("Error",false);
+        return new ApiResponse("Error", false);
     }
 
+    @CheckPermission("VIEW_MEDIA_INFO")
     @GetMapping("/info")
     public List<Attachment> getInfo(HttpServletResponse response) {
         List<Attachment> all = attachmentRepository.findAll();
         return all;
     }
 
+    @CheckPermission("VIEW_MEDIA_INFO")
     @GetMapping("/info/{id}")
     public Attachment getInfo(@PathVariable Integer id, HttpServletResponse response) {
         Optional<Attachment> byId = attachmentRepository.findById(id);
@@ -64,6 +68,7 @@ public class AttachmentController {
         return null;
     }
 
+    @CheckPermission("DOWNLOAD_MEDIA")
     @GetMapping("/download/{id}")
     public void download(@PathVariable Integer id, HttpServletResponse response) throws IOException {
         Optional<Attachment> byId = attachmentRepository.findById(id);

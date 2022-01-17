@@ -14,7 +14,6 @@ public enum Permissions {
     UPLOAD_MEDIA,
     DOWNLOAD_MEDIA,
     VIEW_MEDIA_INFO,
-    VIEW_ALL_MEDIA,
 
     ADD_BRANCH,
     EDIT_BRANCH,
@@ -70,6 +69,7 @@ public enum Permissions {
     EDIT_USER,
     VIEW_USER,
     DELETE_USER,
+    EDIT_MY_PROFILE
 
 
 

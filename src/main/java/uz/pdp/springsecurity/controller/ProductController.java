@@ -5,6 +5,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import uz.pdp.springsecurity.aotations.CheckPermission;
 import uz.pdp.springsecurity.payload.ProductDto;
 import uz.pdp.springsecurity.payload.ApiResponse;
 import uz.pdp.springsecurity.payload.ProductDto;
@@ -22,37 +23,42 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
-
+    @CheckPermission("ADD_PRODUCT")
     @PostMapping()
     public HttpEntity<?> add(@Valid @RequestBody ProductDto productDto) throws ParseException {
         ApiResponse apiResponse = productService.addProduct(productDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    @CheckPermission("EDIT_PRODUCT")
     @PutMapping("{id}")
     public HttpEntity<?> edit(@PathVariable Integer id, @RequestBody ProductDto productDto) {
         ApiResponse apiResponse = productService.editProduct(id, productDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    @CheckPermission("VIEW_PRODUCT")
     @GetMapping("/{id}")
     public HttpEntity<?> get(@PathVariable Integer id) {
         ApiResponse apiResponse = productService.getProduct(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    @CheckPermission("VIEW_PRODUCT")
     @GetMapping()
     public HttpEntity<?> getAll() {
         ApiResponse apiResponse = productService.getProducts();
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    @CheckPermission("DELETE_PRODUCT")
     @DeleteMapping("/{id}")
     public HttpEntity<?> deleteOne(@PathVariable Integer id) {
         ApiResponse apiResponse = productService.deleteProduct(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    @CheckPermission("DELETE_PRODUCT")
     @DeleteMapping()
     public HttpEntity<?> deleteAll() {
         ApiResponse apiResponse = productService.deleteProducts();

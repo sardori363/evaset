@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import uz.pdp.springsecurity.aotations.CheckPermission;
 import uz.pdp.springsecurity.payload.ApiResponse;
 import uz.pdp.springsecurity.payload.SupplierDto;
 import uz.pdp.springsecurity.repository.SupplierRepository;
@@ -20,36 +21,42 @@ public class SupplierController {
     @Autowired
     SupplierService supplierService;
 
+    @CheckPermission("ADD_SUPPLIER")
     @PostMapping
     public HttpEntity<?> add(@Valid @RequestBody SupplierDto supplierDto) {
         ApiResponse apiResponse = supplierService.add(supplierDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    @CheckPermission("EDIT_SUPPLIER")
     @PutMapping("/{id}")
     public HttpEntity<?> edit(@PathVariable Integer id, @RequestBody SupplierDto supplierDto) {
         ApiResponse apiResponse = supplierService.edit(id,supplierDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    @CheckPermission("VIEW_SUPPLIER")
     @GetMapping("/{id}")
     public HttpEntity<?> get(@PathVariable Integer id) {
         ApiResponse apiResponse = supplierService.get(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    @CheckPermission("VIEW_SUPPLIER")
     @GetMapping
     public HttpEntity<?> getAll() {
         ApiResponse apiResponse = supplierService.getAll();
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    @CheckPermission("DELETE_SUPPLIER")
     @DeleteMapping("/{id}")
     public HttpEntity<?> delete(@PathVariable Integer id) {
         ApiResponse apiResponse = supplierService.delete(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    @CheckPermission("DELETE_SUPPLIER")
     @DeleteMapping
     public HttpEntity<?> deleteAll() {
         ApiResponse apiResponse = supplierService.deleteAll();
