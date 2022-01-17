@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // slesh belgisini qoyish kk apidaan oldin
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/auth/**").hasAnyRole(String.valueOf(Permissions.ADMIN))
+                .antMatchers("/api/auth/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
