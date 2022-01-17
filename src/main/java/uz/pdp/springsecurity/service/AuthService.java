@@ -18,6 +18,7 @@ public class  AuthService implements UserDetailsService {
 
 
 
+
     public UserDetails loadUserByUsername(String username) {
         return userRepository.findByFirstName(username)
                 .orElseThrow(() -> new UsernameNotFoundException(username));
