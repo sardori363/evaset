@@ -22,7 +22,7 @@ public class  AuthService implements UserDetailsService {
 
 
     public UserDetails loadUserByUsername(String username) {
-        return userRepository.findByFirstName(username)
+        return userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException(username));
     }
 }
