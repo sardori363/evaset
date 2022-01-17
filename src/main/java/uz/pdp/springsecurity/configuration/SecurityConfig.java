@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import uz.pdp.springsecurity.enums.Permissions;
 
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableWebSecurity
@@ -48,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
 
-                // ssh belgisini qoyish kk apidaan oldin
+                // slesh belgisini qoyish kk apidaan oldin
                 .csrf().disable()
                 .authorizeRequests()
 //                .antMatchers(HttpMethod.GET, "/api/region/**").hasAnyRole("USER", "OPERATOR","ADMIN")
@@ -60,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers(HttpMethod.POST,"/api/category").hasAuthority("ADD_CATEGORY")
 //                .antMatchers(HttpMethod.DELETE,"/api/category/*").hasAuthority("DELETE_CATEGORY")
 
-                .antMatchers("/api/**").permitAll()
+                .antMatchers("/api/address").hasAnyRole(String.valueOf(Permissions.ADMIN))
                 .anyRequest()
                 .authenticated()
                 .and()
