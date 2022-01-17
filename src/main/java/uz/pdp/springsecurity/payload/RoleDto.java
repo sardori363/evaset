@@ -15,7 +15,9 @@ import java.util.List;
 public class RoleDto {
     @NotBlank
     private String name;
+
     @NotEmpty
     private List<Permissions> permissions;
+
     private String description;
 }
