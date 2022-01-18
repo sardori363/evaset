@@ -15,6 +15,9 @@ import uz.pdp.springsecurity.repository.AttachmentRepository;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -46,7 +49,8 @@ public class AttachmentController {
             attachmentContent.setMainContent(file.getBytes());
             attachmentContent.setAttachment(savedAttachment);
             attachmentContentRepository.save(attachmentContent);
-            return new ApiResponse("File successfully saved", true);
+            return new ApiResponse("FILE SUCCESSFULLY SAVED", true);
+
         }
         return new ApiResponse("Error", false);
     }
@@ -83,5 +87,47 @@ public class AttachmentController {
             }
         }
     }
+
+
+    @CheckPermission("DELETE_MEDIA")
+    @DeleteMapping("/{id}")
+    public ApiResponse deleteMedia(@PathVariable Integer id) {
+        Optional<Attachment> optionalAttachment = attachmentRepository.findById(id);
+        if (optionalAttachment.isPresent()) {
+            Attachment attachment = optionalAttachment.get();
+            Optional<AttachmentContent> optionalAttachmentContent = attachmentContentRepository.findByAttachmentId(attachment.getId());
+            attachmentContentRepository.deleteById(optionalAttachmentContent.get().getId());
+            attachmentRepository.deleteById(attachment.getId());
+            return new ApiResponse("DELETED", true);
+        }
+        return new ApiResponse("NOT FOUND", false);
+    }
+
+    @CheckPermission("UPLOAD_MEDIA")
+    @PostMapping("/uploadAnyFile")
+    public ApiResponse uploadAnyFiles(MultipartHttpServletRequest request) throws IOException {
+        Iterator<String> fileNames = request.getFileNames();
+        while (fileNames.hasNext()) {
+            MultipartFile file = request.getFile(fileNames.next());
+            if (file != null) {
+                String originalFilename = file.getOriginalFilename();
+                Attachment attachment = new Attachment();
+                attachment.setName(originalFilename);
+                attachment.setSize(file.getSize());
+                attachment.setContentType(file.getContentType());
+
+                attachmentRepository.save(attachment);
+
+                AttachmentContent attachmentContent = new AttachmentContent();
+                attachmentContent.setMainContent(file.getBytes());
+                attachmentContent.setAttachment(attachment);
+                attachmentContentRepository.save(attachmentContent);
+            } else {
+                return new ApiResponse("NOT SAVED", false);
+            }
+        }
+        return new ApiResponse("FILES SUCCESSFULLY SAVED", true);
+    }
+
 
 }

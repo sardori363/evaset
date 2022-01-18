@@ -10,6 +10,7 @@ public enum Permissions {
     UPLOAD_MEDIA,
     DOWNLOAD_MEDIA,
     VIEW_MEDIA_INFO,
+    DELETE_MEDIA,
 
     ADD_BRANCH,
     EDIT_BRANCH,
