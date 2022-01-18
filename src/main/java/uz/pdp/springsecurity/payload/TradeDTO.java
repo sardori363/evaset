@@ -1,0 +1,52 @@
+package uz.pdp.springsecurity.payload;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import uz.pdp.springsecurity.entity.PaymentMethod;
+
+import java.util.Date;
+import java.util.List;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+
+public class TradeDTO {
+
+    private Integer customerId;
+    /**
+     * savdogar id
+     */
+    private Integer userId;
+
+    /**
+     * product idlari
+     */
+    private List<Integer> productIds;
+
+    private Date payDate;
+
+    private Integer branchId;
+
+    private Integer paymentStatusId;
+
+    private Integer payMethodId;
+    /**
+     * umumiy summa
+     */
+    private Double totalSum;
+    /**
+     * to'langan summa
+     */
+    private Double amountPaid;
+    /**
+     * qarz
+     */
+    private Double loan;
+
+    private Double productAmount;
+
+    private Integer addressId;
+
+}

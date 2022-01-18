@@ -17,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-class Trade extends AbsEntity {
+public class Trade extends AbsEntity {
 
     @OneToOne
     private Customer customer;
