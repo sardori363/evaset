@@ -20,7 +20,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @CheckPermission("ADD_USERS")
+    @CheckPermission("ADD_USER")
     @PostMapping()
     public HttpEntity<?> add(@Valid @RequestBody UserDto userDto) {
         ApiResponse apiResponse = userService.add(userDto);
