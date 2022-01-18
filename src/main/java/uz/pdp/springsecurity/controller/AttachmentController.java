@@ -88,6 +88,21 @@ public class AttachmentController {
         }
     }
 
+    @CheckPermission("DOWNLOAD_MEDIA")
+    @GetMapping("/downloadWithName")
+    public void downloadWithName(@RequestBody String name, HttpServletResponse response) throws IOException {
+        Optional<Attachment> byId = attachmentRepository.findByName(name);
+        if (byId.isPresent()) {
+            Attachment attachment = byId.get();
+            Optional<AttachmentContent> byAttachmentId = attachmentContentRepository.findByAttachmentId(attachment.getId());
+            if (byAttachmentId.isPresent()) {
+                AttachmentContent attachmentContent = byAttachmentId.get();
+                response.setContentType(attachment.getContentType());
+                response.setHeader("Content-Disposition", attachment.getFileOriginalName() + "/:" + attachment.getSize());
+                FileCopyUtils.copy(attachmentContent.getMainContent(), response.getOutputStream());
+            }
+        }
+    }
 
     @CheckPermission("DELETE_MEDIA")
     @DeleteMapping("/{id}")
