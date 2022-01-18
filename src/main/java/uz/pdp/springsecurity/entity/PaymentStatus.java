@@ -14,6 +14,5 @@ import javax.persistence.Entity;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PaymentStatus extends AbsEntity {
-
     private String status;
 }
