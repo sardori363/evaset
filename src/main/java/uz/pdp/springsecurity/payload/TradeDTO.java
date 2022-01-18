@@ -23,7 +23,7 @@ public class TradeDTO {
     /**
      * product idlari
      */
-    private List<Integer> productIds;
+    private List<ProductTradeDto> productTraderDto;
 
     private Date payDate;
 

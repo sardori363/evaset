@@ -26,7 +26,7 @@ public class Trade extends AbsEntity {
     private User trader;
 
     @OneToMany
-    private List<Product> productList;
+    private List<TradeProduct> tradeProductList;
 
     private Date payDate;
 

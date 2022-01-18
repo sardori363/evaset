@@ -47,4 +47,6 @@ public class ProductDto {
     private Date expireDate;
 
     private Date dueDate;
+
+
 }
