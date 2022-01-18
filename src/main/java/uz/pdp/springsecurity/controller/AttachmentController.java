@@ -30,7 +30,7 @@ public class AttachmentController {
     @Autowired
     AttachmentContentRepository attachmentContentRepository;
 
-    //    @CheckPermission("UPLOAD_MEDIA")
+    @CheckPermission("UPLOAD_MEDIA")
     @PostMapping("/upload")
     public ApiResponse uploadFile(MultipartHttpServletRequest request) throws IOException {
         Iterator<String> fileNames = request.getFileNames();
@@ -55,14 +55,14 @@ public class AttachmentController {
         return new ApiResponse("Error", false);
     }
 
-    //    @CheckPermission("VIEW_MEDIA_INFO")
+    @CheckPermission("VIEW_MEDIA_INFO")
     @GetMapping("/info")
     public List<Attachment> getInfo(HttpServletResponse response) {
         List<Attachment> all = attachmentRepository.findAll();
         return all;
     }
 
-    //    @CheckPermission("VIEW_MEDIA_INFO")
+    @CheckPermission("VIEW_MEDIA_INFO")
     @GetMapping("/info/{id}")
     public Attachment getInfo(@PathVariable Integer id, HttpServletResponse response) {
         Optional<Attachment> byId = attachmentRepository.findById(id);
@@ -72,7 +72,7 @@ public class AttachmentController {
         return null;
     }
 
-    //    @CheckPermission("DOWNLOAD_MEDIA")
+    @CheckPermission("DOWNLOAD_MEDIA")
     @GetMapping("/download/{id}")
     public void download(@PathVariable Integer id, HttpServletResponse response) throws IOException {
         Optional<Attachment> byId = attachmentRepository.findById(id);
@@ -89,7 +89,7 @@ public class AttachmentController {
     }
 
 
-    //    @CheckPermission("DELETE_MEDIA")
+    @CheckPermission("DELETE_MEDIA")
     @DeleteMapping("/{id}")
     public ApiResponse deleteMedia(@PathVariable Integer id) {
         Optional<Attachment> optionalAttachment = attachmentRepository.findById(id);
@@ -103,7 +103,7 @@ public class AttachmentController {
         return new ApiResponse("NOT FOUND", false);
     }
 
-    //    @CheckPermission("UPLOAD_MEDIA")
+    @CheckPermission("UPLOAD_MEDIA")
     @PostMapping("/uploadAnyFile")
     public ApiResponse uploadAnyFiles(MultipartHttpServletRequest request) throws IOException {
         Iterator<String> fileNames = request.getFileNames();
