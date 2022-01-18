@@ -71,14 +71,15 @@ public class UserService {
     }
 
     public ApiResponse get(Integer id) {
-        if (!userRepository.existsById(id)) return new ApiResponse("not found",false);
-//        return userOptional.map(user -> new ApiResponse("User by id!", true, user)).orElseThrow(() -> new RescuersNotFoundEx("user", "id", id));
-    return new ApiResponse("found",true,userRepository.findById(id).get());
+        boolean exists = userRepository.existsById(id);
+        if (!exists) return new ApiResponse("NOT FOUND", false);
+
+        return new ApiResponse("FOUND", true, userRepository.findById(id).get());
     }
 
     public ApiResponse getAll() {
         List<User> userRepositoryAll = userRepository.findAll();
-        return new ApiResponse(true , userRepositoryAll);
+        return new ApiResponse(true, userRepositoryAll);
     }
 
     public ApiResponse delete(Integer id) {
