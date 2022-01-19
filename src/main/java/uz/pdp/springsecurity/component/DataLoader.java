@@ -10,6 +10,7 @@ import uz.pdp.springsecurity.entity.PaymentStatus;
 import uz.pdp.springsecurity.entity.Role;
 import uz.pdp.springsecurity.entity.User;
 import uz.pdp.springsecurity.enums.Permissions;
+import uz.pdp.springsecurity.repository.PayMethodRepository;
 import uz.pdp.springsecurity.repository.PaymentStatusRepository;
 import uz.pdp.springsecurity.repository.RoleRepository;
 import uz.pdp.springsecurity.repository.UserRepository;
@@ -32,6 +33,9 @@ public class DataLoader implements CommandLineRunner {
 
     @Autowired
     PaymentStatusRepository paymentStatusRepository;
+
+    @Autowired
+    PayMethodRepository payMethodRepository;
 
     @Value("${spring.sql.init.mode}")
     private String initMode;
@@ -69,6 +73,21 @@ public class DataLoader implements CommandLineRunner {
                     "To'lanmagan"
             ) );
         }
+        List<PaymentMethod> all1 = payMethodRepository.findAll();
+        if (all1.isEmpty()){
+            payMethodRepository.save(new PaymentMethod(
+                    "Naqd"
+            ));
+
+            payMethodRepository.save(new PaymentMethod(
+                    "UzCard"
+            ));
+
+            payMethodRepository.save(new PaymentMethod(
+                    "Humo"
+            ));
+        }
+
     }
 
 }
