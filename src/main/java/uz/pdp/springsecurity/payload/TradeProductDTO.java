@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class TradeDTO {
+public class TradeProductDTO {
 
     private Integer customerId;
     /**
@@ -35,7 +35,7 @@ public class TradeDTO {
     /**
      * umumiy summa
      */
-    private Double totalSum;
+//    private Double totalSum;
     /**
      * to'langan summa
      */
@@ -43,9 +43,8 @@ public class TradeDTO {
     /**
      * qarz
      */
-    private Double loan;
+//    private Double loan;
 
-    private Double productAmount;
 
     private Integer addressId;
 

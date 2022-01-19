@@ -8,7 +8,6 @@ import uz.pdp.springsecurity.entity.template.AbsEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.NotNull;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -16,7 +15,8 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @Entity
 public class TradeProduct extends AbsEntity {
-    private Integer quantity;
+
+    private Integer tradedQuantity;
 
     @OneToOne
     private Product product;

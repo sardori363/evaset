@@ -4,11 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uz.pdp.springsecurity.entity.*;
 import uz.pdp.springsecurity.payload.ApiResponse;
-import uz.pdp.springsecurity.payload.ProductDto;
 import uz.pdp.springsecurity.payload.ProductTradeDto;
-import uz.pdp.springsecurity.payload.TradeDTO;
+import uz.pdp.springsecurity.payload.TradeProductDTO;
 import uz.pdp.springsecurity.repository.*;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,10 +31,16 @@ public class TradeService {
     PaymentStatusRepository paymentStatusRepository;
 
     @Autowired
+    PayMethodRepository payMethodRepository;
+
+    @Autowired
     AddressRepository addressRepository;
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    TradeProductRepository tradeProductRepository;
 
 
     public ApiResponse getAll() {
@@ -49,7 +56,10 @@ public class TradeService {
         return new ApiResponse("NOT FOUND", false);
     }
 
-    public ApiResponse create(TradeDTO tradeDTO) {
+    public ApiResponse create(TradeProductDTO tradeDTO) {
+        /**
+         * CUSTOMER SAQLANDI
+         */
         Trade trade = new Trade();
         Optional<Customer> optionalCustomer = customerRepository.findById(tradeDTO.getCustomerId());
         if (optionalCustomer.isEmpty()) {
@@ -57,23 +67,74 @@ public class TradeService {
         }
         trade.setCustomer(optionalCustomer.get());
 
+        /**
+         * SOTUVCHI SAQLANDI
+         */
         Optional<User> optionalUser = userRepository.findById(tradeDTO.getUserId());
         if (optionalUser.isEmpty()) {
             return new ApiResponse("TRADER NOT FOUND", false);
         }
         trade.setTrader(optionalUser.get());
 
-        for (ProductTradeDto productTradeDto : tradeDTO.getProductTraderDto()) {
-            Optional<Product> optionalProduct = productRepository.findByName(productTradeDto.getName());
-            Integer quantity = optionalProduct.get().getQuantity();
-            if(quantity<productTradeDto.getQuantity())return new ApiResponse("BAZADA YETARLI MAXSULOT YO'Q" , false);
+
+        /**
+         * SOTILGAN PRODUCT SAQLANDI YANI TRADERPRODUCT
+         */
+        List<ProductTradeDto> productTraderDto = tradeDTO.getProductTraderDto();
+        List<TradeProduct> tradeProducts = new ArrayList<>();
+        for (ProductTradeDto productTradeDto : productTraderDto) {
+
+            Integer tradedQuantity = productTradeDto.getTradedQuantity();
+            Optional<Product> optionalProduct = productRepository.findById(productTradeDto.getProductTradeId());
             Product product = optionalProduct.get();
-            product.setQuantity(product.getQuantity() - productTradeDto.getQuantity());
+
+            if (tradedQuantity > product.getQuantity()) {
+                return new ApiResponse("OMBORDA YETARLICHA MAXSULOT YO'Q", false);
+            }
+            product.setQuantity(product.getQuantity() - tradedQuantity);
             productRepository.save(product);
 
+            TradeProduct tradeProduct = new TradeProduct();
+            tradeProduct.setTradedQuantity(productTradeDto.getTradedQuantity());
+            tradeProduct.setProduct(product);
+
+            tradeProducts.add(tradeProduct);
+
+            tradeProductRepository.save(tradeProduct);
+        }
+        /**
+         * SOTILGAN PRODUCT SAQLANDI YANI TRADERPRODUCT
+         */
+        trade.setTradeProductList(tradeProducts);
+
+
+        /**
+         * UMUMIY SUMMA SAQLANDI
+         */
+        double sum = 0d;
+        for (ProductTradeDto productTradeDto : productTraderDto) {
+            double salePrice = productRepository.findById(productTradeDto.getProductTradeId()).get().getSalePrice();
+            Integer tradedQuantity = productTradeDto.getTradedQuantity();
+            double parseDouble = Double.parseDouble(String.valueOf(tradedQuantity));
+            sum = sum + (salePrice * parseDouble);
+        }
+        trade.setTotalSum(sum);
+
+        /**
+         * AMOUNT LOAN PRICE SAQLANDI
+         */
+        if (tradeDTO.getAmountPaid() != null || tradeDTO.getAmountPaid() != 0) {
+            trade.setAmountPaid(tradeDTO.getAmountPaid());
+            trade.setLoan(sum - tradeDTO.getAmountPaid());
+        } else {
+            trade.setAmountPaid(0.0);
+            trade.setLoan(sum - tradeDTO.getAmountPaid());
         }
 
 
+        /**
+         * BRANCH SAQLANDI
+         */
         Optional<Branch> optionalBranch = branchRepository.findById(tradeDTO.getBranchId());
         if (optionalBranch.isEmpty()) {
             return new ApiResponse("BRANCH NOT FOUND", false);
@@ -81,13 +142,41 @@ public class TradeService {
         trade.setBranch(optionalBranch.get());
 
 
+        /**
+         * PAYMAENTSTATUS SAQLANDI
+         */
         Optional<PaymentStatus> optionalPaymentStatus = paymentStatusRepository.findById(tradeDTO.getPaymentStatusId());
         if (optionalPaymentStatus.isEmpty()) {
-            return new ApiResponse("BRANCH NOT FOUND", false);
+            return new ApiResponse("PAYMAENTSTATUS NOT FOUND", false);
         }
         trade.setPaymentStatus(optionalPaymentStatus.get());
 
+        /**
+         * PAYMAENTMETHOD SAQLANDI
+         */
+        Optional<PaymentMethod> optionalPaymentMethod = payMethodRepository.findById(tradeDTO.getPayMethodId());
+        if (optionalPaymentMethod.isEmpty()) {
+            return new ApiResponse("PAYMAENTMETHOD NOT FOUND", false);
+        }
+        trade.setPayMethod(optionalPaymentMethod.get());
 
-        return null;
+
+        /**
+         * ADDRESS SAQLANDI
+         */
+        Optional<Address> optionalAddress = addressRepository.findById(tradeDTO.getAddressId());
+        if (!optionalAddress.isPresent()) {
+            return new ApiResponse("ADDRESS NOT FOUND", false);
+        }
+        trade.setAddress(optionalAddress.get());
+        /**
+         * PAYDATE SAQLANDI
+         */
+        Date payDate = tradeDTO.getPayDate();
+        trade.setPayDate(payDate);
+        tradeRepository.save(trade);
+
+
+        return new ApiResponse("SAVED", true);
     }
 }

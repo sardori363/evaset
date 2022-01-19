@@ -45,7 +45,6 @@ public class Trade extends AbsEntity {
 
     private Double loan;
 
-    private Double productAmount;
 
     @OneToOne
     private Address address;

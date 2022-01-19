@@ -11,10 +11,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductTradeDto {
-    @NotNull(message = "required line")
-    private String name;
 
     @NotNull(message = "required line")
-    private List<Integer> productTradeIds;
+    private Integer tradedQuantity;
+
+    @NotNull(message = "required line")
+    private Integer productTradeId;
 
 }

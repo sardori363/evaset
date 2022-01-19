@@ -2,7 +2,7 @@ package uz.pdp.springsecurity.controller;
 
 import org.springframework.web.bind.annotation.*;
 import uz.pdp.springsecurity.payload.ApiResponse;
-import uz.pdp.springsecurity.payload.TradeDTO;
+import uz.pdp.springsecurity.payload.TradeProductDTO;
 
 import javax.validation.Valid;
 
@@ -14,15 +14,15 @@ public interface TradeController {
 
 
     @GetMapping("/{id}")
-    ApiResponse<TradeDTO> get(@PathVariable Integer id);
+    ApiResponse<TradeProductDTO> get(@PathVariable Integer id);
 
 
     @PostMapping
-    ApiResponse<?> create(@RequestBody @Valid TradeDTO tradeDTO);
+    ApiResponse<?> create(@RequestBody @Valid TradeProductDTO tradeDTO);
 
 
     @PutMapping("/{id}")
-    ApiResponse<?> edit(@PathVariable Integer id, @RequestBody @Valid TradeDTO tradeDTO);
+    ApiResponse<?> edit(@PathVariable Integer id, @RequestBody @Valid TradeProductDTO tradeDTO);
 
 
     @DeleteMapping("/{id}")
