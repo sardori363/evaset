@@ -1,15 +1,11 @@
 package uz.pdp.springsecurity.controller;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import uz.pdp.springsecurity.payload.ApiResponse;
-import uz.pdp.springsecurity.payload.TradeProductDTO;
+import uz.pdp.springsecurity.payload.TradeDTO;
 import uz.pdp.springsecurity.service.TradeService;
 
 @RestController
@@ -19,32 +15,34 @@ public class TradeControllerIml {
     TradeService tradeService;
 
 
-
-    public ApiResponse<?> getAll() {
-        ApiResponse objects = tradeService.getAll();
-        return objects;
+    @GetMapping
+    public HttpEntity<?> get() {
+        ApiResponse apiResponse = tradeService.getAll();
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-
-    public ApiResponse<TradeProductDTO> get(Integer id) {
-        ApiResponse one = tradeService.getOne(id);
-        return one;
-    }
-
-
-    @PostMapping
-    public HttpEntity<?> create(@RequestBody TradeProductDTO tradeDTO) {
-        ApiResponse apiResponse = tradeService.create(tradeDTO);
+    @GetMapping("/{id}")
+    public HttpEntity<?> get(@PathVariable Integer id) {
+        ApiResponse apiResponse = tradeService.getOne(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
 
-    public ApiResponse<?> edit(Integer id, TradeProductDTO tradeDTO) {
-        return null;
+    @PostMapping
+    public HttpEntity<?> create(@RequestBody TradeDTO tradeDTO) {
+        ApiResponse apiResponse = tradeService.create(tradeDTO);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    @PutMapping
+    public HttpEntity<?> edit(@PathVariable Integer id, @RequestBody TradeDTO tradeDTO) {
+        ApiResponse apiResponse = tradeService.edit(id,tradeDTO);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
 
-    public ApiResponse<?> delete(Integer id) {
-        return null;
+    @DeleteMapping
+    public HttpEntity<?> delete(@PathVariable Integer id) {
+        ApiResponse apiResponse = tradeService.deleteTrade(id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 }

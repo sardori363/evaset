@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class TradeProductDTO {
+public class TradeDTO {
 
     private Integer customerId;
     /**

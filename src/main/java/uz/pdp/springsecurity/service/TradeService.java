@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import uz.pdp.springsecurity.entity.*;
 import uz.pdp.springsecurity.payload.ApiResponse;
 import uz.pdp.springsecurity.payload.ProductTradeDto;
-import uz.pdp.springsecurity.payload.TradeProductDTO;
+import uz.pdp.springsecurity.payload.TradeDTO;
 import uz.pdp.springsecurity.repository.*;
 
 import java.util.ArrayList;
@@ -56,11 +56,38 @@ public class TradeService {
         return new ApiResponse("NOT FOUND", false);
     }
 
-    public ApiResponse create(TradeProductDTO tradeDTO) {
-        /**
-         * CUSTOMER SAQLANDI
-         */
+    public ApiResponse create(TradeDTO tradeDTO) {
         Trade trade = new Trade();
+        ApiResponse apiResponse = addTraade(trade, tradeDTO);
+        if (!apiResponse.isSuccess()) {
+            return new ApiResponse("ERROR", false);
+        }
+        return new ApiResponse("SAVED", true);
+    }
+
+    public ApiResponse deleteTrade(Integer id) {
+        tradeRepository.deleteById(id);
+        return new ApiResponse("DELATED" ,true);
+    }
+
+    public ApiResponse edit(Integer id, TradeDTO tradeDTO) {
+        Optional<TradeProduct> optionalTradeProduct = tradeProductRepository.findById(id);
+        if (optionalTradeProduct.isEmpty()) {
+            return new ApiResponse("NOT FOUND TRADE", false);
+        }
+        Trade trade = new Trade();
+        ApiResponse apiResponse = addTraade(trade, tradeDTO);
+
+        if (!apiResponse.isSuccess()) {
+            return new ApiResponse("ERROR", false);
+        }
+        return new ApiResponse("SAVED", true);
+    }
+
+
+
+
+    public  ApiResponse addTraade(Trade trade , TradeDTO tradeDTO){
         Optional<Customer> optionalCustomer = customerRepository.findById(tradeDTO.getCustomerId());
         if (optionalCustomer.isEmpty()) {
             return new ApiResponse("CUSTOMER NOT FOUND", false);
@@ -175,8 +202,6 @@ public class TradeService {
         Date payDate = tradeDTO.getPayDate();
         trade.setPayDate(payDate);
         tradeRepository.save(trade);
-
-
-        return new ApiResponse("SAVED", true);
+        return new ApiResponse(true , trade);
     }
 }
