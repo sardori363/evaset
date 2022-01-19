@@ -110,4 +110,11 @@ public class UserService {
         userRepository.save(user);
         return new ApiResponse("User saved!", true);
     }
+
+    public ApiResponse getByRole(Integer role_id) {
+        List<User> allByRole_id = userRepository.findAllByRole_Id(role_id);
+        if (allByRole_id.isEmpty()) return new ApiResponse("not found",false);
+
+        return new ApiResponse("found",true,allByRole_id);
+    }
 }

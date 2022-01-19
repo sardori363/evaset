@@ -26,7 +26,7 @@ public class Role {
     private String name;
 
     @Enumerated(EnumType.STRING)
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.LAZY)
     private List<Permissions> permissions;
 
     private String description;

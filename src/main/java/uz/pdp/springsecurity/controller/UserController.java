@@ -20,7 +20,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @CheckPermission("ADD_USER")
+//    @CheckPermission("ADD_USER")
     @PostMapping()
     public HttpEntity<?> add(@Valid @RequestBody UserDto userDto) {
         ApiResponse apiResponse = userService.add(userDto);
@@ -68,5 +68,11 @@ public class UserController {
     public ResponseEntity<?> editMyProfile(@Valid @RequestBody ProfileDto profileDto) {
         ApiResponse apiResponse = userService.editMyProfile(profileDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? HttpStatus.OK : HttpStatus.CONFLICT).body(apiResponse);
+    }
+
+    @GetMapping("/get-by-role/{role_id}")
+    public HttpEntity<?> getByRole(@PathVariable Integer role_id) {
+        ApiResponse apiResponse = userService.getByRole(role_id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 }

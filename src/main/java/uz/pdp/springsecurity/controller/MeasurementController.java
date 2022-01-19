@@ -13,7 +13,7 @@ import uz.pdp.springsecurity.service.MeasurementService;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/meaurement")
+@RequestMapping("/api/measurement")
 public class MeasurementController {
     @Autowired
     MeasurementRepository measurementRepository;
@@ -21,7 +21,7 @@ public class MeasurementController {
     @Autowired
     MeasurementService measurementService;
 
-    @CheckPermission("ADD_MEASUREMENT")
+//    @CheckPermission("ADD_MEASUREMENT")
     @PostMapping
     public HttpEntity<?> add(@Valid @RequestBody MeasurementDto measurementDto) {
         ApiResponse apiResponse = measurementService.add(measurementDto);

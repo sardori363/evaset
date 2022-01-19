@@ -26,19 +26,19 @@ public class Product extends AbsEntity {
     @Column(nullable = false,unique = true)
     private long barcode;
 
-    @OneToOne
-    private Brand brandId;
+    @ManyToOne
+    private Brand brand;
 
     @ManyToOne
-    private Category categoryId;
+    private Category category;
 
     @OneToOne
-    private Measurement measurementId;
+    private Measurement measurement;
 
     private Integer minQuantity;
 
     @OneToMany
-    private List<Attachment> photoId;
+    private List<Attachment> photo;
 
     private double buyPrice;
 
@@ -47,7 +47,7 @@ public class Product extends AbsEntity {
     private double tax;
 
     @OneToMany
-    private List<Branch> branchId;
+    private List<Branch> branch;
 
     private Date expireDate;
 

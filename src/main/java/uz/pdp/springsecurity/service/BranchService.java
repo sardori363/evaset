@@ -22,7 +22,7 @@ public class BranchService {
 
         branch.setName(branchDto.getName());
         if (!addressRepository.existsById(branchDto.getAddressId())) return new ApiResponse("Address not found",false);
-        branch.setAddressId(branch.getAddressId());
+        branch.setAddress(branch.getAddress());
 
         branchRepository.save(branch);
         return new ApiResponse("Branch successfully saved",true);
@@ -36,7 +36,7 @@ public class BranchService {
         branch.setName(branchDto.getName());
 
         if (!addressRepository.existsById(branchDto.getAddressId())) return new ApiResponse("Address not found",false);
-        branch.setAddressId(branch.getAddressId());
+        branch.setAddress(branch.getAddress());
 
         branchRepository.save(branch);
         return new ApiResponse("Branch successfully edited",true);

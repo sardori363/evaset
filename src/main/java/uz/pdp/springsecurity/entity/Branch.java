@@ -20,5 +20,5 @@ public class Branch extends AbsEntity {
     private String name;
 
     @OneToOne
-    private Address addressId;
+    private Address address;
 }

@@ -17,5 +17,5 @@ import javax.persistence.OneToOne;
 public class Outlay extends AbsEntity {
     private String name;
     @OneToOne
-    private OutlayCategory outlayCategoryId;
+    private OutlayCategory outlayCategory;
 }

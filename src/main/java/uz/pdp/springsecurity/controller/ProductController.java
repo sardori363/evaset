@@ -23,7 +23,7 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
-    @CheckPermission("ADD_PRODUCT")
+//    @CheckPermission("ADD_PRODUCT")
     @PostMapping()
     public HttpEntity<?> add(@Valid @RequestBody ProductDto productDto) throws ParseException {
         ApiResponse apiResponse = productService.addProduct(productDto);
@@ -64,4 +64,29 @@ public class ProductController {
         ApiResponse apiResponse = productService.deleteProducts();
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
+
+    @GetMapping("/get-by-barcode/{barcode}")
+    public HttpEntity<?> getByBarcode(@PathVariable long barcode) {
+        ApiResponse apiResponse = productService.getByBarcode(barcode);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @GetMapping("/get-by-category/{category_id}")
+    public HttpEntity<?> getByCategory(@PathVariable Integer category_id) {
+        ApiResponse apiResponse = productService.getByCategory(category_id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @GetMapping("/get-by-brand/{brand_id}")
+    public HttpEntity<?> getByBrand(@PathVariable Integer brand_id) {
+        ApiResponse apiResponse = productService.getByBrand(brand_id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @GetMapping("/get-by-branch/{branch_id}")
+    public HttpEntity<?> getByBranch(@PathVariable Integer branch_id) {
+        ApiResponse apiResponse = productService.getByBranch(branch_id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
 }

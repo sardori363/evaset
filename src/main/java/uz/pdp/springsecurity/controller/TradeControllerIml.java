@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uz.pdp.springsecurity.payload.ApiResponse;
 import uz.pdp.springsecurity.payload.TradeDTO;
+import uz.pdp.springsecurity.repository.TradeRepository;
 import uz.pdp.springsecurity.service.TradeService;
 
 @RestController
@@ -14,6 +15,8 @@ public class TradeControllerIml {
     @Autowired
     TradeService tradeService;
 
+    @Autowired
+    TradeRepository tradeRepository;
 
     @GetMapping
     public HttpEntity<?> get() {
@@ -43,6 +46,12 @@ public class TradeControllerIml {
     @DeleteMapping
     public HttpEntity<?> delete(@PathVariable Integer id) {
         ApiResponse apiResponse = tradeService.deleteTrade(id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @GetMapping("/get-trade-with-traderId/{trader_id}")
+    public HttpEntity<?> getByTraderId(@PathVariable Integer trader_id) {
+        ApiResponse apiResponse = tradeService.getByTraderId(trader_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 }

@@ -26,7 +26,7 @@ public class OutlayService {
         Optional<OutlayCategory> optionalCategory = outlayCategoryRepository.findById(outlayDto.getOutlayCategoryId());
         if (!optionalCategory.isPresent()) return new ApiResponse("Outlay category not found",false);
 
-        outlay.setOutlayCategoryId(optionalCategory.get());
+        outlay.setOutlayCategory(optionalCategory.get());
         outlayRepository.save(outlay);
         return new ApiResponse("Outlay saved",true);
     }
@@ -40,7 +40,7 @@ public class OutlayService {
         Optional<OutlayCategory> optionalCategory = outlayCategoryRepository.findById(outlayDto.getOutlayCategoryId());
         if (!optionalCategory.isPresent()) return new ApiResponse("Outlay category not found",false);
 
-        outlay.setOutlayCategoryId(optionalCategory.get());
+        outlay.setOutlayCategory(optionalCategory.get());
         outlayRepository.save(outlay);
         return new ApiResponse("Outlay updated",true);
     }

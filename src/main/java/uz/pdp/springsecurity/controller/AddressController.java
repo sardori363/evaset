@@ -21,7 +21,7 @@ public class AddressController {
     @Autowired
     AddressService addressService;
 
-    @CheckPermission("ADD_ADDRESS")
+//    @CheckPermission("ADD_ADDRESS")
     @PostMapping
     public HttpEntity<?> add(@Valid @RequestBody AddressDto addressDto) {
         ApiResponse apiResponse = addressService.addAddress(addressDto);

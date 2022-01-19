@@ -71,8 +71,8 @@ public class ProductService {
         Optional<Product> optionalProduct = productRepository.findById(id);
         if (optionalProduct.isPresent()) {
             productRepository.deleteById(id);
-        }else {
-            return new ApiResponse("NOT FOUND!",false);
+        } else {
+            return new ApiResponse("NOT FOUND!", false);
         }
         return new ApiResponse(true);
     }
@@ -88,25 +88,25 @@ public class ProductService {
         product.setBarcode(productDto.getBarcode());
 
         Optional<Brand> optionalBrand = brandRepository.findById(productDto.getBrandId());
-        optionalBrand.ifPresent(product::setBrandId);
+        optionalBrand.ifPresent(product::setBrand);
 
         Optional<Category> optionalCategory = categoryRepository.findById(productDto.getCategoryId());
-        product.setCategoryId(optionalCategory.get());
+        product.setCategory(optionalCategory.get());
 
         Optional<Measurement> optionalMeasurement = measurementRepository.findById(productDto.getMeasurementId());
-        product.setMeasurementId(optionalMeasurement.get());
+        product.setMeasurement(optionalMeasurement.get());
 
         product.setMinQuantity(productDto.getMinQuantity());
 
         List<Attachment> repositoryAllById = attachmentRepository.findAllById(productDto.getPhotoIds());
-        product.setPhotoId(repositoryAllById);
+        product.setPhoto(repositoryAllById);
 
         product.setBuyPrice(productDto.getBuyPrice());
         product.setSalePrice(productDto.getSalePrice());
         product.setTax(productDto.getTax());
 
-        List<Branch> branchRepositoryAllById = branchRepository.findAllById(productDto.getPhotoIds());
-        product.setBranchId(branchRepositoryAllById);
+        List<Branch> branchRepositoryAllById = branchRepository.findAllById(productDto.getBranchId());
+        product.setBranch(branchRepositoryAllById);
 
         if (product.getExpireDate() == null) {
             Date date = new Date(System.currentTimeMillis());
@@ -120,4 +120,31 @@ public class ProductService {
     }
 
 
+    public ApiResponse getByBarcode(long barcode) {
+        List<Product> allByBarcode = productRepository.findAllByBarcode(barcode);
+        if (allByBarcode.isEmpty()) return new ApiResponse("not found", false);
+
+        return new ApiResponse("found", true, allByBarcode);
+    }
+
+    public ApiResponse getByCategory(Integer category_id) {
+        List<Product> allByCategory_id = productRepository.findAllByCategory_Id(category_id);
+        if (allByCategory_id.isEmpty()) return new ApiResponse("not found", false);
+
+        return new ApiResponse("found", true, allByCategory_id);
+    }
+
+    public ApiResponse getByBrand(Integer brand_id) {
+        List<Product> allByBrand_id = productRepository.findAllByBrand_Id(brand_id);
+        if (allByBrand_id.isEmpty()) return new ApiResponse("not found",false);
+
+        return new ApiResponse("found",true,allByBrand_id);
+    }
+
+    public ApiResponse getByBranch(Integer branch_id) {
+        List<Product> allByBranch_id = productRepository.findAllByBranch_Id(branch_id);
+        if (allByBranch_id.isEmpty()) return new ApiResponse("not found",false);
+
+        return new ApiResponse("found",true,allByBranch_id);
+    }
 }
