@@ -59,35 +59,31 @@ public class TradeService {
     public ApiResponse create(TradeDTO tradeDTO) {
         Trade trade = new Trade();
         ApiResponse apiResponse = addTraade(trade, tradeDTO);
-        if (!apiResponse.isSuccess()) {
-            return new ApiResponse("ERROR", false);
-        }
-        return new ApiResponse("SAVED", true);
+
+        return apiResponse;
     }
 
     public ApiResponse deleteTrade(Integer id) {
         tradeRepository.deleteById(id);
-        return new ApiResponse("DELATED" ,true);
+        return new ApiResponse("DELATED", true);
     }
 
     public ApiResponse edit(Integer id, TradeDTO tradeDTO) {
-        Optional<TradeProduct> optionalTradeProduct = tradeProductRepository.findById(id);
-        if (optionalTradeProduct.isEmpty()) {
+        Optional<Trade> optionalTrade = tradeRepository.findById(id);
+        if (optionalTrade.isEmpty()) {
             return new ApiResponse("NOT FOUND TRADE", false);
         }
-        Trade trade = new Trade();
+        Trade trade = optionalTrade.get();
         ApiResponse apiResponse = addTraade(trade, tradeDTO);
 
         if (!apiResponse.isSuccess()) {
             return new ApiResponse("ERROR", false);
         }
-        return new ApiResponse("SAVED", true);
+        return new ApiResponse("UPDATED", true);
     }
 
 
-
-
-    public  ApiResponse addTraade(Trade trade , TradeDTO tradeDTO){
+    public ApiResponse addTraade(Trade trade, TradeDTO tradeDTO) {
         Optional<Customer> optionalCustomer = customerRepository.findById(tradeDTO.getCustomerId());
         if (optionalCustomer.isEmpty()) {
             return new ApiResponse("CUSTOMER NOT FOUND", false);
@@ -150,12 +146,35 @@ public class TradeService {
         /**
          * AMOUNT LOAN PRICE SAQLANDI
          */
-        if (tradeDTO.getAmountPaid() != null || tradeDTO.getAmountPaid() != 0) {
-            trade.setAmountPaid(tradeDTO.getAmountPaid());
-            trade.setLoan(sum - tradeDTO.getAmountPaid());
-        } else {
+        if ( tradeDTO.getAmountPaid() == 0d) {
+
             trade.setAmountPaid(0.0);
             trade.setLoan(sum - tradeDTO.getAmountPaid());
+
+            Optional<PaymentStatus> optionalPaymentStatus = paymentStatusRepository.findById(3);
+            PaymentStatus paymentStatus = optionalPaymentStatus.get();
+
+            trade.setPaymentStatus(paymentStatus);
+        } else {
+
+            if (trade.getAmountPaid() == null || trade.getAmountPaid() == 0.0) {
+                trade.setAmountPaid(tradeDTO.getAmountPaid());
+                trade.setLoan(sum - tradeDTO.getAmountPaid());
+            } else {
+                trade.setAmountPaid(trade.getAmountPaid() + tradeDTO.getAmountPaid());
+                trade.setLoan(trade.getLoan() - tradeDTO.getAmountPaid());
+            }
+
+            if ((trade.getTotalSum() - tradeDTO.getAmountPaid() == 0) || trade.getLoan() ==0.0) {
+                Optional<PaymentStatus> optionalPaymentStatus = paymentStatusRepository.findById(1);
+                PaymentStatus paymentStatus = optionalPaymentStatus.get();
+                trade.setPaymentStatus(paymentStatus);
+            } else {
+                Optional<PaymentStatus> optionalPaymentStatus = paymentStatusRepository.findById(2);
+                PaymentStatus paymentStatus = optionalPaymentStatus.get();
+                trade.setPaymentStatus(paymentStatus);
+            }
+
         }
 
 
@@ -168,15 +187,14 @@ public class TradeService {
         }
         trade.setBranch(optionalBranch.get());
 
-
         /**
          * PAYMAENTSTATUS SAQLANDI
          */
-        Optional<PaymentStatus> optionalPaymentStatus = paymentStatusRepository.findById(tradeDTO.getPaymentStatusId());
-        if (optionalPaymentStatus.isEmpty()) {
-            return new ApiResponse("PAYMAENTSTATUS NOT FOUND", false);
-        }
-        trade.setPaymentStatus(optionalPaymentStatus.get());
+//        Optional<PaymentStatus> optionalPaymentStatus = paymentStatusRepository.findById(tradeDTO.getPaymentStatusId());
+//        if (optionalPaymentStatus.isEmpty()) {
+//            return new ApiResponse("PAYMAENTSTATUS NOT FOUND", false);
+//        }
+//        trade.setPaymentStatus(optionalPaymentStatus.get());
 
         /**
          * PAYMAENTMETHOD SAQLANDI
@@ -202,6 +220,6 @@ public class TradeService {
         Date payDate = tradeDTO.getPayDate();
         trade.setPayDate(payDate);
         tradeRepository.save(trade);
-        return new ApiResponse(true , trade);
+        return new ApiResponse("SAVED!", true);
     }
 }

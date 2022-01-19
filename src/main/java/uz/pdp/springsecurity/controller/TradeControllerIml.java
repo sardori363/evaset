@@ -37,7 +37,7 @@ public class TradeControllerIml {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public HttpEntity<?> edit(@PathVariable Integer id, @RequestBody TradeDTO tradeDTO) {
         ApiResponse apiResponse = tradeService.edit(id,tradeDTO);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
