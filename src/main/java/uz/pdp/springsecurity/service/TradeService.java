@@ -146,7 +146,7 @@ public class TradeService {
         /**
          * AMOUNT LOAN PRICE SAQLANDI
          */
-        if ( tradeDTO.getAmountPaid() == 0d) {
+        if (tradeDTO.getAmountPaid() == 0d) {
 
             trade.setAmountPaid(0.0);
             trade.setLoan(sum - tradeDTO.getAmountPaid());
@@ -155,6 +155,8 @@ public class TradeService {
             PaymentStatus paymentStatus = optionalPaymentStatus.get();
 
             trade.setPaymentStatus(paymentStatus);
+        } else if (sum < tradeDTO.getAmountPaid() || trade.getTotalSum() < (trade.getAmountPaid() + tradeDTO.getAmountPaid())) {
+            return new ApiResponse("A LOT OF MONEY PAID", false);
         } else {
 
             if (trade.getAmountPaid() == null || trade.getAmountPaid() == 0.0) {
@@ -165,7 +167,7 @@ public class TradeService {
                 trade.setLoan(trade.getLoan() - tradeDTO.getAmountPaid());
             }
 
-            if ((trade.getTotalSum() - tradeDTO.getAmountPaid() == 0) || trade.getLoan() ==0.0) {
+            if ((trade.getTotalSum() - tradeDTO.getAmountPaid() == 0) || trade.getLoan() == 0.0) {
                 Optional<PaymentStatus> optionalPaymentStatus = paymentStatusRepository.findById(1);
                 PaymentStatus paymentStatus = optionalPaymentStatus.get();
                 trade.setPaymentStatus(paymentStatus);
@@ -221,5 +223,9 @@ public class TradeService {
         trade.setPayDate(payDate);
         tradeRepository.save(trade);
         return new ApiResponse("SAVED!", true);
+    }
+
+    public ApiResponse getByTraderId(Integer trader_id) {
+        return null;
     }
 }
