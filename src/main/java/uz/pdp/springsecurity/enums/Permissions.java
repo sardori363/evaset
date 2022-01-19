@@ -66,7 +66,18 @@ public enum Permissions {
     EDIT_USER,
     VIEW_USER,
     DELETE_USER,
-    EDIT_MY_PROFILE
+    EDIT_MY_PROFILE,
+
+    ADD_TRADE,
+    EDIT_TRADE,
+    VIEW_TRADE,
+    DELETE_TRADE,
+
+
+    ADD_PAY_METHOD,
+    EDIT_PAY_METHOD,
+    VIEW_PAY_METHOD,
+    DELETE_PAY_METHOD,
 
 
 
