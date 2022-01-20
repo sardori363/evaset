@@ -64,13 +64,13 @@ public class TradeHistoryService {
 
     public ApiResponse deleteOne(Integer id) {
         Optional<TradeHistory> optional = tradeHistoryRepository.findById(id);
-        if (optional.isEmpty()) {
+        if (!optional.isPresent()) {
         return new ApiResponse("NOT FOUND",false);
         }
             return new ApiResponse("FOUND" , true , optional.get());
     }
 
-    public ApiResponse deleteAll(Integer trade_id) {
+    public ApiResponse deleteAllByTradeId(Integer trade_id) {
         tradeHistoryRepository.deleteAllByTrade_Id(trade_id);
         return new ApiResponse("DELETED" , true);
     }
@@ -78,5 +78,16 @@ public class TradeHistoryService {
     public ApiResponse getByTradeId(Integer trade_id) {
         List<TradeHistory> allByTrade_id = tradeHistoryRepository.findAllByTrade_Id(trade_id);
         return new ApiResponse("FOUND", true, allByTrade_id);
+    }
+
+    public ApiResponse getByTradeIdAndId(Integer id, Integer trade_id) {
+        Optional<TradeHistory> byIdAndTrade_id = tradeHistoryRepository.findByIdAndTrade_Id(id, trade_id);
+        if (!byIdAndTrade_id.isPresent()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,byIdAndTrade_id);
+    }
+
+    public ApiResponse deleteAll() {
+        tradeHistoryRepository.deleteAll();
+        return new ApiResponse("trade history removed",true);
     }
 }

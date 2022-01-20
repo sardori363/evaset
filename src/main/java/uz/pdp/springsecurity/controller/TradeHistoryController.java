@@ -48,14 +48,26 @@ public class TradeHistoryController {
     }
 
     @DeleteMapping("/{trade_id}")
-    public HttpEntity<?> deleteAll(@PathVariable Integer trade_id) {
-        ApiResponse apiResponse = tradeHistoryService.deleteAll(trade_id);
+    public HttpEntity<?> deleteAllByTradeId(@PathVariable Integer trade_id) {
+        ApiResponse apiResponse = tradeHistoryService.deleteAllByTradeId(trade_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
     @GetMapping("/{trade_id}")
     public HttpEntity<?> getByTradeId(@PathVariable Integer trade_id) {
         ApiResponse apiResponse = tradeHistoryService.getByTradeId(trade_id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @GetMapping("/{id,trade_id}")
+    public HttpEntity<?> getByTradeIdAndId(@PathVariable Integer id,@PathVariable Integer trade_id) {
+        ApiResponse apiResponse = tradeHistoryService.getByTradeIdAndId(id,trade_id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @DeleteMapping
+    public HttpEntity<?> deleteAll() {
+        ApiResponse apiResponse = tradeHistoryService.deleteAll();
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 }
