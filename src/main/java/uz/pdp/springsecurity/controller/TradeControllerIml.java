@@ -9,6 +9,8 @@ import uz.pdp.springsecurity.payload.TradeDTO;
 import uz.pdp.springsecurity.repository.TradeRepository;
 import uz.pdp.springsecurity.service.TradeService;
 
+import java.util.Date;
+
 @RestController
 @RequestMapping("/api/trade")
 public class TradeControllerIml {
@@ -39,7 +41,7 @@ public class TradeControllerIml {
 
     @PutMapping("/{id}")
     public HttpEntity<?> edit(@PathVariable Integer id, @RequestBody TradeDTO tradeDTO) {
-        ApiResponse apiResponse = tradeService.edit(id,tradeDTO);
+        ApiResponse apiResponse = tradeService.edit(id, tradeDTO);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
@@ -49,9 +51,45 @@ public class TradeControllerIml {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @GetMapping("/get-trade-with-traderId/{trader_id}")
-    public HttpEntity<?> getByTraderId(@PathVariable Integer trader_id) {
+    @GetMapping("/get-by-traderId/{trader_id}")
+    public HttpEntity<?> getByTrader(@PathVariable Integer trader_id) {
         ApiResponse apiResponse = tradeService.getByTraderId(trader_id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @GetMapping("/get-by-branchId/{branch_id}")
+    public HttpEntity<?> getByBranch(@PathVariable Integer branch_id) {
+        ApiResponse apiResponse = tradeService.getByBranchId(branch_id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @GetMapping("/get-by-customerId/{customer_id}")
+    public HttpEntity<?> getByCustomer(@PathVariable Integer customer_id) {
+        ApiResponse apiResponse = tradeService.getByCustomerId(customer_id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @GetMapping("/get-by-PayDate/{payDate}")
+    public HttpEntity<?> getByPayDate(@PathVariable Date payDate) {
+        ApiResponse apiResponse = tradeService.getByPayDate(payDate);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @GetMapping("/get-by-PayStatusId/{paymentStatus_id}")
+    public HttpEntity<?> getByPayStatus(@PathVariable Integer paymentStatus_id) {
+        ApiResponse apiResponse = tradeService.getByPayStatus(paymentStatus_id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @GetMapping("/get-by-PayMethodId/{payMethod_id}")
+    public HttpEntity<?> getByPayMethod(@PathVariable Integer payMethod_id) {
+        ApiResponse apiResponse = tradeService.getByPayMethod(payMethod_id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @GetMapping("/get-by-AddressId/{address_id}")
+    public HttpEntity<?> getByAddress(@PathVariable Integer address_id) {
+        ApiResponse apiResponse = tradeService.getByAddress(address_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 }

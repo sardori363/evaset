@@ -42,6 +42,8 @@ public class TradeService {
     @Autowired
     TradeProductRepository tradeProductRepository;
 
+    @Autowired
+    TradeHistoryRepository tradeHistoryRepository;
 
     public ApiResponse getAll() {
         List<Trade> all = tradeRepository.findAll();
@@ -70,7 +72,7 @@ public class TradeService {
 
     public ApiResponse edit(Integer id, TradeDTO tradeDTO) {
         Optional<Trade> optionalTrade = tradeRepository.findById(id);
-        if (optionalTrade.isEmpty()) {
+        if (!optionalTrade.isPresent()) {
             return new ApiResponse("NOT FOUND TRADE", false);
         }
         Trade trade = optionalTrade.get();
@@ -85,7 +87,7 @@ public class TradeService {
 
     public ApiResponse addTraade(Trade trade, TradeDTO tradeDTO) {
         Optional<Customer> optionalCustomer = customerRepository.findById(tradeDTO.getCustomerId());
-        if (optionalCustomer.isEmpty()) {
+        if (!optionalCustomer.isPresent()) {
             return new ApiResponse("CUSTOMER NOT FOUND", false);
         }
         trade.setCustomer(optionalCustomer.get());
@@ -94,7 +96,7 @@ public class TradeService {
          * SOTUVCHI SAQLANDI
          */
         Optional<User> optionalUser = userRepository.findById(tradeDTO.getUserId());
-        if (optionalUser.isEmpty()) {
+        if (!optionalUser.isPresent()) {
             return new ApiResponse("TRADER NOT FOUND", false);
         }
         trade.setTrader(optionalUser.get());
@@ -184,25 +186,17 @@ public class TradeService {
          * BRANCH SAQLANDI
          */
         Optional<Branch> optionalBranch = branchRepository.findById(tradeDTO.getBranchId());
-        if (optionalBranch.isEmpty()) {
+        if (!optionalBranch.isPresent()) {
             return new ApiResponse("BRANCH NOT FOUND", false);
         }
         trade.setBranch(optionalBranch.get());
 
-        /**
-         * PAYMAENTSTATUS SAQLANDI
-         */
-//        Optional<PaymentStatus> optionalPaymentStatus = paymentStatusRepository.findById(tradeDTO.getPaymentStatusId());
-//        if (optionalPaymentStatus.isEmpty()) {
-//            return new ApiResponse("PAYMAENTSTATUS NOT FOUND", false);
-//        }
-//        trade.setPaymentStatus(optionalPaymentStatus.get());
 
         /**
          * PAYMAENTMETHOD SAQLANDI
          */
         Optional<PaymentMethod> optionalPaymentMethod = payMethodRepository.findById(tradeDTO.getPayMethodId());
-        if (optionalPaymentMethod.isEmpty()) {
+        if (!optionalPaymentMethod.isPresent()) {
             return new ApiResponse("PAYMAENTMETHOD NOT FOUND", false);
         }
         trade.setPayMethod(optionalPaymentMethod.get());
@@ -222,10 +216,61 @@ public class TradeService {
         Date payDate = tradeDTO.getPayDate();
         trade.setPayDate(payDate);
         tradeRepository.save(trade);
+
+        /**
+         * TRADE HISTORY QOSHILYAPTI
+         */
+
+        TradeHistory tradeHistory = new TradeHistory();
+        tradeHistory.setPaidAmount(tradeDTO.getAmountPaid());
+        Date date = new Date(System.currentTimeMillis());
+        tradeHistory.setPaidDate(date);
+        tradeHistory.setTrade(trade);
+        tradeHistoryRepository.save(tradeHistory);
+
+
         return new ApiResponse("SAVED!", true);
     }
 
     public ApiResponse getByTraderId(Integer trader_id) {
-        return null;
+        List<Trade> allByTrader_id = tradeRepository.findAllByTrader_Id(trader_id);
+        if (allByTrader_id.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByTrader_id);
+    }
+
+    public ApiResponse getByBranchId(Integer branch_id) {
+        List<Trade> allByBranch_id = tradeRepository.findAllByBranch_Id(branch_id);
+        if (allByBranch_id.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByBranch_id);
+    }
+
+    public ApiResponse getByCustomerId(Integer customer_id) {
+        List<Trade> allByCustomer_id = tradeRepository.findAllByCustomer_Id(customer_id);
+        if (allByCustomer_id.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByCustomer_id);
+    }
+
+    public ApiResponse getByPayDate(Date payDate) {
+        List<Trade> allByPayDate = tradeRepository.findAllByPayDate(payDate);
+        if (allByPayDate.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByPayDate);
+    }
+
+    public ApiResponse getByPayStatus(Integer paymentStatus_id) {
+        List<Trade> allByPaymentStatus_id = tradeRepository.findAllByPaymentStatus_Id(paymentStatus_id);
+        if (allByPaymentStatus_id.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByPaymentStatus_id);
+    }
+
+    public ApiResponse getByPayMethod(Integer payMethod_id) {
+        List<Trade> allByPaymentMethod_id = tradeRepository.findAllByPayMethod_Id(payMethod_id);
+        if (allByPaymentMethod_id.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByPaymentMethod_id);
+    }
+
+    public ApiResponse getByAddress(Integer address_id) {
+        List<Trade> allByAddress_id = tradeRepository.findAllByAddress_Id(address_id);
+        if (allByAddress_id.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByAddress_id);
     }
 }

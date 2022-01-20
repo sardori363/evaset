@@ -5,7 +5,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uz.pdp.springsecurity.aotations.CheckPermission;
-import uz.pdp.springsecurity.payload.AddressDto;
 import uz.pdp.springsecurity.payload.ApiResponse;
 import uz.pdp.springsecurity.payload.BranchDto;
 import uz.pdp.springsecurity.repository.BranchRepository;
@@ -22,7 +21,7 @@ public class BranchController {
     @Autowired
     BranchService branchService;
 
-    @CheckPermission("ADD_BRANCH")
+//    @CheckPermission("ADD_BRANCH")
     @PostMapping
     public HttpEntity<?> add(@Valid @RequestBody BranchDto branchDto) {
         ApiResponse apiResponse = branchService.addBranch(branchDto);
