@@ -2,10 +2,12 @@ package uz.pdp.springsecurity.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import uz.pdp.springsecurity.entity.PaymentMethod;
 import uz.pdp.springsecurity.entity.TradeHistory;
 import uz.pdp.springsecurity.entity.Trade;
 import uz.pdp.springsecurity.payload.ApiResponse;
 import uz.pdp.springsecurity.payload.TradeHistoryDto;
+import uz.pdp.springsecurity.repository.PayMethodRepository;
 import uz.pdp.springsecurity.repository.TradeHistoryRepository;
 import uz.pdp.springsecurity.repository.TradeRepository;
 
@@ -20,14 +22,18 @@ public class TradeHistoryService {
     @Autowired
     TradeRepository tradeRepository;
 
+    @Autowired
+    PayMethodRepository payMethodRepository;
+
     public ApiResponse add(TradeHistoryDto tradeHistoryDto) {
 
         Optional<Trade> optionalTrade = tradeRepository.findById(tradeHistoryDto.getTradeId());
         TradeHistory tradeHistory = new TradeHistory();
-        if (!optionalTrade.isPresent()) return new ApiResponse("not found",false);
+        if (optionalTrade.isEmpty()) return new ApiResponse("not found",false);
         tradeHistory.setTrade(optionalTrade.get());
         tradeHistory.setDescription(tradeHistoryDto.getDescription());
-        tradeHistory.setPaymentMethod(tradeHistoryDto.getPaymentMethod());
+        Optional<PaymentMethod> optionalPaymentMethod = payMethodRepository.findById(tradeHistoryDto.getPaymentMethodId());
+        tradeHistory.setPaymentMethod(optionalPaymentMethod.get().getType());
 
         tradeHistoryRepository.save(tradeHistory);
         return new ApiResponse("saved",true);
@@ -35,7 +41,7 @@ public class TradeHistoryService {
 
     public ApiResponse edit(Integer id, TradeHistoryDto tradeHistoryDto) {
         Optional<TradeHistory> optionalHistory = tradeHistoryRepository.findById(id);
-        if (!optionalHistory.isPresent()) return new ApiResponse("not found",false);
+        if (optionalHistory.isEmpty()) return new ApiResponse("not found",false);
 
         TradeHistory tradeHistory = optionalHistory.get();
 
@@ -43,18 +49,19 @@ public class TradeHistoryService {
         tradeHistory.setPaidDate(tradeHistoryDto.getPaidDate());
 
         Optional<Trade> optionalTrade = tradeRepository.findById(tradeHistoryDto.getTradeId());
-        if (!optionalTrade.isPresent()) return new ApiResponse("not found",false);
+        if (optionalTrade.isEmpty()) return new ApiResponse("not found",false);
         tradeHistory.setTrade(optionalTrade.get());
         tradeHistory.setDescription(tradeHistoryDto.getDescription());
-        tradeHistory.setPaymentMethod(tradeHistoryDto.getPaymentMethod());
+        Optional<PaymentMethod> optionalPaymentMethod = payMethodRepository.findById(tradeHistoryDto.getPaymentMethodId());
+        tradeHistory.setPaymentMethod(optionalPaymentMethod.get().getType());
 
         tradeHistoryRepository.save(tradeHistory);
         return new ApiResponse("updated",true);
     }
 
     public ApiResponse getOne(Integer id) {
-        if (!tradeHistoryRepository.existsById(id)) return new ApiResponse("not found",false);
-        return new ApiResponse("found",true,tradeHistoryRepository.getById(id));
+        Optional<TradeHistory> allByTrade_id = tradeHistoryRepository.findById(id);
+        return allByTrade_id.map(tradeHistory -> new ApiResponse("FOUND", true, allByTrade_id.get())).orElseGet(() -> new ApiResponse("NOT FOUND", false));
     }
 
     public ApiResponse getAll() {

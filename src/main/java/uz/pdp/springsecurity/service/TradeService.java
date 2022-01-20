@@ -160,7 +160,7 @@ public class TradeService {
         } else if (sum < tradeDTO.getAmountPaid()) {
             return new ApiResponse("A LOT OF MONEY PAID", false);
         } else {
-            if (trade.getAmountPaid()!=0.0) {
+            if (trade.getAmountPaid()!=null) {
                 if ((trade.getTotalSum() < (trade.getAmountPaid() + tradeDTO.getAmountPaid()))) {
                     return new ApiResponse("A LOT OF MONEY PAID", false);
                 }else {
