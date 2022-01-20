@@ -33,8 +33,9 @@ public class TradeHistoryController {
     }
 
     @CheckPermission("VIEW_TRADE")
-    @GetMapping("/{id}")
-    public HttpEntity<?> get(@PathVariable Integer id) {
+    @GetMapping("/get-one/{id}")
+
+    public HttpEntity<?> getOne(@PathVariable Integer id) {
         ApiResponse apiResponse = tradeHistoryService.getOne(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
@@ -54,7 +55,7 @@ public class TradeHistoryController {
     }
 
     @CheckPermission("DELETE_MY_TRADE")
-    @DeleteMapping("/{trade_id}")
+    @DeleteMapping("/delete-trade/{trade_id}")
     public HttpEntity<?> deleteByTradeId(@PathVariable Integer trade_id) {
         ApiResponse apiResponse = tradeHistoryService.deleteByTradeId(trade_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
@@ -68,13 +69,14 @@ public class TradeHistoryController {
     }
 
     @CheckPermission("VIEW_MY_TRADE")
-    @GetMapping("/{trade_id}")
+    @GetMapping("/get-all-by-tradeId/{trade_id}")
     public HttpEntity<?> getAllByTradeId(@PathVariable Integer trade_id) {
         ApiResponse apiResponse = tradeHistoryService.getAllByTradeId(trade_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
     @CheckPermission("VIEW_MY_TRADE")
+
     @GetMapping("/{trade_id}")
     public HttpEntity<?> getByTradeId(@PathVariable Integer trade_id) {
         ApiResponse apiResponse = tradeHistoryService.getByTradeId(trade_id);
