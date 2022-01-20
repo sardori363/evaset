@@ -9,6 +9,7 @@ import uz.pdp.springsecurity.entity.PaymentMethod;
 import uz.pdp.springsecurity.entity.PaymentStatus;
 import uz.pdp.springsecurity.entity.Role;
 import uz.pdp.springsecurity.entity.User;
+import uz.pdp.springsecurity.enums.Employee;
 import uz.pdp.springsecurity.enums.Permissions;
 import uz.pdp.springsecurity.repository.PayMethodRepository;
 import uz.pdp.springsecurity.repository.PaymentStatusRepository;
@@ -16,6 +17,7 @@ import uz.pdp.springsecurity.repository.RoleRepository;
 import uz.pdp.springsecurity.repository.UserRepository;
 import uz.pdp.springsecurity.util.Constants;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -47,6 +49,16 @@ public class DataLoader implements CommandLineRunner {
             Role admin = roleRepository.save(new Role(
                     Constants.ADMIN,
                     Arrays.asList(permissions)
+            ));
+
+            Role manager = roleRepository.save(new Role(
+                    Constants.MANAGER,
+                    Arrays.asList(permissions)
+            ));
+
+            Role employee = roleRepository.save(new Role(
+                    Constants.EMPLOYEE,
+                    Arrays.asList()
             ));
 
             userRepository.save(new User(
