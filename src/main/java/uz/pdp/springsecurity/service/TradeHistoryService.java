@@ -53,11 +53,8 @@ public class TradeHistoryService {
     }
 
     public ApiResponse getOne(Integer id) {
-        Optional<TradeHistory> allByTrade_id = tradeHistoryRepository.findById(id);
-        if (!allByTrade_id.isPresent()) {
-            return new ApiResponse("NOT FOUND",false);
-        }
-        return new ApiResponse("FOUND", true, allByTrade_id.get());
+        if (!tradeHistoryRepository.existsById(id)) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,tradeHistoryRepository.getById(id));
     }
 
     public ApiResponse getAll() {

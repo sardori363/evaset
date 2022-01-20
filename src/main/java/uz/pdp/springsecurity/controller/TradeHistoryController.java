@@ -12,7 +12,7 @@ import uz.pdp.springsecurity.service.TradeHistoryService;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/sell-history")
+@RequestMapping("/api/trade-history")
 public class TradeHistoryController {
     @Autowired
     TradeHistoryService tradeHistoryService;
@@ -30,7 +30,7 @@ public class TradeHistoryController {
     }
 
     @GetMapping("/{id}")
-    public HttpEntity<?> getOne(@PathVariable Integer id) {
+    public HttpEntity<?> get(@PathVariable Integer id) {
         ApiResponse apiResponse = tradeHistoryService.getOne(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
