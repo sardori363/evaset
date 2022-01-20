@@ -21,7 +21,7 @@ public class CurrencyController {
     @Autowired
     CurrencyService currencyService;
 
-//    @CheckPermission("ADD_CURRENCY")
+    @CheckPermission("ADD_CURRENCY")
     @PostMapping
     public HttpEntity<?> add(@Valid @RequestBody CurrencyDto currencyDto) {
         ApiResponse apiResponse = currencyService.add(currencyDto);

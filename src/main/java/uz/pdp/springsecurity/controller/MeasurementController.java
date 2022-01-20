@@ -21,7 +21,7 @@ public class MeasurementController {
     @Autowired
     MeasurementService measurementService;
 
-//    @CheckPermission("ADD_MEASUREMENT")
+    @CheckPermission("ADD_MEASUREMENT")
     @PostMapping
     public HttpEntity<?> add(@Valid @RequestBody MeasurementDto measurementDto) {
         ApiResponse apiResponse = measurementService.add(measurementDto);

@@ -15,7 +15,7 @@ public class PayMethodController {
     @Autowired
     PayMethodService payMethodService;
 
-//    @CheckPermission("ADD_PAY_METHOD")
+    @CheckPermission("ADD_PAY_METHOD")
     @PostMapping
     public HttpEntity<?> add(@RequestBody PayMethodDto payMethodDto) {
         ApiResponse apiResponse = payMethodService.add(payMethodDto);

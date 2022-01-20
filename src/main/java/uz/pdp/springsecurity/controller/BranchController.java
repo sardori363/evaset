@@ -21,7 +21,7 @@ public class BranchController {
     @Autowired
     BranchService branchService;
 
-//    @CheckPermission("ADD_BRANCH")
+    @CheckPermission("ADD_BRANCH")
     @PostMapping
     public HttpEntity<?> add(@Valid @RequestBody BranchDto branchDto) {
         ApiResponse apiResponse = branchService.addBranch(branchDto);

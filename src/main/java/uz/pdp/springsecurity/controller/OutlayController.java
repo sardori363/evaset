@@ -18,7 +18,7 @@ public class OutlayController {
     @Autowired
     OutlayService outlayService;
 
-//    @CheckPermission("ADD_OUTLAY")
+    @CheckPermission("ADD_OUTLAY")
     @PostMapping
     public HttpEntity<?> add(@Valid @RequestBody OutlayDto outlayDto) {
         ApiResponse apiResponse = outlayService.add(outlayDto);

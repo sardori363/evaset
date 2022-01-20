@@ -19,7 +19,7 @@ public class RoleController {
     @Autowired
     RoleService roleService;
 
-//    @CheckPermission("ADD_ROLE")
+    @CheckPermission("ADD_ROLE")
     @PostMapping
     public HttpEntity<?> add(@Valid @RequestBody RoleDto roleDto) {
         ApiResponse apiResponse = roleService.add(roleDto);

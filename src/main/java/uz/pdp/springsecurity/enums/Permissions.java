@@ -70,8 +70,11 @@ public enum Permissions {
 
     ADD_TRADE,
     EDIT_TRADE,
+    VIEW_ALL_TRADE,
     VIEW_TRADE,
     DELETE_TRADE,
+    VIEW_MY_TRADE,
+    DELETE_MY_TRADE,
 
     ADD_PAY_METHOD,
     EDIT_PAY_METHOD,
@@ -82,5 +85,6 @@ public enum Permissions {
     EDIT_PAY_STATUS,
     VIEW_PAY_STATUS,
     DELETE_PAY_STATUS,
+
 
 }

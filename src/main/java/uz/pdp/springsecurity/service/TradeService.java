@@ -281,4 +281,19 @@ public class TradeService {
         if (allByAddress_id.isEmpty()) return new ApiResponse("not found", false);
         return new ApiResponse("found", true, allByAddress_id);
     }
+
+    public ApiResponse deleteAll() {
+        tradeRepository.deleteAll();
+        return new ApiResponse("trades removed",false);
+    }
+
+    public ApiResponse deleteByTraderId(Integer trader_id) {
+        tradeRepository.deleteByTrader_Id(trader_id);
+        return new ApiResponse("deleted",true);
+    }
+
+    public ApiResponse deleteAllByTraderId(Integer trader_id) {
+        tradeRepository.deleteAllByTrader_Id(trader_id);
+        return new ApiResponse("deleted",true);
+    }
 }

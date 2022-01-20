@@ -21,7 +21,7 @@ public class BrandController {
     @Autowired
     BrandService brandService;
 
-//    @CheckPermission("ADD_BRAND")
+    @CheckPermission("ADD_BRAND")
     @PostMapping
     public HttpEntity<?> add(@Valid @RequestBody BrandDto brandDto) {
         ApiResponse apiResponse = brandService.addBrand(brandDto);

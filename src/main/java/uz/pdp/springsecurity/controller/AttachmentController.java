@@ -30,7 +30,7 @@ public class AttachmentController {
     @Autowired
     AttachmentContentRepository attachmentContentRepository;
 
-//    @CheckPermission("UPLOAD_MEDIA")
+    @CheckPermission("UPLOAD_MEDIA")
     @PostMapping("/upload")
     public ApiResponse uploadFile(MultipartHttpServletRequest request) throws IOException {
         Iterator<String> fileNames = request.getFileNames();
@@ -72,7 +72,7 @@ public class AttachmentController {
         return null;
     }
 
-//    @CheckPermission("DOWNLOAD_MEDIA")
+    @CheckPermission("DOWNLOAD_MEDIA")
     @GetMapping("/download/{id}")
     public void download(@PathVariable Integer id, HttpServletResponse response) throws IOException {
         Optional<Attachment> byId = attachmentRepository.findById(id);

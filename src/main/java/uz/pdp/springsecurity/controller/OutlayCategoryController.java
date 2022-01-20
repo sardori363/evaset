@@ -22,7 +22,7 @@ public class OutlayCategoryController {
     @Autowired
     OutlayCategoryService outlayCategoryService;
 
-//    @CheckPermission("ADD_OUTLAY")
+    @CheckPermission("ADD_OUTLAY")
     @PostMapping
     public HttpEntity<?> add(@Valid @RequestBody OutlayCategoryDto outlayCategoryDto) {
         ApiResponse apiResponse = outlayCategoryService.add(outlayCategoryDto);

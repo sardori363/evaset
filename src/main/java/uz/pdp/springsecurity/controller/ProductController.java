@@ -23,7 +23,7 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
-//    @CheckPermission("ADD_PRODUCT")
+    @CheckPermission("ADD_PRODUCT")
     @PostMapping()
     public HttpEntity<?> add(@Valid @RequestBody ProductDto productDto) throws ParseException {
         ApiResponse apiResponse = productService.addProduct(productDto);
