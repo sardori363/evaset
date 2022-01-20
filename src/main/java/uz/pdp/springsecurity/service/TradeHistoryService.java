@@ -82,7 +82,7 @@ public class TradeHistoryService {
         return new ApiResponse("DELETED" , true);
     }
 
-    public ApiResponse getByTradeId(Integer trade_id) {
+    public ApiResponse getAllByTradeId(Integer trade_id) {
         List<TradeHistory> allByTrade_id = tradeHistoryRepository.findAllByTrade_Id(trade_id);
         return new ApiResponse("FOUND", true, allByTrade_id);
     }
@@ -96,5 +96,15 @@ public class TradeHistoryService {
     public ApiResponse deleteAll() {
         tradeHistoryRepository.deleteAll();
         return new ApiResponse("trade history removed",true);
+    }
+
+    public ApiResponse deleteByTradeId(Integer trade_id) {
+        tradeHistoryRepository.deleteByTrade_Id(trade_id);
+        return new ApiResponse("deleted",true);
+    }
+
+    public ApiResponse getByTradeId(Integer trade_id) {
+        if (tradeHistoryRepository.existsById(trade_id)) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,tradeHistoryRepository.findByTrade_Id(trade_id).get());
     }
 }

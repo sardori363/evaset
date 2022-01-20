@@ -10,6 +10,8 @@ public interface TradeHistoryRepository extends JpaRepository<TradeHistory,Integ
     List<TradeHistory> findAllByTrade_Id(Integer trade_id);
 
     void deleteAllByTrade_Id(Integer trade_id);
+    void deleteByTrade_Id(Integer trade_id);
 
     Optional<TradeHistory> findByIdAndTrade_Id(Integer id, Integer trade_id);
+    Optional<TradeHistory> findByTrade_Id(Integer trade_id);
 }
