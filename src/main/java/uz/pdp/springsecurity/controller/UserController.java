@@ -49,7 +49,7 @@ public class UserController {
 
     }
 
-
+    @CheckPermission("DELETE_USER")
     @DeleteMapping("/{id}")
     public HttpEntity<?> deleteById(@PathVariable Integer id) {
         ApiResponse apiResponse = userService.delete(id);
@@ -57,18 +57,14 @@ public class UserController {
     }
 
 
-    @DeleteMapping
-    public HttpEntity<?> deleteAll() {
-        ApiResponse apiResponse = userService.deleteAll();
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 404).body(apiResponse);
-    }
-
+    @CheckPermission("EDIT_MY_PROFILE")
     @PutMapping
     public ResponseEntity<?> editMyProfile(@Valid @RequestBody ProfileDto profileDto) {
         ApiResponse apiResponse = userService.editMyProfile(profileDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? HttpStatus.OK : HttpStatus.CONFLICT).body(apiResponse);
     }
 
+    @CheckPermission("VIEW_USER")
     @GetMapping("/get-by-role/{role_id}")
     public HttpEntity<?> getByRole(@PathVariable Integer role_id) {
         ApiResponse apiResponse = userService.getByRole(role_id);

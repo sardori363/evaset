@@ -61,7 +61,7 @@ public class TradeHistoryService {
 
     public ApiResponse getOne(Integer id) {
         Optional<TradeHistory> optionalTradeHistory = tradeHistoryRepository.findById(id);
-        if (optionalTradeHistory.isEmpty()) {
+        if (!optionalTradeHistory.isPresent()) {
             return new ApiResponse("NOT FOUND" , false);
         }
         return new ApiResponse("FOUND" , true , optionalTradeHistory.get());
