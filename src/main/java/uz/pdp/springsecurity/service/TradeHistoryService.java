@@ -60,8 +60,11 @@ public class TradeHistoryService {
     }
 
     public ApiResponse getOne(Integer id) {
-        Optional<TradeHistory> allByTrade_id = tradeHistoryRepository.findById(id);
-        return allByTrade_id.map(tradeHistory -> new ApiResponse("FOUND", true, allByTrade_id.get())).orElseGet(() -> new ApiResponse("NOT FOUND", false));
+        Optional<TradeHistory> optionalTradeHistory = tradeHistoryRepository.findById(id);
+        if (optionalTradeHistory.isEmpty()) {
+            return new ApiResponse("NOT FOUND" , false);
+        }
+        return new ApiResponse("FOUND" , true , optionalTradeHistory.get());
     }
 
     public ApiResponse getAll() {
@@ -107,4 +110,5 @@ public class TradeHistoryService {
         if (tradeHistoryRepository.existsById(trade_id)) return new ApiResponse("not found",false);
         return new ApiResponse("found",true,tradeHistoryRepository.findByTrade_Id(trade_id).get());
     }
+
 }
