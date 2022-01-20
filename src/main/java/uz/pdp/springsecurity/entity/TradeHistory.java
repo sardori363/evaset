@@ -24,4 +24,7 @@ public class TradeHistory extends AbsEntity {
     private Trade trade;
 
     private String description;
+
+
+    private String paymentMethod;
 }
