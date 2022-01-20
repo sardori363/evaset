@@ -15,5 +15,5 @@ public class TradeHistoryDto {
     private Date paidDate;
     private Integer tradeId;
     private String description;
-    private String paymentMethod;
+    private Integer paymentMethodId;
 }
