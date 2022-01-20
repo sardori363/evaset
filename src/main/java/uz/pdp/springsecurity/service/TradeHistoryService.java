@@ -24,7 +24,7 @@ public class TradeHistoryService {
 
         Optional<Trade> optionalTrade = tradeRepository.findById(tradeHistoryDto.getTradeId());
         TradeHistory tradeHistory = new TradeHistory();
-        if (!optionalTrade.isPresent()) return new ApiResponse("not found",false);
+        if (optionalTrade.isEmpty()) return new ApiResponse("not found",false);
         tradeHistory.setTrade(optionalTrade.get());
         tradeHistory.setDescription(tradeHistoryDto.getDescription());
         tradeHistory.setPaymentMethod(tradeHistoryDto.getPaymentMethod());
@@ -35,7 +35,7 @@ public class TradeHistoryService {
 
     public ApiResponse edit(Integer id, TradeHistoryDto tradeHistoryDto) {
         Optional<TradeHistory> optionalHistory = tradeHistoryRepository.findById(id);
-        if (!optionalHistory.isPresent()) return new ApiResponse("not found",false);
+        if (optionalHistory.isEmpty()) return new ApiResponse("not found",false);
 
         TradeHistory tradeHistory = optionalHistory.get();
 
@@ -43,7 +43,7 @@ public class TradeHistoryService {
         tradeHistory.setPaidDate(tradeHistoryDto.getPaidDate());
 
         Optional<Trade> optionalTrade = tradeRepository.findById(tradeHistoryDto.getTradeId());
-        if (!optionalTrade.isPresent()) return new ApiResponse("not found",false);
+        if (optionalTrade.isEmpty()) return new ApiResponse("not found",false);
         tradeHistory.setTrade(optionalTrade.get());
         tradeHistory.setDescription(tradeHistoryDto.getDescription());
         tradeHistory.setPaymentMethod(tradeHistoryDto.getPaymentMethod());
@@ -54,10 +54,7 @@ public class TradeHistoryService {
 
     public ApiResponse getOne(Integer id) {
         Optional<TradeHistory> allByTrade_id = tradeHistoryRepository.findById(id);
-        if (!allByTrade_id.isPresent()) {
-            return new ApiResponse("NOT FOUND",false);
-        }
-        return new ApiResponse("FOUND", true, allByTrade_id.get());
+        return allByTrade_id.map(tradeHistory -> new ApiResponse("FOUND", true, allByTrade_id.get())).orElseGet(() -> new ApiResponse("NOT FOUND", false));
     }
 
     public ApiResponse getAll() {
