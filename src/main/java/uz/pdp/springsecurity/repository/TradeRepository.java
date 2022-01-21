@@ -6,6 +6,7 @@ import uz.pdp.springsecurity.entity.Trade;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public interface TradeRepository extends JpaRepository<Trade, Integer> {
     List<Trade> findAllByTrader_Id(Integer trader_id);
