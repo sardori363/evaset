@@ -28,14 +28,14 @@ public class ExchangeProductBranchService {
 
         Integer shippedBranchId = exchangeProductBranchDTO.getShippedBranchId();
         Optional<Branch> optionalBranch = branchRepository.findById(shippedBranchId);
-        if (optionalBranch.isEmpty()) {
+        if (!optionalBranch.isPresent()) {
             return new ApiResponse("NOT FOUND SHIPPED BRANCH", false);
         }
         exchangeProductBranch.setShippedBranch(optionalBranch.get());
 
         Integer receivedBranch = exchangeProductBranchDTO.getReceivedBranchId();
         Optional<Branch> branchOptional = branchRepository.findById(receivedBranch);
-        if (branchOptional.isEmpty()) {
+        if (!   branchOptional.isPresent()) {
             return new ApiResponse("NOT FOUND RECEIVED BRANCH", false);
         }
         exchangeProductBranch.setReceivedBranch(branchOptional.get());
