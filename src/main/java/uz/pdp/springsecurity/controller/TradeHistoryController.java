@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uz.pdp.springsecurity.aotations.CheckPermission;
 import uz.pdp.springsecurity.payload.ApiResponse;
-import uz.pdp.springsecurity.payload.RoleDto;
 import uz.pdp.springsecurity.payload.TradeHistoryDto;
 import uz.pdp.springsecurity.service.TradeHistoryService;
 
@@ -15,6 +14,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api/trade-history")
 public class TradeHistoryController {
+
     @Autowired
     TradeHistoryService tradeHistoryService;
 
@@ -34,7 +34,6 @@ public class TradeHistoryController {
 
     @CheckPermission("VIEW_TRADE")
     @GetMapping("/get-one/{id}")
-
     public HttpEntity<?> getOne(@PathVariable Integer id) {
         ApiResponse apiResponse = tradeHistoryService.getOne(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);

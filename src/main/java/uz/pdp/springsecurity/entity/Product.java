@@ -37,7 +37,7 @@ public class Product extends AbsEntity {
 
     private Integer minQuantity;
 
-    @OneToMany
+    @ManyToMany
     private List<Attachment> photo;
 
     private double buyPrice;
@@ -46,7 +46,7 @@ public class Product extends AbsEntity {
 
     private double tax;
 
-    @OneToMany
+    @ManyToMany
     private List<Branch> branch;
 
     private Date expireDate;
