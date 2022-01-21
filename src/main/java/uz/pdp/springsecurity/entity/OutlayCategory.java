@@ -16,5 +16,4 @@ import javax.persistence.Entity;
 
 public class OutlayCategory extends AbsEntity {
     private String title;
-    private double summa;
 }

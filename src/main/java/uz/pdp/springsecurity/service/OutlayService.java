@@ -2,13 +2,18 @@ package uz.pdp.springsecurity.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import uz.pdp.springsecurity.entity.Branch;
 import uz.pdp.springsecurity.entity.Outlay;
 import uz.pdp.springsecurity.entity.OutlayCategory;
+import uz.pdp.springsecurity.entity.User;
 import uz.pdp.springsecurity.payload.ApiResponse;
 import uz.pdp.springsecurity.payload.OutlayDto;
+import uz.pdp.springsecurity.repository.BranchRepository;
 import uz.pdp.springsecurity.repository.OutlayCategoryRepository;
 import uz.pdp.springsecurity.repository.OutlayRepository;
+import uz.pdp.springsecurity.repository.UserRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,14 +24,33 @@ public class OutlayService {
     @Autowired
     OutlayCategoryRepository outlayCategoryRepository;
 
+    @Autowired
+    BranchRepository branchRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
     public ApiResponse add(OutlayDto outlayDto) {
         Outlay outlay = new Outlay();
         outlay.setName(outlayDto.getName());
 
         Optional<OutlayCategory> optionalCategory = outlayCategoryRepository.findById(outlayDto.getOutlayCategoryId());
         if (!optionalCategory.isPresent()) return new ApiResponse("Outlay category not found",false);
-
         outlay.setOutlayCategory(optionalCategory.get());
+
+        outlay.setTotalSum(outlayDto.getTotalSum());
+
+        List<Branch> branches = branchRepository.findAllById(outlayDto.getBranchId());
+        if (branches.isEmpty()) return new ApiResponse("branch not found",false);
+        outlay.setBranch(branches);
+
+        Optional<User> spender = userRepository.findById(outlayDto.getSpenderId());
+        if (!spender.isPresent()) return new ApiResponse("spender not found",false);
+        outlay.setSpender(spender.get());
+
+        outlay.setDescription(outlayDto.getDescription());
+        outlay.setDate(outlayDto.getDate());
+
         outlayRepository.save(outlay);
         return new ApiResponse("Outlay saved",true);
     }
@@ -39,8 +63,21 @@ public class OutlayService {
 
         Optional<OutlayCategory> optionalCategory = outlayCategoryRepository.findById(outlayDto.getOutlayCategoryId());
         if (!optionalCategory.isPresent()) return new ApiResponse("Outlay category not found",false);
-
         outlay.setOutlayCategory(optionalCategory.get());
+
+        outlay.setTotalSum(outlayDto.getTotalSum());
+
+        List<Branch> branches = branchRepository.findAllById(outlayDto.getBranchId());
+        if (branches.isEmpty()) return new ApiResponse("branch not found",false);
+        outlay.setBranch(branches);
+
+        Optional<User> spender = userRepository.findById(outlayDto.getSpenderId());
+        if (!spender.isPresent()) return new ApiResponse("spender not found",false);
+        outlay.setSpender(spender.get());
+
+        outlay.setDescription(outlayDto.getDescription());
+        outlay.setDate(outlayDto.getDate());
+
         outlayRepository.save(outlay);
         return new ApiResponse("Outlay updated",true);
     }

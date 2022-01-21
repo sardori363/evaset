@@ -15,8 +15,7 @@ public class OutlayCategoryService {
 
     public ApiResponse add(OutlayCategoryDto outlayCategoryDto) {
         OutlayCategory outlayCategory = new OutlayCategory(
-                outlayCategoryDto.getTitle(),
-                outlayCategoryDto.getSumma()
+                outlayCategoryDto.getTitle()
         );
         outlayCategoryRepository.save(outlayCategory);
         return new ApiResponse("Saved",true);
@@ -27,7 +26,6 @@ public class OutlayCategoryService {
 
         OutlayCategory outlayCategory = outlayCategoryRepository.getById(id);
         outlayCategory.setTitle(outlayCategoryDto.getTitle());
-        outlayCategory.setSumma(outlayCategoryDto.getSumma());
 
         outlayCategoryRepository.save(outlayCategory);
         return new ApiResponse("Outlay category updated",true);

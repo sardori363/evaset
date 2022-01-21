@@ -18,7 +18,7 @@ public class TradeHistoryController {
     @Autowired
     TradeHistoryService tradeHistoryService;
 
-    @CheckPermission("ADD_TRADE")
+//    @CheckPermission("ADD_TRADE")
     @PostMapping
     public HttpEntity<?> add(@Valid @RequestBody TradeHistoryDto tradeHistoryDto) {
         ApiResponse apiResponse = tradeHistoryService.add(tradeHistoryDto);

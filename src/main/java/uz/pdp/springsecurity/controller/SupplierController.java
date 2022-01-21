@@ -21,7 +21,7 @@ public class SupplierController {
     @Autowired
     SupplierService supplierService;
 
-    @CheckPermission("ADD_SUPPLIER")
+//    @CheckPermission("ADD_SUPPLIER")
     @PostMapping
     public HttpEntity<?> add(@Valid @RequestBody SupplierDto supplierDto) {
         ApiResponse apiResponse = supplierService.add(supplierDto);

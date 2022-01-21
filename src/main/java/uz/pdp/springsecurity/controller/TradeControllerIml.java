@@ -21,7 +21,7 @@ public class TradeControllerIml {
     @Autowired
     TradeRepository tradeRepository;
 
-    @CheckPermission("ADD_TRADE")
+//    @CheckPermission("ADD_TRADE")
     @PostMapping
     public HttpEntity<?> create(@RequestBody TradeDTO tradeDTO) {
         ApiResponse apiResponse = tradeService.create(tradeDTO);

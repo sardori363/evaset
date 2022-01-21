@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
+import java.sql.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -14,4 +16,13 @@ public class OutlayDto {
     private String name;
     @NotNull(message = "required line")
     private Integer outlayCategoryId;
+    @NotNull(message = "required line")
+    private double totalSum;
+    @NotNull(message = "required line")
+    private List<Integer> branchId;
+    @NotNull(message = "required line")
+    private Integer spenderId;
+    @NotNull(message = "required line")
+    private String description;
+    private Date date;
 }

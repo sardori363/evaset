@@ -30,7 +30,7 @@ public class AttachmentController {
     @Autowired
     AttachmentContentRepository attachmentContentRepository;
 
-    @CheckPermission("UPLOAD_MEDIA")
+//    @CheckPermission("UPLOAD_MEDIA")
     @PostMapping("/upload")
     public ApiResponse uploadFile(MultipartHttpServletRequest request) throws IOException {
         Iterator<String> fileNames = request.getFileNames();

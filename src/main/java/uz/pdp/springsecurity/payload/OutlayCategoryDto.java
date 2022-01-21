@@ -12,6 +12,4 @@ import javax.validation.constraints.NotNull;
 public class OutlayCategoryDto {
     @NotNull(message = "required line")
     private String title;
-    @NotNull(message = "required line")
-    private double summa;
 }

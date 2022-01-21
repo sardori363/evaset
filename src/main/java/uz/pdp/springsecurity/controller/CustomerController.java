@@ -21,7 +21,7 @@ public class CustomerController {
     @Autowired
     CustomerService customerService;
 
-    @CheckPermission("ADD_CUSTOMER")
+//    @CheckPermission("ADD_CUSTOMER")
     @PostMapping
     public HttpEntity<?> addAddress(@Valid @RequestBody CustomerDto customerDto) {
         ApiResponse apiResponse = customerService.add(customerDto);

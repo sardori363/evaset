@@ -15,7 +15,7 @@ public class PayStatusController {
     @Autowired
     PayStatusService payStatusService;
 
-    @CheckPermission("ADD_PAY_STATUS")
+//    @CheckPermission("ADD_PAY_STATUS")
     @PostMapping
     public HttpEntity<?> add(@RequestBody PayStatusDto payStatusDto) {
         ApiResponse apiResponse = payStatusService.add(payStatusDto);

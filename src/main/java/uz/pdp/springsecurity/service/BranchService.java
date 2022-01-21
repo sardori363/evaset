@@ -9,6 +9,8 @@ import uz.pdp.springsecurity.payload.BranchDto;
 import uz.pdp.springsecurity.repository.AddressRepository;
 import uz.pdp.springsecurity.repository.BranchRepository;
 
+import java.util.Optional;
+
 @Service
 public class BranchService {
     @Autowired
@@ -21,8 +23,10 @@ public class BranchService {
         Branch branch = new Branch();
 
         branch.setName(branchDto.getName());
-        if (!addressRepository.existsById(branchDto.getAddressId())) return new ApiResponse("Address not found",false);
-        branch.setAddress(branch.getAddress());
+
+        Optional<Address> byId = addressRepository.findById(branchDto.getAddressId());
+        if (!byId.isPresent()) return new ApiResponse("Address not found",false);
+        branch.setAddress(byId.get());
 
         branchRepository.save(branch);
         return new ApiResponse("Branch successfully saved",true);
