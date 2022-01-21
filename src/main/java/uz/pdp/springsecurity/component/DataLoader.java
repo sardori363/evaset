@@ -5,15 +5,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import uz.pdp.springsecurity.entity.PaymentMethod;
-import uz.pdp.springsecurity.entity.PaymentStatus;
-import uz.pdp.springsecurity.entity.Role;
-import uz.pdp.springsecurity.entity.User;
+import uz.pdp.springsecurity.entity.*;
 import uz.pdp.springsecurity.enums.Permissions;
-import uz.pdp.springsecurity.repository.PayMethodRepository;
-import uz.pdp.springsecurity.repository.PaymentStatusRepository;
-import uz.pdp.springsecurity.repository.RoleRepository;
-import uz.pdp.springsecurity.repository.UserRepository;
+import uz.pdp.springsecurity.repository.*;
 import uz.pdp.springsecurity.util.Constants;
 
 
@@ -41,6 +35,8 @@ public class DataLoader implements CommandLineRunner {
     @Autowired
     PayMethodRepository payMethodRepository;
 
+    @Autowired
+    ExchangeStatusRepository exchangeStatusRepository;
     @Value("${spring.sql.init.mode}")
     private String initMode;
 
@@ -129,6 +125,21 @@ public class DataLoader implements CommandLineRunner {
                     "To'lanmagan"
             ));
         }
+        List<ExchangeStatus> exchangeStatusRepositoryAll = exchangeStatusRepository.findAll();
+        if (exchangeStatusRepositoryAll.isEmpty()) {
+            exchangeStatusRepository.save(new ExchangeStatus(
+                    "Buyurtma berildi"
+            ));
+
+            exchangeStatusRepository.save(new ExchangeStatus(
+                    "Kutilmoqda"
+            ));
+
+            exchangeStatusRepository.save(new ExchangeStatus(
+                    "Qabul qilinndi"
+            ));
+        }
+
         List<PaymentMethod> all1 = payMethodRepository.findAll();
         if (all1.isEmpty()) {
             payMethodRepository.save(new PaymentMethod(

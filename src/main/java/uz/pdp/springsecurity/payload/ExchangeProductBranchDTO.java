@@ -15,7 +15,7 @@ public class ExchangeProductBranchDTO {
 
     private Integer shippedBranchId;
 
-    private List<Integer> receivedBranch;
+    private Integer receivedBranchId;
 
     private Date exchangeDate;
 

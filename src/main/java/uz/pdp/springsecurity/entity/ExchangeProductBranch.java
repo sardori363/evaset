@@ -9,6 +9,7 @@ import uz.pdp.springsecurity.entity.template.AbsEntity;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import java.sql.Date;
 import java.util.List;
 
@@ -19,8 +20,8 @@ import java.util.List;
 @Data
 public class ExchangeProductBranch extends AbsEntity {
 
-    @OneToMany
-    private List<Branch> shippedBranch;
+    @OneToOne
+    private Branch shippedBranch;
 
     @ManyToOne
     private Branch receivedBranch;
@@ -32,5 +33,6 @@ public class ExchangeProductBranch extends AbsEntity {
     @OneToMany
     private List<ExchangeProduct> exchangeProduct;
 
-    private String status;
+    @OneToOne
+   private ExchangeStatus exchangeStatus;
 }
