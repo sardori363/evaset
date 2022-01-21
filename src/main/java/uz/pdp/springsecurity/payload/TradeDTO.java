@@ -29,7 +29,7 @@ public class TradeDTO {
 
     private Integer branchId;
 
-    private Integer paymentStatusId;
+//    private Integer paymentStatusId;
 
     private Integer payMethodId;
     /**

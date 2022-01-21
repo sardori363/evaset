@@ -42,7 +42,7 @@ public class ProductService {
         Product product = new Product();
         product = addProductDtotoProduct(product, productDto);
         productRepository.save(product);
-        return new ApiResponse(true, product);
+        return new ApiResponse("SAVED",true, product);
     }
 
     public ApiResponse editProduct(Integer id, ProductDto productDto) {
@@ -79,7 +79,7 @@ public class ProductService {
 
     public ApiResponse deleteProducts() {
         productRepository.deleteAll();
-        return new ApiResponse(true);
+        return new ApiResponse("DELETED",true);
     }
 
     Product addProductDtotoProduct(Product product, ProductDto productDto) {
