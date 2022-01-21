@@ -5,10 +5,13 @@ import org.springframework.stereotype.Service;
 import uz.pdp.springsecurity.entity.Branch;
 import uz.pdp.springsecurity.entity.ExchangeProduct;
 import uz.pdp.springsecurity.entity.ExchangeProductBranch;
+import uz.pdp.springsecurity.entity.Product;
 import uz.pdp.springsecurity.payload.ApiResponse;
 import uz.pdp.springsecurity.payload.ExchangeProductBranchDTO;
+import uz.pdp.springsecurity.payload.ExchangeProductDTO;
 import uz.pdp.springsecurity.repository.BranchRepository;
 import uz.pdp.springsecurity.repository.ExchangeProductBranchRepository;
+import uz.pdp.springsecurity.repository.ProductRepository;
 
 import java.sql.Date;
 import java.util.List;
@@ -22,6 +25,9 @@ public class ExchangeProductBranchService {
 
     @Autowired
     BranchRepository branchRepository;
+
+    @Autowired
+    ProductRepository productRepository;
 
     public ApiResponse create(ExchangeProductBranchDTO exchangeProductBranchDTO) {
         ExchangeProductBranch exchangeProductBranch = new ExchangeProductBranch();
@@ -45,7 +51,11 @@ public class ExchangeProductBranchService {
 
         exchangeProductBranch.setDescription(exchangeProductBranchDTO.getDescription());
 
-        List<ExchangeProduct> exchangeProduct = exchangeProductBranch.getExchangeProduct();
+        List<ExchangeProductDTO> exchangeProductDTOS = exchangeProductBranchDTO.getExchangeProductDTOS();
+        for (ExchangeProductDTO productDTO : exchangeProductDTOS) {
+            Optional<Product> byIdAndBranch_id = productRepository.findByIdAndBranch_Id(productDTO.getProductExchangeId(), optionalBranch.get().getId());
+
+        }
 
         return null;
     }

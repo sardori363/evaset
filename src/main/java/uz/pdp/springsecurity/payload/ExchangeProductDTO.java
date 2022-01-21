@@ -15,5 +15,5 @@ public class ExchangeProductDTO {
     private Integer exchangeProductQuantity;
 
     @NotNull(message = "required line")
-    private Integer productTradeId;
+    private Integer productExchangeId;
 }

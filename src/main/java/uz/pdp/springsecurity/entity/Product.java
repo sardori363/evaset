@@ -29,6 +29,7 @@ public class Product extends AbsEntity {
     @ManyToOne
     private Brand brand;
 
+
     @ManyToOne
     private Category category;
 
