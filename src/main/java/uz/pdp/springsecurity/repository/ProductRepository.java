@@ -13,6 +13,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     Optional<Product> findByName(String name);
 
+    Optional<Product> findByIdAndBranch_Id(Integer id, Integer branch_id);
+
     List<Product> findAllByBarcode(long barcode);
 
     List<Product> findAllByCategory_Id(Integer category_id);
