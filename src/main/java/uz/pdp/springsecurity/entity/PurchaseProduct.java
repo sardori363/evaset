@@ -15,7 +15,7 @@ import javax.persistence.OneToOne;
 @NoArgsConstructor
 @Data
 public class PurchaseProduct extends AbsEntity {
-    private Integer quantity;
+    private Integer purchasedQuantity;
     @OneToOne
     private Product product;
 }

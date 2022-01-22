@@ -38,5 +38,5 @@ public class Purchase extends AbsEntity {
     private double deliveryPrice;
 
     @OneToMany
-    private List<PurchaseProduct> purchaseProducts;
+    private List<PurchaseProduct> purchaseProductList;
 }
