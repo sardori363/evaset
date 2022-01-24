@@ -4,6 +4,7 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import uz.pdp.springsecurity.payload.ProductTradeDto;
 import uz.pdp.springsecurity.payload.TradeDTO;
 import uz.pdp.springsecurity.repository.*;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -67,6 +69,8 @@ public class TradeService {
     public ApiResponse create(TradeDTO tradeDTO) {
         Trade trade = new Trade();
         ApiResponse apiResponse = addTraade(trade, tradeDTO);
+
+
 
         return apiResponse;
     }
@@ -301,5 +305,20 @@ public class TradeService {
     public ApiResponse deleteAllByTraderId(Integer trader_id) {
         tradeRepository.deleteAllByTrader_Id(trader_id);
         return new ApiResponse("deleted",true);
+    }
+
+    public ApiResponse createPdf(Integer id) throws FileNotFoundException {
+        Optional<Trade> optional = tradeRepository.findById(id);
+        Trade trade = optional.get();
+        Branch branch = trade.getBranch();
+
+        String path = "src/main/resources/pdfFiles/test.pdf";
+        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(path));
+        Document document = new Document(pdfDocument);
+
+        Paragraph paragraph = new Paragraph(branch.getName());
+        document.add(paragraph);
+        document.close();
+        return new ApiResponse("zor",true);
     }
 }

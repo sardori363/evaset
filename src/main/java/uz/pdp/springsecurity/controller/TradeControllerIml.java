@@ -10,6 +10,7 @@ import uz.pdp.springsecurity.payload.TradeDTO;
 import uz.pdp.springsecurity.repository.TradeRepository;
 import uz.pdp.springsecurity.service.TradeService;
 
+import java.io.FileNotFoundException;
 import java.util.Date;
 
 @RestController
@@ -125,4 +126,12 @@ public class TradeControllerIml {
         ApiResponse apiResponse = tradeService.getByAddress(address_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
+
+    @GetMapping("/get-pdf/{id}")
+    public HttpEntity<?> getPdf(@PathVariable Integer id) throws FileNotFoundException {
+        ApiResponse apiResponse = tradeService.createPdf(id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+
 }
