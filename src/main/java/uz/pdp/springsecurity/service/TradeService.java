@@ -1,5 +1,10 @@
 package uz.pdp.springsecurity.service;
 
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uz.pdp.springsecurity.entity.*;
@@ -58,6 +63,7 @@ public class TradeService {
         return new ApiResponse("NOT FOUND", false);
     }
 
+    @SneakyThrows
     public ApiResponse create(TradeDTO tradeDTO) {
         Trade trade = new Trade();
         ApiResponse apiResponse = addTraade(trade, tradeDTO);
