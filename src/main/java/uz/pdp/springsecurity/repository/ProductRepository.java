@@ -1,8 +1,6 @@
 package uz.pdp.springsecurity.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import uz.pdp.springsecurity.entity.Category;
 import uz.pdp.springsecurity.entity.Product;
 
 import java.sql.Date;

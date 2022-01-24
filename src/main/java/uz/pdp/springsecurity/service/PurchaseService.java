@@ -42,6 +42,37 @@ public class PurchaseService {
         return apiResponse;
     }
 
+    public ApiResponse edit(Integer id, PurchaseDto purchaseDto) {
+        Optional<Purchase> optionalPurchase = purchaseRepository.findById(id);
+        if (!optionalPurchase.isPresent()) return new ApiResponse("purchase not found",false);
+
+        Purchase purchase = optionalPurchase.get();
+        ApiResponse apiResponse = addPurchase(purchase,purchaseDto);
+
+        if (!apiResponse.isSuccess()) return new ApiResponse("error",false);
+        return new ApiResponse("Edited",true);
+    }
+
+    public ApiResponse get(Integer id) {
+        if (!purchaseRepository.existsById(id)) return new ApiResponse("purchase not found",false);
+        return new ApiResponse("found",true,purchaseRepository.findById(id).get());
+    }
+
+    public ApiResponse getAll() {
+        return new ApiResponse("catch",true,purchaseRepository.findAll());
+    }
+
+    public ApiResponse delete(Integer id) {
+        if (!purchaseRepository.existsById(id)) return new ApiResponse("purchase not found",false);
+        purchaseRepository.deleteById(id);
+        return new ApiResponse("purchase deleted",false);
+    }
+
+    public ApiResponse deleteAll() {
+        purchaseRepository.deleteAll();
+        return new ApiResponse("purchases removed",true);
+    }
+
     private ApiResponse addPurchase(Purchase purchase, PurchaseDto purchaseDto) {
         Optional<Supplier> optionalSupplier = supplierRepository.findById(purchaseDto.getDealerId());
         if (!optionalSupplier.isPresent()) return new ApiResponse("supplier not found",false);
