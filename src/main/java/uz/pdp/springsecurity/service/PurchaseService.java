@@ -8,6 +8,7 @@ import uz.pdp.springsecurity.payload.PurchaseDto;
 import uz.pdp.springsecurity.payload.PurchaseProductDto;
 import uz.pdp.springsecurity.repository.*;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -129,5 +130,41 @@ public class PurchaseService {
         purchaseRepository.save(purchase);
 
         return new ApiResponse("SAVED" , true);
+    }
+
+    public ApiResponse getByDealerId(Integer dealer_id) {
+        List<Purchase> allByDealer_id = purchaseRepository.findAllByDealer_Id(dealer_id);
+        if (allByDealer_id.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByDealer_id);
+    }
+
+    public ApiResponse getByPurchaseStatusId(Integer purchaseStatus_id) {
+        List<Purchase> allByPurchaseStatus_id = purchaseRepository.findAllByPurchaseStatus_Id(purchaseStatus_id);
+        if (allByPurchaseStatus_id.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByPurchaseStatus_id);
+    }
+
+    public ApiResponse getByPaymentStatusId(Integer paymentStatus_id) {
+        List<Purchase> allByPaymentStatus_id = purchaseRepository.findAllByPaymentStatus_Id(paymentStatus_id);
+        if (allByPaymentStatus_id.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByPaymentStatus_id);
+    }
+
+    public ApiResponse getByBranchId(Integer branch_id) {
+        List<Purchase> allByBranch_id = purchaseRepository.findAllByBranch_Id(branch_id);
+        if (allByBranch_id.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByBranch_id);
+    }
+
+    public ApiResponse getByDate(Date date) {
+        List<Purchase> allByDate = purchaseRepository.findAllByDate(date);
+        if (allByDate.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByDate);
+    }
+
+    public ApiResponse getByTotalSum(double totalSum) {
+        List<Purchase> allByTotalSum = purchaseRepository.findAllByTotalSum(totalSum);
+        if (allByTotalSum.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByTotalSum);
     }
 }
