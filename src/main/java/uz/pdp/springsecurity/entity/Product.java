@@ -23,7 +23,7 @@ public class Product extends AbsEntity {
     @Column(nullable = false)
     private Integer quantity;
 
-    @Column(nullable = false,unique = true)
+//    @Column(nullable = false,unique = true)
     private long barcode;
 
     @ManyToOne

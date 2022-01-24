@@ -4,7 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import uz.pdp.springsecurity.entity.ExchangeProduct;
+import uz.pdp.springsecurity.entity.ExchangeStatus;
 
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import java.sql.Date;
 import java.util.List;
 
@@ -20,6 +23,8 @@ public class ExchangeProductBranchDTO {
     private Date exchangeDate;
 
     private String description;
+
+    private Integer exchangeStatusId;
 
     private List<ExchangeProductDTO> exchangeProductDTOS;
 

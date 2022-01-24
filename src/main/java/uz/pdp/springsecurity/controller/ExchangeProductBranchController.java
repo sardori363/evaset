@@ -17,7 +17,7 @@ public class ExchangeProductBranchController {
     ExchangeProductBranchService exchangeProductBrancService;
 
 
-    @CheckPermission("ADD_TRADE")
+//    @CheckPermission("ADD_TRADE")
     @PostMapping
     public HttpEntity<?> create(@RequestBody ExchangeProductBranchDTO exchangeProductBranchDTO) {
         ApiResponse apiResponse = exchangeProductBrancService.create(exchangeProductBranchDTO);

@@ -34,5 +34,5 @@ public class ExchangeProductBranch extends AbsEntity {
     private List<ExchangeProduct> exchangeProduct;
 
     @OneToOne
-   private ExchangeStatus exchangeStatus;
+    private ExchangeStatus exchangeStatus;
 }
