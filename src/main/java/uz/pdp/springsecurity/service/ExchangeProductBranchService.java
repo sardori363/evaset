@@ -41,19 +41,31 @@ public class ExchangeProductBranchService {
 
         Integer receivedBranch = exchangeProductBranchDTO.getReceivedBranchId();
         Optional<Branch> branchOptional = branchRepository.findById(receivedBranch);
-        if (!   branchOptional.isPresent()) {
+        if (!branchOptional.isPresent()) {
             return new ApiResponse("NOT FOUND RECEIVED BRANCH", false);
         }
         exchangeProductBranch.setReceivedBranch(branchOptional.get());
 
-        Date date = new Date(System.currentTimeMillis());
-        exchangeProductBranch.setExchangeDate(date);
+        if (exchangeProductBranchDTO.getExchangeDate() == null) {
+            Date date = new Date(System.currentTimeMillis());
+            exchangeProductBranch.setExchangeDate(date);
+        } else {
+            exchangeProductBranch.setExchangeDate(exchangeProductBranchDTO.getExchangeDate());
+        }
 
         exchangeProductBranch.setDescription(exchangeProductBranchDTO.getDescription());
 
         List<ExchangeProductDTO> exchangeProductDTOS = exchangeProductBranchDTO.getExchangeProductDTOS();
         for (ExchangeProductDTO productDTO : exchangeProductDTOS) {
-            Optional<Product> byIdAndBranch_id = productRepository.findByIdAndBranch_Id(productDTO.getProductExchangeId(), optionalBranch.get().getId());
+            Optional<Product> exchangeProduct = productRepository.findByIdAndBranch_Id(productDTO.getProductExchangeId(), optionalBranch.get().getId());
+
+            Product product = exchangeProduct.get();
+            product.setQuantity(product.getQuantity() - productDTO.getExchangeProductQuantity());
+            productRepository.save(product);
+
+            Optional<Product> optionalProduct = productRepository.findByNameAndBranch_Id(product.getName(), receivedBranch);
+            Product receiveProduct = optionalProduct.get();
+
 
         }
 
