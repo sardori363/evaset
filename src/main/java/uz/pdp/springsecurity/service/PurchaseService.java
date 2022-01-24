@@ -21,7 +21,7 @@ public class PurchaseService {
     PurchaseProductRepository purchaseProductRepository;
 
     @Autowired
-    PurchaseProductRepository productRepository;
+    ProductRepository productRepository;
 
     @Autowired
     SupplierRepository supplierRepository;
@@ -59,11 +59,44 @@ public class PurchaseService {
         if (!optionalBranch.isPresent()) return new ApiResponse("branch not found",false);
         purchase.setBranch(optionalBranch.get());
 
+        List<PurchaseProductDto> purchaseProductsDto = purchaseDto.getPurchaseProductsDto();
+        List<PurchaseProduct> purchaseProductList = new ArrayList<>();
+        double sum = 0;
+        for (PurchaseProductDto purchaseProductDto : purchaseProductsDto) {
+            PurchaseProduct purchaseProduct = new PurchaseProduct();
+
+            Integer productPurchaseId = purchaseProductDto.getProductPurchaseId();
+            Optional<Product> optionalProduct = productRepository.findById(productPurchaseId);
+            Product product = optionalProduct.get();
+
+            Integer purchasedQuantity = purchaseProductDto.getPurchasedQuantity();
+
+            double buyPrice = optionalProduct.get().getBuyPrice();
+
+            sum = sum+buyPrice*purchasedQuantity;
+
+            product.setQuantity(product.getQuantity()+purchasedQuantity);
+            productRepository.save(product);
+
+            purchaseProduct.setProduct(optionalProduct.get());
+            purchaseProduct.setPurchasedQuantity(purchasedQuantity);
+
+            purchaseProductRepository.save(purchaseProduct);
+            purchaseProductList.add(purchaseProduct);
+        }
+
+        purchase.setTotalSum(sum+purchaseDto.getDeliveryPrice());
+
+        purchase.setPurchaseProductList(purchaseProductList);
+
         purchase.setDate(purchaseDto.getDate());
+
         purchase.setDescription(purchaseDto.getDescription());
+
         purchase.setDeliveryPrice(purchaseDto.getDeliveryPrice());
 
+        purchaseRepository.save(purchase);
 
-        return null;
+        return new ApiResponse("SAVED" , true);
     }
 }
