@@ -8,6 +8,7 @@ import uz.pdp.springsecurity.payload.PurchaseDto;
 import uz.pdp.springsecurity.payload.PurchaseProductDto;
 import uz.pdp.springsecurity.repository.*;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -40,6 +41,37 @@ public class PurchaseService {
         ApiResponse apiResponse = addPurchase(purchase, purchaseDto);
 
         return apiResponse;
+    }
+
+    public ApiResponse edit(Integer id, PurchaseDto purchaseDto) {
+        Optional<Purchase> optionalPurchase = purchaseRepository.findById(id);
+        if (!optionalPurchase.isPresent()) return new ApiResponse("purchase not found",false);
+
+        Purchase purchase = optionalPurchase.get();
+        ApiResponse apiResponse = addPurchase(purchase,purchaseDto);
+
+        if (!apiResponse.isSuccess()) return new ApiResponse("error",false);
+        return new ApiResponse("Edited",true);
+    }
+
+    public ApiResponse get(Integer id) {
+        if (!purchaseRepository.existsById(id)) return new ApiResponse("purchase not found",false);
+        return new ApiResponse("found",true,purchaseRepository.findById(id).get());
+    }
+
+    public ApiResponse getAll() {
+        return new ApiResponse("catch",true,purchaseRepository.findAll());
+    }
+
+    public ApiResponse delete(Integer id) {
+        if (!purchaseRepository.existsById(id)) return new ApiResponse("purchase not found",false);
+        purchaseRepository.deleteById(id);
+        return new ApiResponse("purchase deleted",false);
+    }
+
+    public ApiResponse deleteAll() {
+        purchaseRepository.deleteAll();
+        return new ApiResponse("purchases removed",true);
     }
 
     private ApiResponse addPurchase(Purchase purchase, PurchaseDto purchaseDto) {
@@ -98,5 +130,41 @@ public class PurchaseService {
         purchaseRepository.save(purchase);
 
         return new ApiResponse("SAVED" , true);
+    }
+
+    public ApiResponse getByDealerId(Integer dealer_id) {
+        List<Purchase> allByDealer_id = purchaseRepository.findAllByDealer_Id(dealer_id);
+        if (allByDealer_id.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByDealer_id);
+    }
+
+    public ApiResponse getByPurchaseStatusId(Integer purchaseStatus_id) {
+        List<Purchase> allByPurchaseStatus_id = purchaseRepository.findAllByPurchaseStatus_Id(purchaseStatus_id);
+        if (allByPurchaseStatus_id.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByPurchaseStatus_id);
+    }
+
+    public ApiResponse getByPaymentStatusId(Integer paymentStatus_id) {
+        List<Purchase> allByPaymentStatus_id = purchaseRepository.findAllByPaymentStatus_Id(paymentStatus_id);
+        if (allByPaymentStatus_id.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByPaymentStatus_id);
+    }
+
+    public ApiResponse getByBranchId(Integer branch_id) {
+        List<Purchase> allByBranch_id = purchaseRepository.findAllByBranch_Id(branch_id);
+        if (allByBranch_id.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByBranch_id);
+    }
+
+    public ApiResponse getByDate(Date date) {
+        List<Purchase> allByDate = purchaseRepository.findAllByDate(date);
+        if (allByDate.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByDate);
+    }
+
+    public ApiResponse getByTotalSum(double totalSum) {
+        List<Purchase> allByTotalSum = purchaseRepository.findAllByTotalSum(totalSum);
+        if (allByTotalSum.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByTotalSum);
     }
 }

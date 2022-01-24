@@ -120,11 +120,13 @@ public class ExchangeProductBranchService {
 
 
     public ApiResponse getAll() {
-        return null;
+        return new ApiResponse("catch", true, exchangeProductBranchRepository.findAll());
     }
 
     public ApiResponse getOne(Integer id) {
-        return null;
+        Optional<ExchangeProductBranch> byId = exchangeProductBranchRepository.findById(id);
+        if (!byId.isPresent()) return new ApiResponse("not found", false);
+        return new ApiResponse("found", true, byId);
     }
 
     public ApiResponse edit(Integer id, ExchangeProductBranchDTO exchangeProductBranchDTO) {
@@ -132,22 +134,25 @@ public class ExchangeProductBranchService {
     }
 
     public ApiResponse deleteTrade(Integer id) {
-        return null;
+        Optional<ExchangeProductBranch> byId = exchangeProductBranchRepository.findById(id);
+        if (!byId.isPresent()) return new ApiResponse("not found", false);
+        return new ApiResponse("found", true, byId);
     }
 
     public ApiResponse deleteAll() {
-        return null;
+        exchangeProductBranchRepository.deleteAll();
+        return new ApiResponse("exchanges removed", true);
     }
 
-    public ApiResponse getByBranchId(Integer branch_id) {
-        return null;
+    public ApiResponse getByStatusId(Integer exchangeStatus_id) {
+        List<ExchangeProductBranch> allByExchangeStatus_id = exchangeProductBranchRepository.findAllByExchangeStatus_Id(exchangeStatus_id);
+        if (allByExchangeStatus_id.isEmpty()) return new ApiResponse("not found", false);
+        return new ApiResponse("found", true, allByExchangeStatus_id);
     }
 
-    public ApiResponse shippedByBranchId(Integer branch_id) {
-        return null;
-    }
-
-    public ApiResponse getByStatusId(Integer paymentStatus_id) {
-        return null;
+    public ApiResponse getByDate(Date exchangeDate) {
+        List<ExchangeProductBranch> allByExchangeDate = exchangeProductBranchRepository.findAllByExchangeDate(exchangeDate);
+        if (allByExchangeDate.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByExchangeDate);
     }
 }
