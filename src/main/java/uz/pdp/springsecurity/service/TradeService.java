@@ -1,10 +1,5 @@
 package uz.pdp.springsecurity.service;
 
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.element.Table;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -308,17 +303,7 @@ public class TradeService {
     }
 
     public ApiResponse createPdf(Integer id) throws FileNotFoundException {
-        Optional<Trade> optional = tradeRepository.findById(id);
-        Trade trade = optional.get();
-        Branch branch = trade.getBranch();
 
-        String path = "src/main/resources/pdfFiles/test.pdf";
-        PdfDocument pdfDocument = new PdfDocument(new PdfWriter(path));
-        Document document = new Document(pdfDocument);
-
-        Paragraph paragraph = new Paragraph(branch.getName());
-        document.add(paragraph);
-        document.close();
         return new ApiResponse("zor",true);
     }
 }
