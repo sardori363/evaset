@@ -48,6 +48,7 @@ public class Test {
         paragraph3.add(text1);
         paragraph3.add(id);
 
+
         Paragraph date = new Paragraph();
         Text dateTime = new Text("2020/01/01");
         Text dateText = new Text("Date: ");
@@ -55,8 +56,6 @@ public class Test {
         dateText.setFontSize(14);
         date.add(dateText);
         date.add(dateTime);
-        date.setMarginLeft(300);
-        paragraph3.add(date);
 
         Paragraph customer = new Paragraph();
         Text custValue = new Text("Supplier");
@@ -66,6 +65,29 @@ public class Test {
         customer.add(custText);
         customer.add(custValue);
 
+        Paragraph seller = new Paragraph();
+        Text sellerText = new Text("Seller: ");
+        Text sellerValue = new Text("Sardorbek");
+        sellerText.setFontSize(14);
+        sellerText.setBold();
+        seller.add(sellerText);
+        seller.add(sellerValue);
+
+        Table header = new Table(2);
+        Cell row1 = new Cell();
+        row1.add(paragraph3);
+        row1.add(customer);
+        Cell row2 = new Cell();
+        row2.add(date);
+        row2.add(seller);
+        row1.setBorder(Border.NO_BORDER);
+        row2.setBorder(Border.NO_BORDER);
+        row2.setTextAlignment(TextAlignment.RIGHT);
+        row1.setWidth(new UnitValue(UnitValue.PERCENT , 50));
+        row2.setWidth(new UnitValue(UnitValue.PERCENT , 50));
+        header.setWidth(new UnitValue(UnitValue.PERCENT , 100));
+        header.addCell(row1);
+        header.addCell(row2);
 
         Table table = new Table(2);
         Text productText = new Text("Product: ");
@@ -108,6 +130,40 @@ public class Test {
         table.addCell(col1);
         table.addCell(col2);
 
+        Table total = new Table(2);
+        Text subtotalText = new Text("Subtotal: ");
+        subtotalText.setBold();
+        subtotalText.setFontSize(14);
+        Text totalsum = new Text("Total: ");
+        totalsum.setFontSize(14);
+        totalsum.setBold();
+        Cell sub = new Cell();
+        sub.add(new Paragraph(subtotalText));
+        sub.add(new Paragraph(totalsum));
+
+        Cell value = new Cell();
+        Text subtotalValue = new Text("0");
+        subtotalValue.setFontSize(14);
+        Text totalsumValue = new Text("0");
+        totalsumValue.setFontSize(14);
+        value.add(new Paragraph(subtotalValue));
+        value.add(new Paragraph(totalsumValue));
+
+        total.addCell(sub);
+        total.addCell(value);
+
+        total.setWidth(new UnitValue(UnitValue.PERCENT, 50));
+        value.setWidth(new UnitValue(UnitValue.PERCENT, 50));
+        sub.setWidth(new UnitValue(UnitValue.PERCENT, 50));
+
+        value.setTextAlignment(TextAlignment.RIGHT);
+        sub.setTextAlignment(TextAlignment.LEFT);
+
+        total.setMarginTop(50);
+        sub.setBorder(Border.NO_BORDER);
+        value.setBorder(Border.NO_BORDER);
+        total.setBorderTop(new SolidBorder(1));
+
         table.setWidth(new UnitValue(UnitValue.PERCENT, 100));
         col1.setWidth(new UnitValue(UnitValue.PERCENT, 50));
         col2.setWidth(new UnitValue(UnitValue.PERCENT, 50));
@@ -115,16 +171,18 @@ public class Test {
         columns.setTextAlignment(TextAlignment.CENTER);
         table.setMarginTop(30);
 
+        Paragraph right = new Paragraph();
+        right.setTextAlignment(TextAlignment.RIGHT);
+        right.add(total);
+
+
         document.add(paragraph);
         document.add(paragraph1);
         document.add(paragraph2);
-        document.add(paragraph3);
-        document.add(customer);
+        document.add(header);
         document.add(table);
-
+        document.add(right);
 
         document.close();
-        System.out.println("PDF Created");
-
     }
 }
