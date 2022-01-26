@@ -20,6 +20,7 @@ public class UserDto {
     private String password;
     @NotNull(message = "required line")
     private Integer roleId;
+    private Integer branchId;
     @NotNull(message = "required line")
     private Boolean enabled;
 }
