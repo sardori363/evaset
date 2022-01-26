@@ -3,11 +3,14 @@ package uz.pdp.springsecurity;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
+import com.itextpdf.layout.borders.Border;
+import com.itextpdf.layout.borders.SolidBorder;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.properties.TextAlignment;
+import com.itextpdf.layout.properties.UnitValue;
 import lombok.SneakyThrows;
 
 import java.text.ParseException;
@@ -65,8 +68,8 @@ public class Test {
 
 
         Table table = new Table(2);
-        Text product = new Text("Product: ");
-        product.setBold();
+        Text productText = new Text("Product: ");
+        productText.setBold();
         Text quantityText = new Text("Quantity");
         quantityText.setBold();
         Text unitText = new Text("Unit Price");
@@ -77,7 +80,7 @@ public class Test {
         custText.setBold();
         Cell col1 = new Cell();
         Cell col2 = new Cell();
-        col1.add(new Paragraph(product));
+        col1.add(new Paragraph(productText));
 
         Table columns = new Table(3);
         Cell quantity = new Cell();
@@ -91,18 +94,24 @@ public class Test {
         columns.addCell(totalSum);
         col2.add(columns);
 
-//        col1.setBorder(Border.NO_BORDER);
-//        col2.setBorder(Border.NO_BORDER);
-//        quantity.setBorder(Border.NO_BORDER);
-//        unitPrice.setBorder(Border.NO_BORDER);
-//        totalSum.setBorder(Border.NO_BORDER);
+        col1.setBorder(Border.NO_BORDER);
+        col2.setBorder(Border.NO_BORDER);
+        quantity.setBorder(Border.NO_BORDER);
+        unitPrice.setBorder(Border.NO_BORDER);
+        totalSum.setBorder(Border.NO_BORDER);
+        table.setBorderTop(new SolidBorder(1));
+        quantity.setBorderRight(new SolidBorder(1));
+        quantity.setBorderLeft(new SolidBorder(1));
+        unitPrice.setBorderRight(new SolidBorder(1));
 
 
         table.addCell(col1);
         table.addCell(col2);
 
-        table.setWidth(500);
-        columns.setWidth(250);
+        table.setWidth(new UnitValue(UnitValue.PERCENT, 100));
+        col1.setWidth(new UnitValue(UnitValue.PERCENT, 50));
+        col2.setWidth(new UnitValue(UnitValue.PERCENT, 50));
+        columns.setWidth(new UnitValue(UnitValue.PERCENT, 100));
         columns.setTextAlignment(TextAlignment.CENTER);
         table.setMarginTop(30);
 
