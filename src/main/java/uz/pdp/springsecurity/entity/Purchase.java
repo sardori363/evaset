@@ -23,6 +23,9 @@ public class Purchase extends AbsEntity {
     private Supplier dealer;
 
     @OneToOne
+    private User seller;
+
+    @OneToOne
     private ExchangeStatus purchaseStatus;
 
     @OneToOne
