@@ -26,10 +26,11 @@ import java.nio.file.Path;
 import java.util.List;
 
 public class PDFService {
-    public void createPdf(Trade trade , HttpServletResponse response) throws IOException {
+    static String path = "src/main/resources/invoice.pdf";
+
+    public void createPdf(Trade trade, HttpServletResponse response) throws IOException {
 
         Address address = trade.getAddress();
-        String path = "src/main/resources/invoice.pdf";
         PdfWriter writer = new PdfWriter(path);
         PdfDocument pdfDocument = new PdfDocument(writer);
         pdfDocument.addNewPage();
@@ -221,13 +222,12 @@ public class PDFService {
 
         document.close();
 
-        String url = "src/main/resources/invoice.pdf";
-        File file = new File(url);
+        File file = new File(path);
         byte[] aByte = getByte(file);
 
         String mimeType = URLConnection.guessContentTypeFromName(file.getName());
 
-        long size = Files.size(Path.of(url));
+        long size = Files.size(Path.of(path));
 
         response.setContentType(mimeType);
         response.setHeader("Content-Disposition", file.getName() + "/:" + size);
@@ -246,4 +246,7 @@ public class PDFService {
 
         return arr;
     }
+
+
+
 }
