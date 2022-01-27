@@ -40,6 +40,9 @@ public class User extends AbsEntity implements UserDetails {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Role role;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Branch branch;
+
     //yoqilgan
     private boolean enabled = false;
     //muddati tugamagan
@@ -68,7 +71,5 @@ public class User extends AbsEntity implements UserDetails {
         }
         return grantedAuthorities;
     }
-
-
 }
 

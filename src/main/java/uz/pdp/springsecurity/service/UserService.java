@@ -4,11 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import uz.pdp.springsecurity.entity.Branch;
 import uz.pdp.springsecurity.entity.Role;
 import uz.pdp.springsecurity.entity.User;
 import uz.pdp.springsecurity.payload.ApiResponse;
 import uz.pdp.springsecurity.payload.ProfileDto;
 import uz.pdp.springsecurity.payload.UserDto;
+import uz.pdp.springsecurity.repository.BranchRepository;
 import uz.pdp.springsecurity.repository.UserRepository;
 
 import java.util.List;
@@ -26,6 +28,9 @@ public class UserService {
     @Autowired
     RoleService roleService;
 
+    @Autowired
+    BranchRepository branchRepository;
+
     public ApiResponse add(UserDto userDto) {
         boolean b = userRepository.existsByUsername(userDto.getUsername());
         if (b) return new ApiResponse("User already exist", false);
@@ -40,6 +45,11 @@ public class UserService {
         user.setUsername(userDto.getUsername());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setRole((Role) response.getObject());
+
+        Optional<Branch> optionalBranch = branchRepository.findById(userDto.getBranchId());
+        if (!optionalBranch.isPresent()) return new ApiResponse("Branch not found",false);
+        user.setBranch(optionalBranch.get());
+
         user.setEnabled(userDto.getEnabled());
         userRepository.save(user);
         return new ApiResponse("Saved", true);
@@ -62,6 +72,11 @@ public class UserService {
         user.setLastName(userDto.getLastName());
         user.setUsername(userDto.getUsername());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+
+        Optional<Branch> optionalBranch = branchRepository.findById(userDto.getBranchId());
+        if (!optionalBranch.isPresent()) return new ApiResponse("Branch not found",false);
+        user.setBranch(optionalBranch.get());
+
         user.setRole((Role) response.getObject());
         user.setEnabled(userDto.getEnabled());
 
