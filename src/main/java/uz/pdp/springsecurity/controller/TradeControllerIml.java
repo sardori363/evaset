@@ -23,7 +23,7 @@ public class TradeControllerIml {
     @Autowired
     TradeRepository tradeRepository;
 
-//    @CheckPermission("ADD_TRADE")
+    @CheckPermission("ADD_TRADE")
     @PostMapping
     public HttpEntity<?> create(@RequestBody TradeDTO tradeDTO) {
         ApiResponse apiResponse = tradeService.create(tradeDTO);
@@ -128,7 +128,7 @@ public class TradeControllerIml {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_USER")
+    @CheckPermission("DOWNLOAD_MEDIA")
     @GetMapping("/get-pdf/{id}")
     public HttpEntity<?> getPdf(@PathVariable Integer id , HttpServletResponse response) throws IOException {
         ApiResponse apiResponse = tradeService.createPdf(id , response);

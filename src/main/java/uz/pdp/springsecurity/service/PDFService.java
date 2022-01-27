@@ -26,7 +26,7 @@ import java.nio.file.Path;
 import java.util.List;
 
 public class PDFService {
-    public void createPdf(Trade trade, HttpServletResponse response) throws IOException {
+    public void createPdf(Trade trade , HttpServletResponse response) throws IOException {
 
         Address address = trade.getAddress();
         String path = "src/main/resources/invoice.pdf";

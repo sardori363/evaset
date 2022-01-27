@@ -9,8 +9,6 @@ import uz.pdp.springsecurity.payload.ApiResponse;
 import uz.pdp.springsecurity.payload.ExchangeProductBranchDTO;
 import uz.pdp.springsecurity.service.ExchangeProductBranchService;
 
-import java.sql.Date;
-
 
 @RestController
 @RequestMapping("/api/exchange-product-brach")
@@ -19,7 +17,7 @@ public class ExchangeProductBranchController {
     ExchangeProductBranchService exchangeProductBrancService;
 
 
-//    @CheckPermission("ADD_TRADE")
+    @CheckPermission("ADD_TRADE")
     @PostMapping
     public HttpEntity<?> create(@RequestBody ExchangeProductBranchDTO exchangeProductBranchDTO) {
         ApiResponse apiResponse = exchangeProductBrancService.create(exchangeProductBranchDTO);

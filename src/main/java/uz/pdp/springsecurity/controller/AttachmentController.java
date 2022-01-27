@@ -12,12 +12,8 @@ import uz.pdp.springsecurity.payload.ApiResponse;
 import uz.pdp.springsecurity.repository.AttachmentContentRepository;
 import uz.pdp.springsecurity.repository.AttachmentRepository;
 
-
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -30,7 +26,7 @@ public class AttachmentController {
     @Autowired
     AttachmentContentRepository attachmentContentRepository;
 
-//    @CheckPermission("UPLOAD_MEDIA")
+    @CheckPermission("UPLOAD_MEDIA")
     @PostMapping("/upload")
     public ApiResponse uploadFile(MultipartHttpServletRequest request) throws IOException {
         Iterator<String> fileNames = request.getFileNames();

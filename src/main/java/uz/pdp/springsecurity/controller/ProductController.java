@@ -2,15 +2,11 @@ package uz.pdp.springsecurity.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uz.pdp.springsecurity.aotations.CheckPermission;
-import uz.pdp.springsecurity.payload.ProductDto;
 import uz.pdp.springsecurity.payload.ApiResponse;
 import uz.pdp.springsecurity.payload.ProductDto;
-import uz.pdp.springsecurity.repository.AddressRepository;
-import uz.pdp.springsecurity.service.AddressService;
 import uz.pdp.springsecurity.service.ProductService;
 
 import javax.validation.Valid;
@@ -23,7 +19,7 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
-//    @CheckPermission("ADD_PRODUCT")
+    @CheckPermission("ADD_PRODUCT")
     @PostMapping()
     public HttpEntity<?> add(@Valid @RequestBody ProductDto productDto) throws ParseException {
         ApiResponse apiResponse = productService.addProduct(productDto);

@@ -83,7 +83,7 @@ public class ExchangeProductBranchService {
             product.setQuantity(product.getQuantity() - productDTO.getExchangeProductQuantity());
             productRepository.save(product);
 
-            Optional<Product> optionalProduct = productRepository.findByNameAndBranch_Id(product.getName(), receivedBranch);
+            Optional<Product> optionalProduct = productRepository.findByBarcodeAndBranch_Id(product.getBarcode(), receivedBranch);
             if (optionalProduct.isPresent()) {
                 Product receiveProduct = optionalProduct.get();
                 receiveProduct.setQuantity(receiveProduct.getQuantity() + productDTO.getExchangeProductQuantity());

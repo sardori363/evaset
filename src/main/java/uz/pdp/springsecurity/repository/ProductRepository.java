@@ -3,7 +3,6 @@ package uz.pdp.springsecurity.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import uz.pdp.springsecurity.entity.Product;
 
-import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,7 +12,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     Optional<Product> findByIdAndBranch_Id(Integer id, Integer branch_id);
 
-    Optional<Product> findByNameAndBranch_Id(String name, Integer branch_id);
+    Optional<Product> findByBarcodeAndBranch_Id(long barcode, Integer branch_id);
 
     List<Product> findAllByBarcode(long barcode);
 
