@@ -36,6 +36,9 @@ public class DataLoader implements CommandLineRunner {
     PayMethodRepository payMethodRepository;
 
     @Autowired
+    CurrencyRepository currencyRepository;
+
+    @Autowired
     ExchangeStatusRepository exchangeStatusRepository;
     @Value("${spring.sql.init.mode}")
     private String initMode;
@@ -152,6 +155,19 @@ public class DataLoader implements CommandLineRunner {
 
             payMethodRepository.save(new PaymentMethod(
                     "Humo"
+            ));
+        }
+
+        List<Currency> currencyList = currencyRepository.findAll();
+        if (currencyList.isEmpty()) {
+            currencyRepository.save(new Currency(
+                    "DOLLAR",
+                    10785.85
+            ));
+
+            currencyRepository.save(new Currency(
+                    "SO'M",
+                    0
             ));
         }
 
