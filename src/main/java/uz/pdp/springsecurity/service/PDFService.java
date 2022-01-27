@@ -26,11 +26,11 @@ import java.nio.file.Path;
 import java.util.List;
 
 public class PDFService {
-    public void createPdf(Trade trade , HttpServletResponse response) throws IOException {
+    public void createPdf(Trade trade, HttpServletResponse response) throws IOException {
 
         Address address = trade.getAddress();
-
-        PdfWriter writer = new PdfWriter("src/main/resources/invoice.pdf");
+        String path = "src/main/resources/invoice.pdf";
+        PdfWriter writer = new PdfWriter(path);
         PdfDocument pdfDocument = new PdfDocument(writer);
         pdfDocument.addNewPage();
         Document document = new Document(pdfDocument);
@@ -159,7 +159,7 @@ public class PDFService {
             quantity.add(new Paragraph(new Text(String.valueOf(tradeProduct.getTradedQuantity()))));
             unitPrice.add(new Paragraph(new Text(String.valueOf(tradeProduct.getProduct().getSalePrice()))));
             totalSum.add(new Paragraph(new Text(String.valueOf(tradeProduct.getTradedQuantity() * tradeProduct.getProduct().getSalePrice()))));
-            subTotal=subTotal+tradeProduct.getTradedQuantity();
+            subTotal = subTotal + tradeProduct.getTradedQuantity();
         }
         Cell value = new Cell();
         Text subtotalValue = new Text(String.valueOf(subTotal));
@@ -167,10 +167,10 @@ public class PDFService {
         String type = "";
         if (trade.getCurrency().getName().equals("DOLLAR")) {
             type = "$";
-        }else {
+        } else {
             type = "so'm";
         }
-        Text totalsumValue = new Text(String.valueOf(trade.getTotalSum())+" "+type);
+        Text totalsumValue = new Text(String.valueOf(trade.getTotalSum()) + " " + type);
         totalsumValue.setFontSize(14);
 
         columns.addCell(quantity);
@@ -221,7 +221,7 @@ public class PDFService {
 
         document.close();
 
-        String url="src/main/resources/invoice.pdf";
+        String url = "src/main/resources/invoice.pdf";
         File file = new File(url);
         byte[] aByte = getByte(file);
 
@@ -230,31 +230,20 @@ public class PDFService {
         long size = Files.size(Path.of(url));
 
         response.setContentType(mimeType);
-        response.setHeader("Content-Disposition",file.getName()+"/:"+size);
+        response.setHeader("Content-Disposition", file.getName() + "/:" + size);
         FileCopyUtils.copy(aByte, response.getOutputStream());
 
+        file.delete();
 
     }
-        public static byte[] getByte(File file)
-        throws IOException
-        {
 
-            // Creating an object of FileInputStream to
-            // read from a file
-            FileInputStream fl = new FileInputStream(file);
+    public static byte[] getByte(File file)
+            throws IOException {
+        FileInputStream fl = new FileInputStream(file);
+        byte[] arr = new byte[(int) file.length()];
+        fl.read(arr);
+        fl.close();
 
-            // Now creating byte array of same length as file
-            byte[] arr = new byte[(int)file.length()];
-
-            // Reading file content to byte array
-            // using standard read() method
-            fl.read(arr);
-
-            // lastly closing an instance of file input stream
-            // to avoid memory leakage
-            fl.close();
-
-            // Returning above byte array
-            return arr;
-        }
+        return arr;
+    }
 }

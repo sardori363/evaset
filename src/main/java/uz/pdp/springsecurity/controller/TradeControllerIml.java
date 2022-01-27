@@ -128,6 +128,7 @@ public class TradeControllerIml {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    @CheckPermission("VIEW_USER")
     @GetMapping("/get-pdf/{id}")
     public HttpEntity<?> getPdf(@PathVariable Integer id , HttpServletResponse response) throws IOException {
         ApiResponse apiResponse = tradeService.createPdf(id , response);
