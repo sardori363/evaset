@@ -3,17 +3,13 @@ package uz.pdp.springsecurity.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uz.pdp.springsecurity.entity.*;
-import uz.pdp.springsecurity.payload.AddressDto;
 import uz.pdp.springsecurity.payload.ApiResponse;
 import uz.pdp.springsecurity.payload.ProductDto;
 import uz.pdp.springsecurity.repository.*;
 
 import javax.validation.Valid;
 import java.sql.Date;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,6 +36,10 @@ public class ProductService {
 
     public ApiResponse addProduct(@Valid ProductDto productDto) throws ParseException {
         Product product = new Product();
+        Optional<Product> optionalProduct = productRepository.findByBarcode(productDto.getBarcode());
+        if (optionalProduct.isPresent()) {
+            return new ApiResponse("BUNDAY SHTRIX KODLI MAXSULOT BOR",false);
+        }
         product = addProductDtotoProduct(product, productDto);
         productRepository.save(product);
         return new ApiResponse("SAVED",true, product);
@@ -55,7 +55,7 @@ public class ProductService {
 
     public ApiResponse getProduct(Integer id) {
         Optional<Product> optionalProduct = productRepository.findById(id);
-        if (!optionalProduct.isPresent()) {
+        if (optionalProduct.isEmpty()) {
             return new ApiResponse("NOT FOUND!", false);
         }
         Product product = optionalProduct.get();
@@ -74,7 +74,7 @@ public class ProductService {
         } else {
             return new ApiResponse("NOT FOUND!", false);
         }
-        return new ApiResponse(true);
+        return new ApiResponse("Deleted",true);
     }
 
     public ApiResponse deleteProducts() {

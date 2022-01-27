@@ -21,7 +21,7 @@ public class CategoryController {
     @Autowired
     CategoryService categoryService;
 
-//    @CheckPermission("ADD_CATEGORY")
+    @CheckPermission("ADD_CATEGORY")
     @PostMapping
     public HttpEntity<?> add(@Valid @RequestBody CategoryDto categoryDto) {
         ApiResponse apiResponse = categoryService.add(categoryDto);

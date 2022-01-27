@@ -3,8 +3,6 @@ package uz.pdp.springsecurity.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.web.bind.annotation.*;
 import uz.pdp.springsecurity.aotations.CheckPermission;
 import uz.pdp.springsecurity.payload.ApiResponse;
@@ -19,7 +17,7 @@ public class RoleController {
     @Autowired
     RoleService roleService;
 
-//    @CheckPermission("ADD_ROLE")
+    @CheckPermission("ADD_ROLE")
     @PostMapping
     public HttpEntity<?> add(@Valid @RequestBody RoleDto roleDto) {
         ApiResponse apiResponse = roleService.add(roleDto);

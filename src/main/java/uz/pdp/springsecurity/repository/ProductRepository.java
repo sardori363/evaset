@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
-    Optional<Product> findByName(String name);
+    Optional<Product> findByBarcode(long barcode);
 
     Optional<Product> findByIdAndBranch_Id(Integer id, Integer branch_id);
 
@@ -21,4 +21,5 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     List<Product> findAllByBrand_Id(Integer brand_id);
 
     List<Product> findAllByBranch_Id(Integer branch_id);
+
 }

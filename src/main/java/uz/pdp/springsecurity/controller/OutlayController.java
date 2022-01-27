@@ -18,14 +18,14 @@ public class OutlayController {
     @Autowired
     OutlayService outlayService;
 
-//    @CheckPermission("ADD_OUTLAY")
+    @CheckPermission("ADD_OUTLAY")
     @PostMapping
     public HttpEntity<?> add(@Valid @RequestBody OutlayDto outlayDto) {
         ApiResponse apiResponse = outlayService.add(outlayDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-//    @CheckPermission("EDIT_OUTLAY")
+    @CheckPermission("EDIT_OUTLAY")
     @PutMapping("/{id}")
     public HttpEntity<?> edit(@PathVariable Integer id, @RequestBody OutlayDto outlayDto) {
         ApiResponse apiResponse = outlayService.edit(id, outlayDto);

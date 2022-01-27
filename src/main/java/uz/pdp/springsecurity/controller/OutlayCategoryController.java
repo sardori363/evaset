@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uz.pdp.springsecurity.aotations.CheckPermission;
 import uz.pdp.springsecurity.payload.ApiResponse;
-import uz.pdp.springsecurity.payload.MeasurementDto;
 import uz.pdp.springsecurity.payload.OutlayCategoryDto;
 import uz.pdp.springsecurity.repository.OutlayCategoryRepository;
 import uz.pdp.springsecurity.service.OutlayCategoryService;
@@ -22,7 +21,7 @@ public class OutlayCategoryController {
     @Autowired
     OutlayCategoryService outlayCategoryService;
 
-//    @CheckPermission("ADD_OUTLAY")
+    @CheckPermission("ADD_OUTLAY")
     @PostMapping
     public HttpEntity<?> add(@Valid @RequestBody OutlayCategoryDto outlayCategoryDto) {
         ApiResponse apiResponse = outlayCategoryService.add(outlayCategoryDto);
