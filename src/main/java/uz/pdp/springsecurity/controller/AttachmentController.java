@@ -84,7 +84,9 @@ public class AttachmentController {
                 response.setContentType(attachment.getContentType());
                 response.setHeader("Content-Disposition", attachment.getFileOriginalName() + "/:" + attachment.getSize());
                 FileCopyUtils.copy(attachmentContent.getMainContent(), response.getOutputStream());
+
             }
+
         }
     }
 

@@ -3,7 +3,6 @@ package uz.pdp.springsecurity.payload;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import uz.pdp.springsecurity.entity.PaymentMethod;
 
 import java.util.Date;
 import java.util.List;
@@ -43,8 +42,10 @@ public class TradeDTO {
     /**
      * qarz
      */
-//    private Double loan;
 
+    private Integer currencyId;
+
+//    private Double loan;
 
     private Integer addressId;
 

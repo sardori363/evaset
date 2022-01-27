@@ -9,7 +9,8 @@ import uz.pdp.springsecurity.payload.ProductTradeDto;
 import uz.pdp.springsecurity.payload.TradeDTO;
 import uz.pdp.springsecurity.repository.*;
 
-import java.io.FileNotFoundException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -46,6 +47,9 @@ public class TradeService {
 
     @Autowired
     TradeHistoryRepository tradeHistoryRepository;
+
+    @Autowired
+    CurrencyRepository currencyRepository;
 
     public ApiResponse getAll() {
         List<Trade> all = tradeRepository.findAll();
@@ -191,6 +195,15 @@ public class TradeService {
             }
 
         }
+        /**
+         * CURRENCY SAQALANDI
+         */
+
+        Optional<Currency> optionalCurrency = currencyRepository.findById(tradeDTO.getCurrencyId());
+        if (optionalCurrency.isEmpty()) {
+            return new ApiResponse("NOT FOUND CURRENCY",false);
+        }
+        trade.setCurrency(optionalCurrency.get());
 
 
         /**
@@ -296,14 +309,20 @@ public class TradeService {
         tradeRepository.deleteByTrader_Id(trader_id);
         return new ApiResponse("deleted",true);
     }
-
     public ApiResponse deleteAllByTraderId(Integer trader_id) {
+
         tradeRepository.deleteAllByTrader_Id(trader_id);
         return new ApiResponse("deleted",true);
     }
 
-    public ApiResponse createPdf(Integer id) throws FileNotFoundException {
 
-        return new ApiResponse("zor",true);
+    public ApiResponse createPdf(Integer id , HttpServletResponse response) throws IOException {
+
+        Optional<Trade> tradeOptional = tradeRepository.findById(id);
+        PDFService pdfService = new PDFService();
+
+        pdfService.createPdf(tradeOptional.get(),response);
+
+        return new ApiResponse("CREATED",true);
     }
 }

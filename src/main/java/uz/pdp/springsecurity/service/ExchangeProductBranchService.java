@@ -155,4 +155,8 @@ public class ExchangeProductBranchService {
         if (allByExchangeDate.isEmpty()) return new ApiResponse("not found",false);
         return new ApiResponse("found",true,allByExchangeDate);
     }
+
+    public ApiResponse shippedByBranchId(Integer branch_id) {
+        return null;
+    }
 }
