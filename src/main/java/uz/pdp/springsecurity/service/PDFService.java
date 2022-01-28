@@ -17,7 +17,6 @@ import uz.pdp.springsecurity.entity.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URLConnection;
 import java.nio.file.Files;
@@ -247,7 +246,7 @@ public class PDFService {
     }
 
 
-    public void createPdfPurchase(Purchase purchase, HttpServletResponse response) throws FileNotFoundException {
+    public void createPdfPurchase(Purchase purchase, HttpServletResponse response) throws IOException {
 
 
         PdfWriter writer = new PdfWriter(path);
@@ -445,6 +444,19 @@ public class PDFService {
         document.add(totalTable);
         document.close();
 
+
+        File file = new File(path);
+        byte[] aByte = getByte(file);
+
+        String mimeType = URLConnection.guessContentTypeFromName(file.getName());
+
+        long size = Files.size(Path.of(path));
+
+        response.setContentType(mimeType);
+        response.setHeader("Content-Disposition", file.getName() + "/:" + size);
+        FileCopyUtils.copy(aByte, response.getOutputStream());
+
+        file.delete();
     }
 
 }

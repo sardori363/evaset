@@ -10,7 +10,7 @@ import uz.pdp.springsecurity.payload.PurchaseDto;
 import uz.pdp.springsecurity.service.PurchaseService;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Date;
 
 @RestController
@@ -105,7 +105,7 @@ public class PurchaseController {
 
     @CheckPermission("VIEW_PURCHASE")
     @GetMapping("/get-pdf/{id}")
-    public HttpEntity<?> getPdf(@PathVariable Integer id, HttpServletResponse response) throws FileNotFoundException {
+    public HttpEntity<?> getPdf(@PathVariable Integer id, HttpServletResponse response) throws IOException {
         ApiResponse apiResponse = purchaseService.getPdfFile(id, response);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }

@@ -84,8 +84,8 @@ public class TradeHistoryController {
 
     @CheckPermission("VIEW_MY_TRADE")
     @GetMapping("/{id}/{trade_id}")
-    public HttpEntity<?> getByTradeIdAndId(@PathVariable Integer id,@PathVariable Integer trade_id) {
-        ApiResponse apiResponse = tradeHistoryService.getByTradeIdAndId(id,trade_id);
+    public HttpEntity<?> getByTradeIdAndId(@PathVariable Integer id, @PathVariable Integer trade_id) {
+        ApiResponse apiResponse = tradeHistoryService.getByTradeIdAndId(id, trade_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
