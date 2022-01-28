@@ -7,6 +7,6 @@ import java.sql.Date;
 import java.util.List;
 
 public interface ExchangeProductBranchRepository extends JpaRepository<ExchangeProductBranch,Integer> {
-    List<ExchangeProductBranch> findAllByExchangeStatus_Id(Integer exchangeStatus_id);
     List<ExchangeProductBranch> findAllByExchangeDate(Date exchangeDate);
+    List<ExchangeProductBranch> findAllByExchangeStatus_Id(Integer exchangeStatus_id);
 }

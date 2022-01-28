@@ -9,6 +9,8 @@ import uz.pdp.springsecurity.payload.ApiResponse;
 import uz.pdp.springsecurity.payload.ExchangeProductBranchDTO;
 import uz.pdp.springsecurity.service.ExchangeProductBranchService;
 
+import java.sql.Date;
+
 
 @RestController
 @RequestMapping("/api/exchange-product-brach")
@@ -17,62 +19,59 @@ public class ExchangeProductBranchController {
     ExchangeProductBranchService exchangeProductBrancService;
 
 
-    @CheckPermission("ADD_TRADE")
+    @CheckPermission("ADD_EXCHANGE")
     @PostMapping
     public HttpEntity<?> create(@RequestBody ExchangeProductBranchDTO exchangeProductBranchDTO) {
         ApiResponse apiResponse = exchangeProductBrancService.create(exchangeProductBranchDTO);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("EDIT_TRADE")
+    @CheckPermission("EDIT_EXCHANGE")
     @PutMapping("/{id}")
-    public HttpEntity<?> edit(@PathVariable Integer id, @RequestBody  ExchangeProductBranchDTO exchangeProductBranchDTO) {
+    public HttpEntity<?> edit(@PathVariable Integer id, @RequestBody ExchangeProductBranchDTO exchangeProductBranchDTO) {
         ApiResponse apiResponse = exchangeProductBrancService.edit(id, exchangeProductBranchDTO);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_ALL_TRADE")
-    @GetMapping
-    public HttpEntity<?> get() {
-        ApiResponse apiResponse = exchangeProductBrancService.getAll();
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
-    }
-
-    @CheckPermission("VIEW_TRADE")
+    @CheckPermission("VIEW_EXCHANGE")
     @GetMapping("/{id}")
     public HttpEntity<?> get(@PathVariable Integer id) {
         ApiResponse apiResponse = exchangeProductBrancService.getOne(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("DELETE_TRADE")
-    @DeleteMapping("/{id}")
-    public HttpEntity<?> delete(@PathVariable Integer id) {
-        ApiResponse apiResponse = exchangeProductBrancService.deleteTrade(id);
+    @CheckPermission("VIEW_EXCHANGE")
+    @GetMapping
+    public HttpEntity<?> getAll() {
+        ApiResponse apiResponse = exchangeProductBrancService.getAll();
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("DELETE_TRADE")
+    @CheckPermission("DELETE_EXCHANGE")
+    @DeleteMapping("/{id}")
+    public HttpEntity<?> deleteOne(@PathVariable Integer id) {
+        ApiResponse apiResponse = exchangeProductBrancService.deleteOne(id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @CheckPermission("DELETE_EXCHANGE")
     @DeleteMapping
     public HttpEntity<?> deleteAll() {
         ApiResponse apiResponse = exchangeProductBrancService.deleteAll();
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-
-    @CheckPermission("VIEW_ALL_TRADE")
-    @GetMapping("/get-by-branch-id/{branch_id}")
-    public HttpEntity<?> getByBranch(@PathVariable Integer branch_id) {
-        ApiResponse apiResponse = exchangeProductBrancService.shippedByBranchId(branch_id);
+    @CheckPermission("VIEW_EXCHANGE")
+    @GetMapping("/get-byDate/{exchangeDate}")
+    public HttpEntity<?> getByDate(Date exchangeDate) {
+        ApiResponse apiResponse = exchangeProductBrancService.getByDate(exchangeDate);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-
-    @CheckPermission("VIEW_ALL_TRADE")
-    @GetMapping("/get-by-exchange-statusId/{paymentStatus_id}")
-    public HttpEntity<?> getByPayStatus(@PathVariable Integer paymentStatus_id) {
-        ApiResponse apiResponse = exchangeProductBrancService.getByStatusId(paymentStatus_id);
+    @CheckPermission("VIEW_EXCHANGE")
+    @GetMapping("/get-by-statusId/{exchangeStatus_id}")
+    public HttpEntity<?> getByExchangeStatus(Integer exchangeStatus_id) {
+        ApiResponse apiResponse = exchangeProductBrancService.getByStatusId(exchangeStatus_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
-
 }
