@@ -36,13 +36,15 @@ public class ProductService {
 
     public ApiResponse addProduct(@Valid ProductDto productDto) throws ParseException {
         Product product = new Product();
-        Optional<Product> optionalProduct = productRepository.findByBarcode(productDto.getBarcode());
-        if (optionalProduct.isPresent()) {
-            return new ApiResponse("BUNDAY SHTRIX KODLI MAXSULOT BOR",false);
+        for (Integer integer : productDto.getBranchId()) {
+            Optional<Product> optionalProduct = productRepository.findByBarcodeAndBranch_Id(productDto.getBarcode(), integer);
+            if (optionalProduct.isPresent()) {
+                return new ApiResponse("BUNDAY SHTRIX KODLI MAXSULOT BOR", false);
+            }
         }
         product = addProductDtotoProduct(product, productDto);
         productRepository.save(product);
-        return new ApiResponse("SAVED",true, product);
+        return new ApiResponse("SAVED", true, product);
     }
 
     public ApiResponse editProduct(Integer id, ProductDto productDto) {
@@ -74,12 +76,12 @@ public class ProductService {
         } else {
             return new ApiResponse("NOT FOUND!", false);
         }
-        return new ApiResponse("Deleted",true);
+        return new ApiResponse("Deleted", true);
     }
 
     public ApiResponse deleteProducts() {
         productRepository.deleteAll();
-        return new ApiResponse("DELETED",true);
+        return new ApiResponse("DELETED", true);
     }
 
     Product addProductDtotoProduct(Product product, ProductDto productDto) {
@@ -136,15 +138,15 @@ public class ProductService {
 
     public ApiResponse getByBrand(Integer brand_id) {
         List<Product> allByBrand_id = productRepository.findAllByBrand_Id(brand_id);
-        if (allByBrand_id.isEmpty()) return new ApiResponse("not found",false);
+        if (allByBrand_id.isEmpty()) return new ApiResponse("not found", false);
 
-        return new ApiResponse("found",true,allByBrand_id);
+        return new ApiResponse("found", true, allByBrand_id);
     }
 
     public ApiResponse getByBranch(Integer branch_id) {
         List<Product> allByBranch_id = productRepository.findAllByBranch_Id(branch_id);
-        if (allByBranch_id.isEmpty()) return new ApiResponse("not found",false);
+        if (allByBranch_id.isEmpty()) return new ApiResponse("not found", false);
 
-        return new ApiResponse("found",true,allByBranch_id);
+        return new ApiResponse("found", true, allByBranch_id);
     }
 }

@@ -8,6 +8,8 @@ import uz.pdp.springsecurity.payload.PurchaseDto;
 import uz.pdp.springsecurity.payload.PurchaseProductDto;
 import uz.pdp.springsecurity.repository.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.FileNotFoundException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -173,5 +175,15 @@ public class PurchaseService {
         List<Purchase> allByTotalSum = purchaseRepository.findAllByTotalSum(totalSum);
         if (allByTotalSum.isEmpty()) return new ApiResponse("not found", false);
         return new ApiResponse("found", true, allByTotalSum);
+    }
+
+    public ApiResponse getPdfFile(Integer id, HttpServletResponse response) throws FileNotFoundException {
+        Optional<Purchase> optionalPurchase = purchaseRepository.findById(id);
+        if (optionalPurchase.isEmpty()) {
+            return new ApiResponse("NOT FOUND PURCHASE", false);
+        }
+        PDFService pdfService = new PDFService();
+        pdfService.createPdfPurchase(optionalPurchase.get(), response);
+        return new ApiResponse("CREATED",true);
     }
 }
