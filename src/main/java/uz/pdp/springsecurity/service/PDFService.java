@@ -338,14 +338,14 @@ public class PDFService {
         col2.setBorder(Border.NO_BORDER);
 
 
-        Table purchaseTable = new Table(7);
+        Table purchaseTable = new Table(8);
         Cell cel1 = new Cell().add(new Paragraph(new Text("T/r").setBold().setFontSize(14)));
         Cell cel2 = new Cell().add(new Paragraph(new Text("Maxsulot nomi").setBold().setFontSize(14)));
         Cell cel3 = new Cell().add(new Paragraph(new Text("Shtrix kodi").setBold().setFontSize(14)));
         Cell cel4 = new Cell().add(new Paragraph(new Text("Miqdori").setBold().setFontSize(14)));
         Cell cel5 = new Cell().add(new Paragraph(new Text("Narxi").setBold().setFontSize(14)));
         Cell cel6 = new Cell().add(new Paragraph(new Text("Soliq").setBold().setFontSize(14)));
-        Cell cel7 = new Cell().add(new Paragraph(new Text("Sotilish narxi").setBold().setFontSize(14)));
+        Cell cel7 = new Cell().add(new Paragraph(new Text("Umumiy summa").setBold().setFontSize(14)));
         cel1.setBorder(Border.NO_BORDER);
         cel2.setBorder(Border.NO_BORDER);
         cel3.setBorder(Border.NO_BORDER);
@@ -367,7 +367,7 @@ public class PDFService {
             cel4.add(new Paragraph(new Text(String.valueOf(purchaseProduct.getPurchasedQuantity()))));
             cel5.add(new Paragraph(new Text(String.valueOf(purchaseProduct.getProduct().getBuyPrice()))));
             cel6.add(new Paragraph(new Text(String.valueOf(purchaseProduct.getProduct().getTax()))));
-            cel7.add(new Paragraph(new Text(String.valueOf(purchaseProduct.getProduct().getSalePrice()))));
+            cel7.add(new Paragraph(new Text(String.valueOf(purchaseProduct.getProduct().getBuyPrice()*purchaseProduct.getPurchasedQuantity()+purchaseProduct.getProduct().getTax()))));
             tr++;
         }
 
@@ -391,26 +391,38 @@ public class PDFService {
         values.setBorder(Border.NO_BORDER);
         texts.setBorder(Border.NO_BORDER);
 
+        double value1 = 0;
+        double value3 = 0;
+        for (PurchaseProduct purchaseProduct : purchase.getPurchaseProductList()) {
+            value1=value1+purchaseProduct.getPurchasedQuantity()*purchaseProduct.getProduct().getBuyPrice();
+            value3=value3+purchaseProduct.getProduct().getTax();
+        }
+
+        double value2 = purchase.getDeliveryPrice();
+
+        Address address = purchase.getBranch().getAddress();
+        String value4 = address.getCity() + ", "  + address.getDistrict() + ", "  + address.getStreet() + ", "  + address.getHome();
+
+        String value5 = purchase.getDescription();
 
         Paragraph totalSum = new Paragraph().add(new Text("Maxsulotlar jami summasi: ").setBold().setFontSize(14)).setMarginTop(15);
-        Paragraph totalValue = new Paragraph().add(new Text("[value]").setFontSize(14)).setTextAlignment(TextAlignment.RIGHT).setMarginTop(15);
+        Paragraph totalValue = new Paragraph().add(new Text(String.valueOf(value1)).setFontSize(14)).setTextAlignment(TextAlignment.RIGHT).setMarginTop(15);
 
         Paragraph deliveryPrice = new Paragraph().add(new Text("Yetkazib berish narxi: ").setBold().setFontSize(14)).setMarginTop(15);
-        Paragraph deliveryPriceValue = new Paragraph().add(new Text("[value]").setFontSize(14)).setTextAlignment(TextAlignment.RIGHT).setMarginTop(15);
+        Paragraph deliveryPriceValue = new Paragraph().add(new Text(String.valueOf(value2)).setFontSize(14)).setTextAlignment(TextAlignment.RIGHT).setMarginTop(15);
 
         Paragraph taxText = new Paragraph().add(new Text("Soliq: ").setBold().setFontSize(14)).setMarginTop(15);
-        Paragraph taxValue = new Paragraph().add(new Text("[value]").setFontSize(14)).setTextAlignment(TextAlignment.RIGHT).setMarginTop(15);
+        Paragraph taxValue = new Paragraph().add(new Text(String.valueOf(value3)).setFontSize(14)).setTextAlignment(TextAlignment.RIGHT).setMarginTop(15);
 
         Paragraph purchaseTotal = new Paragraph().add(new Text("Jami summa:  ").setBold().setFontSize(14)).setMarginTop(15);
-        Paragraph purchaseTotalValue = new Paragraph().add(new Text("[value]").setFontSize(14)).setTextAlignment(TextAlignment.RIGHT).setMarginTop(15);
+        Paragraph purchaseTotalValue = new Paragraph().add(new Text(String.valueOf(value1+value2+value3)).setFontSize(14)).setTextAlignment(TextAlignment.RIGHT).setMarginTop(15);
 
         Paragraph addressText = new Paragraph().add(new Text("Address:  ").setBold().setFontSize(14)).setMarginTop(15);
-        Paragraph addressValue = new Paragraph().add(new Text("[value]").setFontSize(14)).setTextAlignment(TextAlignment.RIGHT).setMarginTop(15);
+        Paragraph addressValue = new Paragraph().add(new Text(value4).setFontSize(14)).setTextAlignment(TextAlignment.RIGHT).setMarginTop(15);
 
         Paragraph descritptionText = new Paragraph().add(new Text("Qisqa eslatma:  ").setBold().setFontSize(14)).setMarginTop(15);
-        Paragraph descritptionValue = new Paragraph().add(new Text("[value]").setFontSize(14)).setTextAlignment(TextAlignment.RIGHT).setMarginTop(15);
+        Paragraph descritptionValue = new Paragraph().add(new Text(value5).setFontSize(14)).setTextAlignment(TextAlignment.RIGHT).setMarginTop(15);
 /**
- * "address.getCity() + ,  + address.getDistrict() + ,  + address.getStreet() + ,  + address.getHome()"
  */
 
         texts.add(totalSum);
