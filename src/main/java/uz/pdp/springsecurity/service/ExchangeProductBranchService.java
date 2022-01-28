@@ -44,10 +44,14 @@ public class ExchangeProductBranchService {
         Optional<ExchangeProductBranch> optionalExchange = exchangeProductBranchRepository.findById(id);
         if (optionalExchange.isEmpty()) return new ApiResponse("Exchange not found", false);
         ExchangeProductBranch exchange = optionalExchange.get();
-       return add(exchange, exchangeProductBranchDTO);
+        return add(exchange, exchangeProductBranchDTO);
     }
 
     public ApiResponse add(ExchangeProductBranch exchangeProductBranch, ExchangeProductBranchDTO exchangeProductBranchDTO) {
+        if ((exchangeProductBranchDTO.getShippedBranchId() == exchangeProductBranchDTO.getReceivedBranchId())) {
+            return new ApiResponse("JO'NATISH UCHUN BOSHQA FILIALNI KIRITING", false);
+        }
+
         /**
          * JO'NATUVCHI FILIALNI SAQLASH
          */
