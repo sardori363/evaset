@@ -103,6 +103,7 @@ public class PurchaseService {
         List<PurchaseProductDto> purchaseProductsDto = purchaseDto.getPurchaseProductsDto();
         List<PurchaseProduct> purchaseProductList = new ArrayList<>();
         double sum = 0;
+
         for (PurchaseProductDto purchaseProductDto : purchaseProductsDto) {
             PurchaseProduct purchaseProduct = new PurchaseProduct();
 
