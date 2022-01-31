@@ -9,7 +9,7 @@ import uz.pdp.springsecurity.payload.BusinessDto;
 import uz.pdp.springsecurity.service.BusinessService;
 
 @RestController
-@RequestMapping("/api/businnes")
+@RequestMapping("/api/business")
 public class BusinessController {
     @Autowired
     BusinessService businessService;

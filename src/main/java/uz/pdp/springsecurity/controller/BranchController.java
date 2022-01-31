@@ -62,4 +62,11 @@ public class BranchController {
         ApiResponse apiResponse = branchService.deleteBranches();
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
+
+    @CheckPermission("VIEW_BRANCH")
+    @GetMapping("get-all-by-businessId/{business_id}")
+    public HttpEntity<?> getByBusinessId(@PathVariable Integer business_id) {
+        ApiResponse apiResponse = branchService.getByBusinessId(business_id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
 }

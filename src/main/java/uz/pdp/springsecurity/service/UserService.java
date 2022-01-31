@@ -54,7 +54,8 @@ public class UserService {
         if (optionalBranch.isEmpty()) return new ApiResponse("Branch not found", false);
         user.setBranch(optionalBranch.get());
 
-        if (!businessRepository.existsById(userDto.getBusinessId())) return new ApiResponse("business not found",false);
+        if (!businessRepository.existsById(userDto.getBusinessId()))
+            return new ApiResponse("business not found", false);
         user.setBusiness(businessRepository.findById(userDto.getBusinessId()).get());
 
         user.setEnabled(userDto.getEnabled());
@@ -84,7 +85,8 @@ public class UserService {
         if (optionalBranch.isEmpty()) return new ApiResponse("Branch not found", false);
         user.setBranch(optionalBranch.get());
 
-        if (!businessRepository.existsById(userDto.getBusinessId())) return new ApiResponse("business not found",false);
+        if (!businessRepository.existsById(userDto.getBusinessId()))
+            return new ApiResponse("business not found", false);
         user.setBusiness(businessRepository.findById(userDto.getBusinessId()).get());
 
         user.setRole((Role) response.getObject());
@@ -141,5 +143,49 @@ public class UserService {
         if (allByRole_id.isEmpty()) return new ApiResponse("not found", false);
 
         return new ApiResponse("found", true, allByRole_id);
+    }
+
+    public ApiResponse getAllByBusinessId(Integer business_id) {
+        List<User> allByBusiness_id = userRepository.findAllByBusiness_Id(business_id);
+        if (allByBusiness_id.isEmpty()) return new ApiResponse("business not found", false);
+        return new ApiResponse("found", true, allByBusiness_id);
+    }
+
+    public ApiResponse getOneByBusinessId(Integer business_id, Integer id) {
+        Optional<User> byBusiness_idAndId = userRepository.findByBusiness_IdAndId(business_id, id);
+        if (byBusiness_idAndId.isEmpty()) return new ApiResponse("not found", false);
+        return new ApiResponse("found", true, byBusiness_idAndId);
+    }
+
+    public ApiResponse getAllByBranchId(Integer branch_id) {
+        List<User> allByBranch_id = userRepository.findAllByBranch_Id(branch_id);
+        if (allByBranch_id.isEmpty()) return new ApiResponse("not found", false);
+        return new ApiResponse("found", true, allByBranch_id);
+    }
+
+    public ApiResponse getOneByBranchId(Integer branch_id, Integer id) {
+        Optional<User> byBranch_idAndId = userRepository.findByBranch_IdAndId(branch_id, id);
+        if (byBranch_idAndId.isEmpty()) return new ApiResponse("not found", false);
+        return new ApiResponse("found", true, byBranch_idAndId);
+    }
+
+    public ApiResponse getAllByBusinessAndBranch(Integer business_id, Integer branch_id) {
+        List<User> allByBusiness_idAndBranch_id = userRepository.findAllByBusiness_IdAndBranch_Id(business_id, branch_id);
+        if (allByBusiness_idAndBranch_id.isEmpty()) return new ApiResponse("not found", false);
+        return new ApiResponse("found", true, allByBusiness_idAndBranch_id);
+    }
+
+    public ApiResponse getOneByBusinessAndBranch(Integer business_id, Integer branch_id, Integer id) {
+        Optional<User> byBusiness_idAndBranch_idAndId = userRepository.findByBusiness_IdAndBranch_IdAndId(business_id, branch_id, id);
+        if (byBusiness_idAndBranch_idAndId.isEmpty()) return new ApiResponse("not found", false);
+        return new ApiResponse("found", true, byBusiness_idAndBranch_idAndId);
+    }
+
+    public ApiResponse deleteOneByBusinessIdAndId(Integer business_id, Integer id) {
+        Optional<User> byBusiness_idAndId = userRepository.findByBusiness_IdAndId(business_id, id);
+        if (byBusiness_idAndId.isEmpty()) return new ApiResponse("not found",false);
+
+        userRepository.deleteByBusiness_IdAndId(business_id,id);
+        return new ApiResponse("deleted",true);
     }
 }
