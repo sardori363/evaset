@@ -54,7 +54,6 @@ public class BranchService {
         Optional<Business> optionalBusiness = businessRepository.findById(branchDto.getBusinessId());
         if (optionalBusiness.isEmpty()) return new ApiResponse("business not found",false);
         branch.setBusiness(optionalBusiness.get());
-
         branchRepository.save(branch);
         return new ApiResponse("Branch successfully edited",true);
     }
