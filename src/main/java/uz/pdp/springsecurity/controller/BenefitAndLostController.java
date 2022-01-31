@@ -20,7 +20,7 @@ public class BenefitAndLostController {
     BenefitAndLostService benefitAndLostService;
 
     @PostMapping
-    public HttpEntity<?> find(@RequestBody BenefitAndLostDto benefitAndLostDto) {
+    public HttpEntity<?> find(@RequestBody BenefitAndLostDto benefitAndLostDto) throws ParseException {
         ApiResponse apiResponse = benefitAndLostService.findBenefitLost(benefitAndLostDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }

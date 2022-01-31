@@ -30,8 +30,7 @@ public class BenefitAndLostService {
     @Autowired
     OutlayRepository outlayRepository;
 
-    public ApiResponse findBenefitLost(BenefitAndLostDto benefitAndLostDto) {
-
+    public ApiResponse findBenefitLost(BenefitAndLostDto benefitAndLostDto) throws ParseException {
 
         List<Trade> allTrade = tradeRepository.findAllByPayDateIsBetweenAndBranch_Id(benefitAndLostDto.getFirstDate(), benefitAndLostDto.getSecondDate(), benefitAndLostDto.getBranchId());
         if (allTrade.isEmpty()) {
@@ -75,7 +74,7 @@ public class BenefitAndLostService {
     }
 
     public ApiResponse findBenefitAndLostByDate(BenefitAndLostDto benefitAndLostDto) throws ParseException {
-
+        System.out.println(benefitAndLostDto.getFirstDate());
         List<Trade> allTrade = tradeRepository.findAllByPayDate(benefitAndLostDto.getFirstDate());
 
         if (allTrade.isEmpty()) {
@@ -86,7 +85,6 @@ public class BenefitAndLostService {
         double totalSaleSum = 0;
         double otherExpenses = 0;
         for (Trade trade : allTrade) {
-
             for (TradeProduct tradeProduct : trade.getTradeProductList()) {
                 totalBuySum += (tradeProduct.getProduct().getBuyPrice() * tradeProduct.getTradedQuantity());
                 totalSaleSum += (tradeProduct.getProduct().getSalePrice() * tradeProduct.getTradedQuantity());
