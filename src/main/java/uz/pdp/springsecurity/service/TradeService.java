@@ -11,6 +11,7 @@ import uz.pdp.springsecurity.repository.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -68,7 +69,6 @@ public class TradeService {
     public ApiResponse create(TradeDTO tradeDTO) {
         Trade trade = new Trade();
         ApiResponse apiResponse = addTraade(trade, tradeDTO);
-
 
 
         return apiResponse;
@@ -169,10 +169,10 @@ public class TradeService {
         } else if (sum < tradeDTO.getAmountPaid()) {
             return new ApiResponse("A LOT OF MONEY PAID", false);
         } else {
-            if (trade.getAmountPaid()!=null) {
+            if (trade.getAmountPaid() != null) {
                 if ((trade.getTotalSum() < (trade.getAmountPaid() + tradeDTO.getAmountPaid()))) {
                     return new ApiResponse("A LOT OF MONEY PAID", false);
-                }else {
+                } else {
                     trade.setAmountPaid(trade.getAmountPaid() + tradeDTO.getAmountPaid());
                     trade.setLoan(trade.getLoan() - tradeDTO.getAmountPaid());
                 }
@@ -201,7 +201,7 @@ public class TradeService {
 
         Optional<Currency> optionalCurrency = currencyRepository.findById(tradeDTO.getCurrencyId());
         if (optionalCurrency.isEmpty()) {
-            return new ApiResponse("NOT FOUND CURRENCY",false);
+            return new ApiResponse("NOT FOUND CURRENCY", false);
         }
         trade.setCurrency(optionalCurrency.get());
 
@@ -276,7 +276,7 @@ public class TradeService {
         return new ApiResponse("found", true, allByCustomer_id);
     }
 
-    public ApiResponse getByPayDate(Date payDate) {
+    public ApiResponse getByPayDate(Date payDate) throws ParseException {
         List<Trade> allByPayDate = tradeRepository.findAllByPayDate(payDate);
         if (allByPayDate.isEmpty()) return new ApiResponse("not found", false);
         return new ApiResponse("found", true, allByPayDate);
@@ -302,27 +302,28 @@ public class TradeService {
 
     public ApiResponse deleteAll() {
         tradeRepository.deleteAll();
-        return new ApiResponse("trades removed",false);
+        return new ApiResponse("trades removed", false);
     }
 
     public ApiResponse deleteByTraderId(Integer trader_id) {
         tradeRepository.deleteByTrader_Id(trader_id);
-        return new ApiResponse("deleted",true);
+        return new ApiResponse("deleted", true);
     }
+
     public ApiResponse deleteAllByTraderId(Integer trader_id) {
 
         tradeRepository.deleteAllByTrader_Id(trader_id);
-        return new ApiResponse("deleted",true);
+        return new ApiResponse("deleted", true);
     }
 
 
-    public ApiResponse createPdf(Integer id , HttpServletResponse response) throws IOException {
+    public ApiResponse createPdf(Integer id, HttpServletResponse response) throws IOException {
 
         Optional<Trade> tradeOptional = tradeRepository.findById(id);
         PDFService pdfService = new PDFService();
 
-        pdfService.createPdf(tradeOptional.get(),response);
+        pdfService.createPdf(tradeOptional.get(), response);
 
-        return new ApiResponse("CREATED",true);
+        return new ApiResponse("CREATED", true);
     }
 }

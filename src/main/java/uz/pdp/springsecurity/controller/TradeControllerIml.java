@@ -12,6 +12,7 @@ import uz.pdp.springsecurity.service.TradeService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Date;
 
 @RestController
@@ -102,7 +103,7 @@ public class TradeControllerIml {
 
     @CheckPermission("VIEW_ALL_TRADE")
     @GetMapping("/get-by-PayDate/{payDate}")
-    public HttpEntity<?> getByPayDate(@PathVariable Date payDate) {
+    public HttpEntity<?> getByPayDate(@PathVariable Date payDate) throws ParseException {
         ApiResponse apiResponse = tradeService.getByPayDate(payDate);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
