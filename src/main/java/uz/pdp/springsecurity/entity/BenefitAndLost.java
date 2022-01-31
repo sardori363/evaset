@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BenefitAndLost {
-    private double totalSpentSum;
+    private double totalBuySum;
     private double totalSaleSum;
     private double otherExpenses;
     private double benefit;
