@@ -40,6 +40,10 @@ public class DataLoader implements CommandLineRunner {
 
     @Autowired
     ExchangeStatusRepository exchangeStatusRepository;
+
+    @Autowired
+    BusinessRepository businessRepository;
+
     @Value("${spring.sql.init.mode}")
     private String initMode;
 
@@ -158,19 +162,27 @@ public class DataLoader implements CommandLineRunner {
             ));
         }
 
-        List<Currency> currencyList = currencyRepository.findAll();
-        if (currencyList.isEmpty()) {
-            currencyRepository.save(new Currency(
-                    "DOLLAR",
-                    10785.85
+        List<Business> allBusiness = businessRepository.findAll();
+        if (allBusiness.isEmpty()) {
+            businessRepository.save(new Business(
+                    "Application",
+                    "Test Uchun"
             ));
 
-            currencyRepository.save(new Currency(
-                    "SO'M",
-                    0
-            ));
+            List<Currency> currencyList = currencyRepository.findAll();
+            if (currencyList.isEmpty()) {
+                currencyRepository.save(new Currency(
+                        "DOLLAR",
+                        10785.85
+                ));
+
+                currencyRepository.save(new Currency(
+                        "SO'M",
+                        0
+                ));
+            }
+
         }
 
     }
-
 }

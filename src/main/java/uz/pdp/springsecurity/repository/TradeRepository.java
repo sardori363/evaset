@@ -30,7 +30,7 @@ public interface TradeRepository extends JpaRepository<Trade, Integer> {
     List<Trade> findAllByPayDateIsBetweenAndBranch_Id(Date payDate, Date payDate2, Integer branch_id);
 
 
-    @Query(value = "SELECT * FROM Trade t WHERE DATE (t.payDate)= ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM Trade t WHERE DATE(t.pay_date) = ?1", nativeQuery = true)
     List<Trade> findTradeByOneDate(java.sql.Date date);
 
 }
