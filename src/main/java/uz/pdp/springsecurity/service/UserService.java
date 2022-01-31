@@ -11,6 +11,7 @@ import uz.pdp.springsecurity.payload.ApiResponse;
 import uz.pdp.springsecurity.payload.ProfileDto;
 import uz.pdp.springsecurity.payload.UserDto;
 import uz.pdp.springsecurity.repository.BranchRepository;
+import uz.pdp.springsecurity.repository.BusinessRepository;
 import uz.pdp.springsecurity.repository.UserRepository;
 
 import java.util.List;
@@ -31,6 +32,9 @@ public class UserService {
     @Autowired
     BranchRepository branchRepository;
 
+    @Autowired
+    BusinessRepository businessRepository;
+
     public ApiResponse add(UserDto userDto) {
         boolean b = userRepository.existsByUsername(userDto.getUsername());
         if (b) return new ApiResponse("User already exist", false);
@@ -47,8 +51,11 @@ public class UserService {
         user.setRole((Role) response.getObject());
 
         Optional<Branch> optionalBranch = branchRepository.findById(userDto.getBranchId());
-        if (!optionalBranch.isPresent()) return new ApiResponse("Branch not found",false);
+        if (optionalBranch.isEmpty()) return new ApiResponse("Branch not found", false);
         user.setBranch(optionalBranch.get());
+
+        if (!businessRepository.existsById(userDto.getBusinessId())) return new ApiResponse("business not found",false);
+        user.setBusiness(businessRepository.findById(userDto.getBusinessId()).get());
 
         user.setEnabled(userDto.getEnabled());
         userRepository.save(user);
@@ -58,7 +65,7 @@ public class UserService {
     public ApiResponse edit(Integer id, UserDto userDto) {
         Optional<User> optionalUser = userRepository.findById(id);
 
-        if (!optionalUser.isPresent()) return new ApiResponse("User not found", false);
+        if (optionalUser.isEmpty()) return new ApiResponse("User not found", false);
         boolean b = userRepository.existsByUsername(userDto.getUsername());
 
         if (b) return new ApiResponse("Username already exist", false);
@@ -74,8 +81,11 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
         Optional<Branch> optionalBranch = branchRepository.findById(userDto.getBranchId());
-        if (!optionalBranch.isPresent()) return new ApiResponse("Branch not found",false);
+        if (optionalBranch.isEmpty()) return new ApiResponse("Branch not found", false);
         user.setBranch(optionalBranch.get());
+
+        if (!businessRepository.existsById(userDto.getBusinessId())) return new ApiResponse("business not found",false);
+        user.setBusiness(businessRepository.findById(userDto.getBusinessId()).get());
 
         user.setRole((Role) response.getObject());
         user.setEnabled(userDto.getEnabled());
@@ -98,7 +108,7 @@ public class UserService {
 
     public ApiResponse delete(Integer id) {
         Optional<User> byId = userRepository.findById(id);
-        if (!byId.isPresent()) return new ApiResponse("User not found", false);
+        if (byId.isEmpty()) return new ApiResponse("User not found", false);
         userRepository.deleteById(id);
         return new ApiResponse("Deleted", true);
     }
@@ -128,8 +138,8 @@ public class UserService {
 
     public ApiResponse getByRole(Integer role_id) {
         List<User> allByRole_id = userRepository.findAllByRole_Id(role_id);
-        if (allByRole_id.isEmpty()) return new ApiResponse("not found",false);
+        if (allByRole_id.isEmpty()) return new ApiResponse("not found", false);
 
-        return new ApiResponse("found",true,allByRole_id);
+        return new ApiResponse("found", true, allByRole_id);
     }
 }

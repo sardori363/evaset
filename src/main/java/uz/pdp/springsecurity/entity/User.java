@@ -43,6 +43,9 @@ public class User extends AbsEntity implements UserDetails {
     @ManyToOne(fetch = FetchType.LAZY)
     private Branch branch;
 
+    @ManyToOne
+    private Business business;
+
     //yoqilgan
     private boolean enabled = false;
     //muddati tugamagan

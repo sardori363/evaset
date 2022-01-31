@@ -9,11 +9,8 @@ import javax.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BranchDto {
+public class BusinessDto {
     @NotNull(message = "required line")
     private String name;
-    @NotNull(message = "required line")
-    private Integer addressId;
-    @NotNull(message = "required line")
-    private Integer businessId;
+    private String description;
 }

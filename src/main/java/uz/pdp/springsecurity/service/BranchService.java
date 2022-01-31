@@ -4,10 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uz.pdp.springsecurity.entity.Address;
 import uz.pdp.springsecurity.entity.Branch;
+import uz.pdp.springsecurity.entity.Business;
 import uz.pdp.springsecurity.payload.ApiResponse;
 import uz.pdp.springsecurity.payload.BranchDto;
 import uz.pdp.springsecurity.repository.AddressRepository;
 import uz.pdp.springsecurity.repository.BranchRepository;
+import uz.pdp.springsecurity.repository.BusinessRepository;
 
 import java.util.Optional;
 
@@ -19,14 +21,21 @@ public class BranchService {
     @Autowired
     AddressRepository addressRepository;
 
+    @Autowired
+    BusinessRepository businessRepository;
+
     public ApiResponse addBranch(BranchDto branchDto) {
         Branch branch = new Branch();
 
         branch.setName(branchDto.getName());
 
         Optional<Address> byId = addressRepository.findById(branchDto.getAddressId());
-        if (!byId.isPresent()) return new ApiResponse("Address not found",false);
+        if (byId.isEmpty()) return new ApiResponse("Address not found",false);
         branch.setAddress(byId.get());
+
+        Optional<Business> optionalBusiness = businessRepository.findById(branchDto.getBusinessId());
+        if (optionalBusiness.isEmpty()) return new ApiResponse("business not found",false);
+        branch.setBusiness(optionalBusiness.get());
 
         branchRepository.save(branch);
         return new ApiResponse("Branch successfully saved",true);
@@ -41,6 +50,10 @@ public class BranchService {
 
         if (!addressRepository.existsById(branchDto.getAddressId())) return new ApiResponse("Address not found",false);
         branch.setAddress(branch.getAddress());
+
+        Optional<Business> optionalBusiness = businessRepository.findById(branchDto.getBusinessId());
+        if (optionalBusiness.isEmpty()) return new ApiResponse("business not found",false);
+        branch.setBusiness(optionalBusiness.get());
 
         branchRepository.save(branch);
         return new ApiResponse("Branch successfully edited",true);

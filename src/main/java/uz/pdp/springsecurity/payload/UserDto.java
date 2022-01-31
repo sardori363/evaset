@@ -22,5 +22,7 @@ public class UserDto {
     private Integer roleId;
     private Integer branchId;
     @NotNull(message = "required line")
+    private Integer businessId;
+    @NotNull(message = "required line")
     private Boolean enabled;
 }
