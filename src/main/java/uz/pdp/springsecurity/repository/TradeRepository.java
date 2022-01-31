@@ -2,6 +2,7 @@ package uz.pdp.springsecurity.repository;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import uz.pdp.springsecurity.entity.Trade;
 
 import java.util.Date;
@@ -27,5 +28,9 @@ public interface TradeRepository extends JpaRepository<Trade, Integer> {
     void deleteAllByTrader_Id(Integer trader_id);
 
     List<Trade> findAllByPayDateIsBetweenAndBranch_Id(Date payDate, Date payDate2, Integer branch_id);
+
+
+    @Query(value = "SELECT * FROM Trade t WHERE DATE (t.payDate)= ?1", nativeQuery = true)
+    List<Trade> findTradeByOneDate(java.sql.Date date);
 
 }

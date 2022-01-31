@@ -75,7 +75,7 @@ public class BenefitAndLostService {
 
     public ApiResponse findBenefitAndLostByDate(BenefitAndLostDto benefitAndLostDto) throws ParseException {
         System.out.println(benefitAndLostDto.getFirstDate());
-        List<Trade> allTrade = tradeRepository.findAllByPayDate(benefitAndLostDto.getFirstDate());
+        List<Trade> allTrade = tradeRepository.findTradeByOneDate(benefitAndLostDto.getFirstDate());
 
         if (allTrade.isEmpty()) {
             return new ApiResponse("NOT FOUND", false, "BU VAQT ORALIGIDA MALUMOT TOPILMADI");
