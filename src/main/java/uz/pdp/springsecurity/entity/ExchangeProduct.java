@@ -19,4 +19,6 @@ public class ExchangeProduct  extends AbsEntity {
 
     @OneToOne
     private Product product;
+
+
 }

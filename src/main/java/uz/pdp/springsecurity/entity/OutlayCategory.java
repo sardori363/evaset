@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import uz.pdp.springsecurity.entity.template.AbsEntity;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -16,4 +17,7 @@ import javax.persistence.Entity;
 
 public class OutlayCategory extends AbsEntity {
     private String title;
+
+    @ManyToOne
+    private Branch branch;
 }

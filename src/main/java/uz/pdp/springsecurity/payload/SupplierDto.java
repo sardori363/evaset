@@ -18,4 +18,5 @@ public class SupplierDto {
     private String telegram;
     @NotNull(message = "required line")
     private String supplierType;
+    private Integer branchId;
 }

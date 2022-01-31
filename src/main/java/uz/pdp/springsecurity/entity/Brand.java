@@ -8,7 +8,6 @@ import uz.pdp.springsecurity.entity.template.AbsEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -18,4 +17,7 @@ import javax.persistence.OneToOne;
 public class Brand extends AbsEntity {
     @Column(nullable = false)
     private String name;
+
+    private Integer branchId;
+
 }

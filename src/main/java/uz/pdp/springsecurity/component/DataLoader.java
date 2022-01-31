@@ -44,6 +44,12 @@ public class DataLoader implements CommandLineRunner {
     @Autowired
     BusinessRepository businessRepository;
 
+    @Autowired
+    BranchRepository branchRepository;
+
+    @Autowired
+    AddressRepository addressRepository;
+
     @Value("${spring.sql.init.mode}")
     private String initMode;
 
@@ -118,71 +124,106 @@ public class DataLoader implements CommandLineRunner {
             ));
 
         }
+        List<Business> allBusiness = businessRepository.findAll();
+        Business business = null;
+        if (allBusiness.isEmpty()) {
+            business = new Business("Application", "Test Uchun");
+            businessRepository.save(business);
+        }
+
+        List<Address> addresses = addressRepository.findAll();
+        Address address = null;
+        if (addresses.isEmpty()) {
+            address = new Address(
+                    "Tashkent",
+                    "Shayxontuxur",
+                    "Gulobod",
+                    "1",
+                    business
+            );
+            addressRepository.save(address);
+        }
+
+        List<Branch> allBranch = branchRepository.findAll();
+        Branch branch = null;
+        if (allBranch.isEmpty()) {
+            branch = new Branch(
+                    "Test Filial",
+                    address,
+                    business
+            );
+            branchRepository.save(branch);
+        }
+
         List<PaymentStatus> all = paymentStatusRepository.findAll();
         if (all.isEmpty()) {
             paymentStatusRepository.save(new PaymentStatus(
-                    "To'langan"
+                    "To'langan",
+                    branch
             ));
 
             paymentStatusRepository.save(new PaymentStatus(
-                    "Qisman to'langan"
+                    "Qisman to'langan",
+                    branch
             ));
 
             paymentStatusRepository.save(new PaymentStatus(
-                    "To'lanmagan"
+                    "To'lanmagan",
+                    branch
             ));
         }
         List<ExchangeStatus> exchangeStatusRepositoryAll = exchangeStatusRepository.findAll();
         if (exchangeStatusRepositoryAll.isEmpty()) {
             exchangeStatusRepository.save(new ExchangeStatus(
-                    "Buyurtma berildi"
+                    "Buyurtma berildi",
+                    branch
             ));
 
             exchangeStatusRepository.save(new ExchangeStatus(
-                    "Kutilmoqda"
+                    "Kutilmoqda",
+                    branch
             ));
 
             exchangeStatusRepository.save(new ExchangeStatus(
-                    "Qabul qilinndi"
+                    "Qabul qilinndi",
+                    branch
             ));
         }
 
         List<PaymentMethod> all1 = payMethodRepository.findAll();
         if (all1.isEmpty()) {
             payMethodRepository.save(new PaymentMethod(
-                    "Naqd"
+                    "Naqd",
+                    branch
             ));
 
             payMethodRepository.save(new PaymentMethod(
-                    "UzCard"
+                    "UzCard",
+                    branch
             ));
 
             payMethodRepository.save(new PaymentMethod(
-                    "Humo"
+                    "Humo",
+                    branch
             ));
         }
 
-        List<Business> allBusiness = businessRepository.findAll();
-        if (allBusiness.isEmpty()) {
-            businessRepository.save(new Business(
-                    "Application",
-                    "Test Uchun"
+
+        List<Currency> currencyList = currencyRepository.findAll();
+        if (currencyList.isEmpty()) {
+            currencyRepository.save(new Currency(
+                    "DOLLAR",
+                    10785.85,
+                    branch
             ));
 
-            List<Currency> currencyList = currencyRepository.findAll();
-            if (currencyList.isEmpty()) {
-                currencyRepository.save(new Currency(
-                        "DOLLAR",
-                        10785.85
-                ));
-
-                currencyRepository.save(new Currency(
-                        "SO'M",
-                        0
-                ));
-            }
-
+            currencyRepository.save(new Currency(
+                    "SO'M",
+                    0,
+                    branch
+            ));
         }
 
     }
+
 }

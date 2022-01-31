@@ -18,4 +18,6 @@ public class AddressDto {
     private String street;
     @NotNull(message = "required line")
     private String home;
+    @NotNull(message = "required line")
+    private Integer businessId;
 }

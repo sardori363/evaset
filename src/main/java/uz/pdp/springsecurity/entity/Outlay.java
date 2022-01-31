@@ -35,4 +35,5 @@ public class Outlay extends AbsEntity {
 
     private Date date;
 
+
 }
