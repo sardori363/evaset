@@ -5,7 +5,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import uz.pdp.springsecurity.aotations.CheckPermission;
+import uz.pdp.springsecurity.annotations.CheckPermission;
 import uz.pdp.springsecurity.entity.Attachment;
 import uz.pdp.springsecurity.entity.AttachmentContent;
 import uz.pdp.springsecurity.payload.ApiResponse;

@@ -1,4 +1,4 @@
-package uz.pdp.springsecurity.aotations;
+package uz.pdp.springsecurity.annotations;
 
 import java.lang.annotation.*;
 

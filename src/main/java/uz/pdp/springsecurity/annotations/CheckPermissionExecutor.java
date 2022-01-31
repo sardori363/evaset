@@ -1,4 +1,4 @@
-package uz.pdp.springsecurity.aotations;
+package uz.pdp.springsecurity.annotations;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
