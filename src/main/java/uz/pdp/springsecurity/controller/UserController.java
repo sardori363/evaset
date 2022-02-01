@@ -72,14 +72,14 @@ public class UserController {
     }
 
     @CheckPermission("VIEW_USER")
-    @GetMapping("/{business_id}")
+    @GetMapping("/get-by-business/{business_id}")
     public HttpEntity<?> getAllByBusinessId(@PathVariable Integer business_id) {
         ApiResponse apiResponse = userService.getAllByBusinessId(business_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
     @CheckPermission("VIEW_USER")
-    @GetMapping("/{branch_id}")
+    @GetMapping("/get-by-branchId/{branch_id}")
     public HttpEntity<?> getAllByBranchId(@PathVariable Integer branch_id) {
         ApiResponse apiResponse = userService.getAllByBranchId(branch_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);

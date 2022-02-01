@@ -139,7 +139,7 @@ public class DataLoader implements CommandLineRunner {
                     "Admin",
                     "Admin",
                     "admin",
-                    passwordEncoder.encode("adminjon123"),
+                    passwordEncoder.encode("123"),
                     admin,
                     true,
                     business,
