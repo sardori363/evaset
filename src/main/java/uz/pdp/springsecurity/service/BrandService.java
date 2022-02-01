@@ -9,6 +9,7 @@ import uz.pdp.springsecurity.payload.BrandDto;
 import uz.pdp.springsecurity.repository.BranchRepository;
 import uz.pdp.springsecurity.repository.BrandRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -66,5 +67,12 @@ public class BrandService {
     public ApiResponse deleteBrands() {
         brandRepository.deleteAll();
         return new ApiResponse("Brands successfully deleted", true);
+    }
+
+    public ApiResponse getAllByBranchId(Integer branch_id) {
+        List<Brand> allByBranch_id = brandRepository.findAllByBranch_Id(branch_id);
+        if (allByBranch_id.isEmpty()) return new ApiResponse("not found",false);
+
+        return new ApiResponse("found",true,allByBranch_id);
     }
 }

@@ -14,4 +14,6 @@ public interface TradeHistoryRepository extends JpaRepository<TradeHistory,Integ
 
     Optional<TradeHistory> findByIdAndTrade_Id(Integer id, Integer trade_id);
     Optional<TradeHistory> findByTrade_Id(Integer trade_id);
+
+    List<TradeHistory> findAllByTrade_Branch_Id(Integer trade_branch_id);
 }

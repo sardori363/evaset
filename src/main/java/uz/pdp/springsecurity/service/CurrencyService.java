@@ -9,6 +9,7 @@ import uz.pdp.springsecurity.payload.CurrencyDto;
 import uz.pdp.springsecurity.repository.BranchRepository;
 import uz.pdp.springsecurity.repository.CurrencyRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -67,5 +68,11 @@ public class CurrencyService {
     public ApiResponse deleteAll() {
         currencyRepository.deleteAll();
         return new ApiResponse("currencies removed", true);
+    }
+
+    public ApiResponse getAllByBranchId(Integer branch_id) {
+        List<Currency> allByBranch_id = currencyRepository.findAllByBranch_Id(branch_id);
+        if (allByBranch_id.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByBranch_id);
     }
 }

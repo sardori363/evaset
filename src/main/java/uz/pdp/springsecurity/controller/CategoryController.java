@@ -62,4 +62,18 @@ public class CategoryController {
         ApiResponse apiResponse = categoryService.deleteAll();
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
+
+    @CheckPermission("VIEW_CATEGORY")
+    @GetMapping("/get-by-branchId/{branch_id}")
+    public HttpEntity<?> getAllByBranchId(@PathVariable Integer branch_id) {
+        ApiResponse apiResponse = categoryService.getAllByBranchId(branch_id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @CheckPermission("VIEW_CATEGORY")
+    @GetMapping("/get-by-businessId/{businessId}")
+    public HttpEntity<?> getAllByBusinessId(@PathVariable Integer businessId) {
+        ApiResponse apiResponse = categoryService.getAllByBusinessId(businessId);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
 }

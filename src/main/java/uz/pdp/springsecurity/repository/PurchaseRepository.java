@@ -1,6 +1,7 @@
 package uz.pdp.springsecurity.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import uz.pdp.springsecurity.entity.Purchase;
 
 import java.sql.Date;
@@ -13,4 +14,8 @@ public interface PurchaseRepository extends JpaRepository<Purchase, Integer> {
     List<Purchase> findAllByBranch_Id(Integer branch_id);
     List<Purchase> findAllByDate(Date date);
     List<Purchase> findAllByTotalSum(double totalSum);
+
+    @Query(value = "select * from purchase inner join branches b on b.business_id = ?1",nativeQuery = true)
+    List<Purchase> findAllByBusinessId(Integer businessId);
+
 }
