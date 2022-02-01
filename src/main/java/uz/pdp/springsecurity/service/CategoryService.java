@@ -22,47 +22,48 @@ public class CategoryService {
     public ApiResponse add(CategoryDto categoryDto) {
         Optional<Branch> optionalBranch = branchRepository.findById(categoryDto.getBranchId());
         if (optionalBranch.isEmpty()) {
-            return new ApiResponse("NOT FOUND BRANCH",false);
+            return new ApiResponse("NOT FOUND BRANCH", false);
         }
+
         Category category = new Category(
                 categoryDto.getName(),
                 optionalBranch.get()
         );
 
         categoryRepository.save(category);
-        return new ApiResponse("Category added",true);
+        return new ApiResponse("Category added", true);
     }
 
     public ApiResponse edit(Integer id, CategoryDto categoryDto) {
-        if (!categoryRepository.existsById(id)) return new ApiResponse("Category not found",false);
+        if (!categoryRepository.existsById(id)) return new ApiResponse("Category not found", false);
 
         Category category = categoryRepository.getById(id);
         category.setName(categoryDto.getName());
 
         categoryRepository.save(category);
-        return new ApiResponse("Category updated",true);
+        return new ApiResponse("Category updated", true);
     }
 
     public ApiResponse get(Integer id) {
-        if (!categoryRepository.existsById(id)) return new ApiResponse("Category not found",false);
+        if (!categoryRepository.existsById(id)) return new ApiResponse("Category not found", false);
 
-        return new ApiResponse("found",true,categoryRepository.findById(id).get());
+        return new ApiResponse("found", true, categoryRepository.findById(id).get());
     }
 
     public ApiResponse getAll() {
 
-        return new ApiResponse("catch",true,categoryRepository.findAll());
+        return new ApiResponse("catch", true, categoryRepository.findAll());
     }
 
     public ApiResponse delete(Integer id) {
-        if (!categoryRepository.existsById(id)) return new ApiResponse("Category not found",false);
+        if (!categoryRepository.existsById(id)) return new ApiResponse("Category not found", false);
 
         categoryRepository.deleteById(id);
-        return new ApiResponse("Category deleted",true);
+        return new ApiResponse("Category deleted", true);
     }
 
     public ApiResponse deleteAll() {
         categoryRepository.deleteAll();
-        return new ApiResponse("categories removed",true);
+        return new ApiResponse("categories removed", true);
     }
 }

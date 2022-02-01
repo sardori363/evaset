@@ -36,7 +36,12 @@ public class CurrencyService {
 
     public ApiResponse edit(Integer id, CurrencyDto currencyDto) {
         if (!currencyRepository.existsById(id)) return new ApiResponse("currency not found", false);
+        Optional<Branch> optionalBranch = branchRepository.findById(currencyDto.getBranchId());
+        if (optionalBranch.isEmpty()) {
+            return new ApiResponse("NOT FOUND BRANCH", false);
+        }
         Currency currency = currencyRepository.getById(id);
+        currency.setBranch(optionalBranch.get());
         currency.setName(currencyDto.getName());
         currency.setCurrentCourse(currencyDto.getCurrentCourse());
 

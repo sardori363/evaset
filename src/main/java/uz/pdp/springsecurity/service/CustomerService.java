@@ -36,11 +36,16 @@ public class CustomerService {
 
     public ApiResponse edit(Integer id, CustomerDto customerDto) {
         if (!customerRepository.existsById(id)) return new ApiResponse("Customer not found", false);
+        Optional<Branch> optionalBranch = branchRepository.findById(customerDto.getBranchId());
+        if (optionalBranch.isEmpty()) {
+            return new ApiResponse("NOT FOUND BRANCH", false);
+        }
 
         Customer customer = customerRepository.getById(id);
         customer.setName(customerDto.getName());
         customer.setPhoneNumber(customerDto.getPhoneNumber());
         customer.setTelegram(customerDto.getTelegram());
+        customer.setBranch(optionalBranch.get());
 
         customerRepository.save(customer);
         return new ApiResponse("Customer updated", true);
