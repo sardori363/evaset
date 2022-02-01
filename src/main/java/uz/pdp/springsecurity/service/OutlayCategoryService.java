@@ -9,6 +9,7 @@ import uz.pdp.springsecurity.payload.OutlayCategoryDto;
 import uz.pdp.springsecurity.repository.BranchRepository;
 import uz.pdp.springsecurity.repository.OutlayCategoryRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -63,5 +64,17 @@ public class OutlayCategoryService {
     public ApiResponse deleteAll() {
         outlayCategoryRepository.deleteAll();
         return new ApiResponse("outlay categories removed", true);
+    }
+
+    public ApiResponse getAllByBranchId(Integer branch_id) {
+        List<OutlayCategory> allByBranch_id = outlayCategoryRepository.findAllByBranch_Id(branch_id);
+        if (allByBranch_id.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByBranch_id);
+    }
+
+    public ApiResponse getAllByBusinessId(Integer businessId) {
+        List<OutlayCategory> allByBusinessId = outlayCategoryRepository.findAllByBusinessId(businessId);
+        if (allByBusinessId.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByBusinessId);
     }
 }

@@ -70,8 +70,15 @@ public class ExchangeProductBranchController {
 
     @CheckPermission("VIEW_EXCHANGE")
     @GetMapping("/get-by-statusId/{exchangeStatus_id}")
-    public HttpEntity<?> getByExchangeStatus(Integer exchangeStatus_id) {
+    public HttpEntity<?> getByExchangeStatus(@PathVariable Integer exchangeStatus_id) {
         ApiResponse apiResponse = exchangeProductBranchService.getByStatusId(exchangeStatus_id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @CheckPermission("VIEW_EXCHANGE")
+    @GetMapping("/get-by-businessId/{businessId}")
+    public HttpEntity<?> getByBusinessId(@PathVariable Integer businessId) {
+        ApiResponse apiResponse = exchangeProductBranchService.getByBusinessId(businessId);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 }

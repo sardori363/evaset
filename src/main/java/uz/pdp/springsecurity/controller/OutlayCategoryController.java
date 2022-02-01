@@ -62,4 +62,18 @@ public class OutlayCategoryController {
         ApiResponse apiResponse = outlayCategoryService.deleteAll ();
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
+
+    @CheckPermission("VIEW_OUTLAY")
+    @GetMapping("/get-by-branchId/{branch_id}")
+    public HttpEntity<?> getAllByBranchId(@PathVariable Integer branch_id) {
+        ApiResponse apiResponse = outlayCategoryService.getAllByBranchId(branch_id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @CheckPermission("VIEW_OUTLAY")
+    @GetMapping("/get-by-businessId/{businessId}")
+    public HttpEntity<?> getAllByBusinessId(@PathVariable Integer businessId) {
+        ApiResponse apiResponse = outlayCategoryService.getAllByBusinessId(businessId);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
 }

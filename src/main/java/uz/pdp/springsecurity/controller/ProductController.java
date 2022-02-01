@@ -85,4 +85,10 @@ public class ProductController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    @GetMapping("/get-by-business/{businessId}")
+    public HttpEntity<?> getByBusiness(@PathVariable Integer businessId) {
+        ApiResponse apiResponse = productService.getByBusiness(businessId);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
 }

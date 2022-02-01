@@ -111,4 +111,9 @@ public class TradeHistoryService {
         return new ApiResponse("found",true,tradeHistoryRepository.findByTrade_Id(trade_id).get());
     }
 
+    public ApiResponse getAllByBranch(Integer trade_branch_id) {
+        List<TradeHistory> allByTrade_branch_id = tradeHistoryRepository.findAllByTrade_Branch_Id(trade_branch_id);
+        if (allByTrade_branch_id.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByTrade_branch_id);
+    }
 }

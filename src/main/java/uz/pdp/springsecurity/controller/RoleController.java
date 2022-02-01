@@ -58,4 +58,11 @@ public class RoleController {
         ApiResponse apiResponse = roleService.deleteAll();
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
+
+    @CheckPermission("VIEW_ROLE")
+    @GetMapping("/get-by-business/{business_id}")
+    public HttpEntity<?> getAllByBusiness(@PathVariable Integer business_id) {
+        ApiResponse apiResponse = roleService.getAllByBusiness(business_id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
 }

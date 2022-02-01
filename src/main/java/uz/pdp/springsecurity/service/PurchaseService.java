@@ -187,4 +187,10 @@ public class PurchaseService {
         pdfService.createPdfPurchase(optionalPurchase.get(), response);
         return new ApiResponse("CREATED",true);
     }
+
+    public ApiResponse getAllByBusiness(Integer businessId) {
+        List<Purchase> allByBusinessId = purchaseRepository.findAllByBusinessId(businessId);
+        if (allByBusinessId.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByBusinessId);
+    }
 }

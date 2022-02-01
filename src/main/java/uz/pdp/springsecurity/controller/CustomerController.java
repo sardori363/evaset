@@ -62,4 +62,18 @@ public class CustomerController {
         ApiResponse apiResponse = customerService.deleteAll();
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
+
+    @CheckPermission("VIEW_CUSTOMER")
+    @GetMapping("/get-by-branchId/{branch_id}")
+    public HttpEntity<?> getAllByBranchId(@PathVariable Integer branch_id) {
+        ApiResponse apiResponse = customerService.getAllByBranchId(branch_id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @CheckPermission("VIEW_CUSTOMER")
+    @GetMapping("/get-by-businessId/{businessId}")
+    public HttpEntity<?> getAllByBusinessId(@PathVariable Integer businessId) {
+        ApiResponse apiResponse = customerService.getAllByBusinessId(businessId);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
 }

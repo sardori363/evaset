@@ -136,5 +136,10 @@ public class TradeControllerIml {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-
+    @CheckPermission("VIEW_ALL_TRADE")
+    @GetMapping("/get-by-business/{}")
+    public HttpEntity<?> getAllByBusinessId(@PathVariable Integer businessId) {
+        ApiResponse apiResponse = tradeService.getAllByBusinessId(businessId);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
 }
