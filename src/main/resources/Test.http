@@ -1,0 +1,690 @@
+
+###
+POST http://localhost:8080/api/address/add
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzM0Nzk3OSwiZXhwIjoxNjQzMzgzOTc5LCJyb2xlIjoiQWRtaW4ifQ.2czxcvpOMKWz4UUW6DuNpopWNYbOKkB7dZbTG8nB5FZo2sW1mLeHK0hpGHkChs6UwEPVFtp7q8oVvXRYrg_IQw
+Content-Type:application/json
+
+{
+  "city": "Tashkent",
+  "district": "Chilonzor",
+  "street": "Mirobod",
+  "home": "1"
+}
+
+###
+POST http://localhost:8080/api/product
+Content-Type: application/json
+
+{
+  "name": "CORI 9",
+  "quantity": 100,
+  "barcode": 8220202,
+  "brandId": 3,
+  "categoryId": 1,
+  "measurementId": 1,
+  "photoIds": [
+    3
+  ],
+  "minQuantity": 1,
+  "buyPrice": 50,
+  "salePrice": 60,
+  "tax": 20,
+  "branchId": [
+    1
+  ],
+  "expireDate": null,
+  "dueDate": null
+}
+
+###
+
+
+
+
+###
+POST http://localhost:80/api/category/
+Content-Type: application/json
+
+{
+  "id": 500,
+  "name": "temir"
+}
+
+<> 2022-01-16T204919.401.json
+
+###
+POST http://localhost:8080/api/user
+Content-Type: application/json
+
+{
+  "firstName": "aaaaa",
+  "lastName": "bbbbb"
+}
+
+###
+POST http://localhost:8080/api/user
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbGkiLCJpYXQiOjE2NDI0ODY4MDEsImV4cCI6MTY0MjUyMjgwMSwicm9sZSI6IkFkbWluIn0.fpZwsZBei5bI7GdAJmE7lkV_ZdKAVSCnKqMcdUyAfqOt05ljU6ueq0yoWpeY4J6S4i7w_fPeQ4YQOCwZbFcrDQ
+Content-Type: application/json
+
+{
+  "firstName": "Sardor",
+  "lastName": "Shokirov",
+  "username": "sar",
+  "password": "111",
+  "roleId": 1,
+  "enabled": true
+}
+
+
+###
+POST http://localhost:8080/api/role
+Content-Type: application/json
+
+{
+  "name": "MANGER",
+  "permissions": [
+    "VIEW_USERS",
+    "ADD_USERS"
+  ],
+  "description": "katta"
+}
+
+
+
+###
+POST http://localhost:80/api/post
+Content-Type: application/json
+
+{
+  "title": "Ketmon",
+  "text": "aaaddd  ",
+  "url": "ddssadvsadvsdav"
+}
+
+<> 2022-01-17T160030.403.json
+
+###
+GET http://localhost:8080/api/user
+
+###
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "adminjon123"
+}
+
+###
+PUT http://localhost:8080/api/user/1
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MjQyNDkxMSwiZXhwIjoxNjQyNDYwOTExLCJyb2xlIjoiQWRtaW4ifQ.9IJISoK1vs98f4QWMEAf0dqJVxllKJpu_pMymYSKzvDFT-ML_tRW648f3M0yQDk6-5Z1gg6gZvNaauzv-WwA1A
+Content-Type: application/json
+
+{
+  "firstName": "admin",
+  "lastName": "AdminLast",
+  "username": "admin2",
+  "password": "123",
+  "roleId": 1,
+  "enabled": true
+}
+
+###
+GET http://localhost:8080/api/user/3
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbGkiLCJpYXQiOjE2NDI0ODY4MDEsImV4cCI6MTY0MjUyMjgwMSwicm9sZSI6IkFkbWluIn0.fpZwsZBei5bI7GdAJmE7lkV_ZdKAVSCnKqMcdUyAfqOt05ljU6ueq0yoWpeY4J6S4i7w_fPeQ4YQOCwZbFcrDQ
+
+
+###
+POST http://localhost:8080/api/attachment/upload
+
+###
+POST http://localhost:8080/api/attachment/uploadAnyFile
+
+###
+
+POST http://localhost:8080/api/address
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0Mjc0MDYxMiwiZXhwIjoxNjQyNzc2NjEyLCJyb2xlIjoiQWRtaW4ifQ.hcI1UUtxPAix4Q_ZX5NDRh_90ToGfTzL9QnuGnr1LmlVBYVCNSrRTh4Nt4rEaZwFvebt193SnlzTCG1gqrNrTw
+Content-Type: application/json
+
+{
+  "city": "Tashkent",
+  "district": "Chilonzor",
+  "street": "Temirobod",
+  "home": "8"
+}
+
+###
+POST http://localhost:8080/api/trade
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzY5MjAzNywiZXhwIjoxNjQzNzI4MDM3LCJyb2xlIjoiQWRtaW4ifQ.sGMtvxWZkmOMx9wOwC3RsxpKs81Ni1m6mFavnOmoIjSzV_wlEO6_RJFF72-mbKKfh-IsbCXDfVmosK31eFDwHQ
+Content-Type:   application/json
+
+{
+  "customerId": 1,
+  "userId": 2,
+  "productTraderDto": [
+    {
+      "tradedQuantity": 100,
+      "productTradeId": 3
+    },
+    {
+      "tradedQuantity": 50,
+      "productTradeId": 4
+    }
+  ],
+  "payDate": "2022-01-20",
+  "branchId": 2,
+  "payMethodId": 1,
+  "currencyId": 1,
+  "amountPaid": 500,
+  "addressId": 1
+}
+
+<> 2022-01-21T113025.500.json
+
+
+###
+POST http://localhost:8080/api/trade
+Content-Type: application/json
+
+{
+  "customerId": 1,
+  "userId": 1,
+  "productTraderDto": [
+    {
+      "tradedQuantity": 100,
+      "productTradeId": 1
+    }
+  ],
+  "payDate": "2022-01-17",
+  "branchId": 1,
+  "paymentStatusId": 1,
+  "payMethodId": 1,
+  "amountPaid": 0,
+  "addressId": 1
+}
+
+###
+GET http://localhost:8080/api/trade/3
+
+###
+PUT http://localhost:8080/api/trade/2
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0Mjc0MDYxMiwiZXhwIjoxNjQyNzc2NjEyLCJyb2xlIjoiQWRtaW4ifQ.hcI1UUtxPAix4Q_ZX5NDRh_90ToGfTzL9QnuGnr1LmlVBYVCNSrRTh4Nt4rEaZwFvebt193SnlzTCG1gqrNrTw
+Content-Type: application/json
+
+{
+  "customerId": 2,
+  "userId": 2,
+  "productTraderDto": [
+    {
+      "tradedQuantity": 10,
+      "productTradeId": 4
+    },
+    {
+      "tradedQuantity": 15,
+      "productTradeId": 1
+    }
+  ],
+  "payDate": "2022-01-19",
+  "branchId": 1,
+  "payMethodId": 1,
+  "amountPaid": 15000,
+  "addressId": 1
+}
+
+<> 2022-01-21T113533.200.json
+
+###
+DELETE http://localhost:8080/api/trade/25
+
+###
+GET http://localhost:8080/api/sell-history/23
+
+###
+POST http://localhost:8080/api/sell-history
+Content-Type: application/json
+
+{
+  "paidAmount": 1000,
+  "paidDate": "2022-01-19",
+  "tradeId": 38,
+  "description": "to'laganim yo'q",
+  "paymentMethodId": 1
+}
+
+###
+GET http://localhost:8080/api/sell-history/24
+
+
+
+###
+PUT http://localhost:8080/api/sell-history/25
+Content-Type: application/json
+
+{
+  "paidAmount": 50000000,
+  "paidDate": "2022-01-19",
+  "tradeId": 39,
+  "description": "to'laganim yo'q",
+  "paymentMethodId": 1
+}
+
+###
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "adminjon123"
+}
+
+###
+GET http://localhost:8080/api/role/88
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzYxNTAzNywiZXhwIjoxNjQzNjUxMDM3LCJyb2xlIjoiQWRtaW4ifQ.goCJxZ-B55cUTVCHNIqD7VLp_i4166epWe9wU6MbULxfJ1GxZoydqX-2H8e8xwCd4KA_IDdKAIoc1Ua2LmEFBw
+
+<> 2022-01-31T124623.404.json
+<> 2022-01-31T124617.404.json
+<> 2022-01-31T124608.404.json
+<> 2022-01-31T124548.200.json
+
+###
+GET http://localhost:8080/api/address
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzYxNTAzNywiZXhwIjoxNjQzNjUxMDM3LCJyb2xlIjoiQWRtaW4ifQ.goCJxZ-B55cUTVCHNIqD7VLp_i4166epWe9wU6MbULxfJ1GxZoydqX-2H8e8xwCd4KA_IDdKAIoc1Ua2LmEFBw
+
+<> 2022-01-31T124508.200.json
+<> 2022-01-31T124438.401.json
+<> 2022-01-21T095329.200.json
+
+
+
+###
+POST http://localhost:8080/api/attachment/uploadAnyFile
+
+###
+POST http://localhost:8080/api/branch
+Content-Type: application/json
+
+{
+  "name": "Namangan filial",
+  "addressId": 1
+}
+
+###
+POST http://localhost:8080/api/brand
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzM0Nzk3OSwiZXhwIjoxNjQzMzgzOTc5LCJyb2xlIjoiQWRtaW4ifQ.2czxcvpOMKWz4UUW6DuNpopWNYbOKkB7dZbTG8nB5FZo2sW1mLeHK0hpGHkChs6UwEPVFtp7q8oVvXRYrg_IQw
+Content-Type: application/json
+
+{
+  "name": "ASUS"
+}
+
+###
+POST http://localhost:8080/api/category
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzM0Nzk3OSwiZXhwIjoxNjQzMzgzOTc5LCJyb2xlIjoiQWRtaW4ifQ.2czxcvpOMKWz4UUW6DuNpopWNYbOKkB7dZbTG8nB5FZo2sW1mLeHK0hpGHkChs6UwEPVFtp7q8oVvXRYrg_IQw
+Content-Type: application/json
+
+{
+  "name": "Noutbook"
+}
+
+###
+POST http://localhost:8080/api/currency
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0Mjc0MDYxMiwiZXhwIjoxNjQyNzc2NjEyLCJyb2xlIjoiQWRtaW4ifQ.hcI1UUtxPAix4Q_ZX5NDRh_90ToGfTzL9QnuGnr1LmlVBYVCNSrRTh4Nt4rEaZwFvebt193SnlzTCG1gqrNrTw
+Content-Type: application/json
+
+{
+  "name": "Dollar",
+  "currentCourse": 10050
+}
+
+###
+POST http://localhost:8080/api/customer
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzM0Nzk3OSwiZXhwIjoxNjQzMzgzOTc5LCJyb2xlIjoiQWRtaW4ifQ.2czxcvpOMKWz4UUW6DuNpopWNYbOKkB7dZbTG8nB5FZo2sW1mLeHK0hpGHkChs6UwEPVFtp7q8oVvXRYrg_IQw
+Content-Type: application/json
+
+{
+  "name": "Sardor",
+  "phoneNumber": "+998950041830",
+  "telegram": "@sari"
+}
+
+###
+POST http://localhost:8080/api/measurement
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0Mjc0MDYxMiwiZXhwIjoxNjQyNzc2NjEyLCJyb2xlIjoiQWRtaW4ifQ.hcI1UUtxPAix4Q_ZX5NDRh_90ToGfTzL9QnuGnr1LmlVBYVCNSrRTh4Nt4rEaZwFvebt193SnlzTCG1gqrNrTw
+Content-Type: application/json
+
+{
+  "name": "Dona"
+}
+
+###
+POST http://localhost:8080/api/paymethod
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0Mjc0MDYxMiwiZXhwIjoxNjQyNzc2NjEyLCJyb2xlIjoiQWRtaW4ifQ.hcI1UUtxPAix4Q_ZX5NDRh_90ToGfTzL9QnuGnr1LmlVBYVCNSrRTh4Nt4rEaZwFvebt193SnlzTCG1gqrNrTw
+Content-Type: application/json
+
+{
+  "type": "Uzs"
+}
+
+###
+DELETE http://localhost:8080/api/product/1
+
+###
+POST http://localhost:8080/api/product
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzM0Nzk3OSwiZXhwIjoxNjQzMzgzOTc5LCJyb2xlIjoiQWRtaW4ifQ.2czxcvpOMKWz4UUW6DuNpopWNYbOKkB7dZbTG8nB5FZo2sW1mLeHK0hpGHkChs6UwEPVFtp7q8oVvXRYrg_IQw
+Content-Type: application/json
+
+{
+  "name": "Cori 7",
+  "quantity": 500,
+  "barcode": 889977,
+  "brandId": 2,
+  "categoryId": 1,
+  "measurementId": 1,
+  "photoIds": [
+    3,
+    4
+  ],
+  "minQuantity": 10,
+  "buyPrice": 100,
+  "salePrice": 120,
+  "tax": 20,
+  "branchId": [
+    4
+  ],
+  "expireDate": null,
+  "dueDate": null
+}
+
+###
+POST http://localhost:8080/api/role
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0Mjc0MDYxMiwiZXhwIjoxNjQyNzc2NjEyLCJyb2xlIjoiQWRtaW4ifQ.hcI1UUtxPAix4Q_ZX5NDRh_90ToGfTzL9QnuGnr1LmlVBYVCNSrRTh4Nt4rEaZwFvebt193SnlzTCG1gqrNrTw
+Content-Type: application/json
+
+{
+  "name": "Kassir",
+  "permissions": [
+    "VIEW_ADDRESS",
+    "VIEW_BRAND",
+    "VIEW_CATEGORY",
+    "VIEW_CURRENCY",
+    "VIEW_CUSTOMER",
+    "VIEW_MEASUREMENT",
+    "VIEW_PRODUCT",
+    "VIEW_OUTLAY"
+  ],
+  "description": "Hisobchi faqat malumotlarni ko'raoladi"
+}
+
+###
+GET http://localhost:8080/api/role/1
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0Mjc0MDYxMiwiZXhwIjoxNjQyNzc2NjEyLCJyb2xlIjoiQWRtaW4ifQ.hcI1UUtxPAix4Q_ZX5NDRh_90ToGfTzL9QnuGnr1LmlVBYVCNSrRTh4Nt4rEaZwFvebt193SnlzTCG1gqrNrTw
+
+###
+POST http://localhost:8080/api/supplier
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzM0Nzk3OSwiZXhwIjoxNjQzMzgzOTc5LCJyb2xlIjoiQWRtaW4ifQ.2czxcvpOMKWz4UUW6DuNpopWNYbOKkB7dZbTG8nB5FZo2sW1mLeHK0hpGHkChs6UwEPVFtp7q8oVvXRYrg_IQw
+Content-Type:application/json
+
+{
+  "name": "ali",
+  "phoneNumber": "888888",
+  "telegram": "dasdsdcsad",
+  "supplierType": "Yetkazib beruvchi"
+}
+
+###
+GET http://localhost:8080/api/supplier
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0Mjc0MDYxMiwiZXhwIjoxNjQyNzc2NjEyLCJyb2xlIjoiQWRtaW4ifQ.hcI1UUtxPAix4Q_ZX5NDRh_90ToGfTzL9QnuGnr1LmlVBYVCNSrRTh4Nt4rEaZwFvebt193SnlzTCG1gqrNrTw
+
+###
+GET http://localhost:8080/api/trade-history/get-one/1
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0Mjc0MDYxMiwiZXhwIjoxNjQyNzc2NjEyLCJyb2xlIjoiQWRtaW4ifQ.hcI1UUtxPAix4Q_ZX5NDRh_90ToGfTzL9QnuGnr1LmlVBYVCNSrRTh4Nt4rEaZwFvebt193SnlzTCG1gqrNrTw
+
+###
+GET http://localhost:8080/api/trade-history
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0Mjc0MDYxMiwiZXhwIjoxNjQyNzc2NjEyLCJyb2xlIjoiQWRtaW4ifQ.hcI1UUtxPAix4Q_ZX5NDRh_90ToGfTzL9QnuGnr1LmlVBYVCNSrRTh4Nt4rEaZwFvebt193SnlzTCG1gqrNrTw
+
+###
+PUT http://localhost:8080/api/product/{{id}}
+
+###
+POST http://localhost:8080/api/purchase
+Content-Type: application/json
+
+{
+  "dealerId": 1,
+  "purchaseStatusId": 1,
+  "paymentStatusId": 1,
+  "branchId": 1,
+  "date": "2022-01-17",
+  "description": "evnqlerjvnlejnvlwejnv",
+  "deliveryPrice": 50000,
+  "purchaseProductsDto": [
+    {
+      "purchasedQuantity": 10,
+      "productPurchaseId": 4
+    },
+    {
+      "purchasedQuantity": 100,
+      "productPurchaseId": 1
+    }
+  ]
+}
+
+
+###
+POST http://localhost:8080/api/purchas
+
+###
+POST http://localhost:8080/api/exchange-product-brach
+Content-Type: application/json
+
+{
+  "shippedBranchId": 1,
+  "receivedBranchId": 2,
+  "exchangeDate": "2020-07-18",
+  "description": "dvsdvsdvsdv sadvsd vsadv sadvsad vs adv sd vs dav s dv s dv sd v sd v as dvsa dv asdv",
+  "exchangeStatusId": 1,
+  "exchangeProductDTOS": [
+    {
+      "exchangeProductQuantity": 50,
+      "productExchangeId": 7
+    }
+  ]
+}
+
+
+
+###
+GET http://localhost:8080/api/trade/get-pdf/3
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzI2MjAxNSwiZXhwIjoxNjQzMjk4MDE1LCJyb2xlIjoiQWRtaW4ifQ.wLSUegYuXMzW7N0L1XwpETdQZtFVUaJSlaRXOe6knFZt6BsO-JsvrprB5GzxaPk0Otctduka8r0D1QyvaosVUg
+
+###
+POST http://localhost:8080/api/auth/login
+
+###
+GET http://localhost:8080/api/user
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzI2NTA5MCwiZXhwIjoxNjQzMzAxMDkwLCJyb2xlIjoiQWRtaW4ifQ.aqw40fd6fk89alXsFdIibNjGb1euOMa5yl-QFppdCzdqDKVbmRiK_tCVwy1T5NJ-BehxGgdsqZKQTgV31_7ytA
+
+###
+POST http://localhost:8080/api/address
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzM0Nzk3OSwiZXhwIjoxNjQzMzgzOTc5LCJyb2xlIjoiQWRtaW4ifQ.2czxcvpOMKWz4UUW6DuNpopWNYbOKkB7dZbTG8nB5FZo2sW1mLeHK0hpGHkChs6UwEPVFtp7q8oVvXRYrg_IQw
+Content-Type:application/json
+
+{
+  "city": "Farg'ona",
+  "district": "Chilonzor",
+  "street": "Mirobod",
+  "home": "1"
+}
+
+###
+POST http://localhost:8080/api/attachment/uploadAnyFile
+
+###
+POST http://localhost:8080/api/attachment/upload
+
+###
+POST http://localhost:8080/api/purchase
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzM0Nzk3OSwiZXhwIjoxNjQzMzgzOTc5LCJyb2xlIjoiQWRtaW4ifQ.2czxcvpOMKWz4UUW6DuNpopWNYbOKkB7dZbTG8nB5FZo2sW1mLeHK0hpGHkChs6UwEPVFtp7q8oVvXRYrg_IQw
+Content-Type:application/json
+
+{
+  "dealerId": 1,
+  "seller": 1,
+  "purchaseStatusId": 1,
+  "paymentStatusId": 1,
+  "branchId": 1,
+  "date": "2022-12-07",
+  "description": "dvqervevv ev erv q evlkqnev qoekv oq vqe veqo ve rve rv ",
+  "deliveryPrice": 4000,
+  "purchaseProductsDto": [
+    {
+      "purchasedQuantity": 10,
+      "productPurchaseId": 3
+    },
+    {
+      "purchasedQuantity": 10,
+      "productPurchaseId": 4
+    },
+    {
+      "purchasedQuantity": 10,
+      "productPurchaseId": 5
+    },
+    {
+      "purchasedQuantity": 10,
+      "productPurchaseId": 6
+    }
+  ]
+}
+
+###
+GET http://localhost:8080/api/purchase/get-pdf/1
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzM0Nzk3OSwiZXhwIjoxNjQzMzgzOTc5LCJyb2xlIjoiQWRtaW4ifQ.2czxcvpOMKWz4UUW6DuNpopWNYbOKkB7dZbTG8nB5FZo2sW1mLeHK0hpGHkChs6UwEPVFtp7q8oVvXRYrg_IQw
+
+###
+GET http://localhost:8080/api/purchase/get-pdf/1
+
+
+###
+GET http://localhost:8080/api/purchase
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzM0Nzk3OSwiZXhwIjoxNjQzMzgzOTc5LCJyb2xlIjoiQWRtaW4ifQ.2czxcvpOMKWz4UUW6DuNpopWNYbOKkB7dZbTG8nB5FZo2sW1mLeHK0hpGHkChs6UwEPVFtp7q8oVvXRYrg_IQw
+
+###
+POST http://localhost:8080/api/benefit-lost
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzM0Nzk3OSwiZXhwIjoxNjQzMzgzOTc5LCJyb2xlIjoiQWRtaW4ifQ.2czxcvpOMKWz4UUW6DuNpopWNYbOKkB7dZbTG8nB5FZo2sW1mLeHK0hpGHkChs6UwEPVFtp7q8oVvXRYrg_IQw
+Content-Type: application/json
+
+{
+  "firstDate": "2021-01-10",
+  "secondDate": "2023-01-25",
+  "branchId": 2
+}
+
+###
+POST http://localhost:8080/api/outlay
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzM0Nzk3OSwiZXhwIjoxNjQzMzgzOTc5LCJyb2xlIjoiQWRtaW4ifQ.2czxcvpOMKWz4UUW6DuNpopWNYbOKkB7dZbTG8nB5FZo2sW1mLeHK0hpGHkChs6UwEPVFtp7q8oVvXRYrg_IQw
+Content-Type: application/json
+
+{
+  "outlayCategoryId": 1,
+  "totalSum": 80000,
+  "branchId": 2,
+  "spenderId": 1,
+  "description": "asdjnqoifwoij wefiwheihqwofih qwefiwhefhweofhew wqhfeowhqefohiwqefihqw",
+  "date": "2022-01-20"
+}
+
+###
+POST http://localhost:8080/api/outlayCategory
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzM0Nzk3OSwiZXhwIjoxNjQzMzgzOTc5LCJyb2xlIjoiQWRtaW4ifQ.2czxcvpOMKWz4UUW6DuNpopWNYbOKkB7dZbTG8nB5FZo2sW1mLeHK0hpGHkChs6UwEPVFtp7q8oVvXRYrg_IQw
+Content-Type: application/json
+
+{
+  "title": "Balo bormikin buni qo'shib"
+}
+
+
+###
+POST http://localhost:8080/api/benefit-lost/one-date
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzYwNjk3MSwiZXhwIjoxNjQzNjQyOTcxLCJyb2xlIjoiQWRtaW4ifQ.aGPqshaG137_2G0sU23kR3sYTBUsKt-vsqunZd67I-XmctWqewN86sT6YrI0xiNCnWmQ9xQ_hkrVKpcgeiOiOA
+Content-Type: application/json
+
+{
+  "firstDate": "2022-01-12",
+  "secondDate": null,
+  "branchId": 2
+}
+
+<> 2022-01-31T143021.409.json
+<> 2022-01-31T143011.200.json
+<> 2022-01-31T142934.409.json
+<> 2022-01-31T142733.200.json
+<> 2022-01-31T142318.500.json
+<> 2022-01-31T142153.500.json
+<> 2022-01-31T142018.500.json
+<> 2022-01-31T141959.500.json
+<> 2022-01-31T141814.409.json
+<> 2022-01-31T141731.409.json
+<> 2022-01-31T123447.409.json
+
+###
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "123"
+}
+
+<> 2022-02-01T111056.200.txt
+<> 2022-02-01T100718.200.txt
+<> 2022-02-01T100628.401.json
+
+
+###
+
+POST http://localhost:8080/api/auth/login
+
+###
+GET http://localhost:8080/api/address
+
+###
+GET http://localhost:8080/api/trade/get-by-PayDate/2022-01-19
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzY5MjAzNywiZXhwIjoxNjQzNzI4MDM3LCJyb2xlIjoiQWRtaW4ifQ.sGMtvxWZkmOMx9wOwC3RsxpKs81Ni1m6mFavnOmoIjSzV_wlEO6_RJFF72-mbKKfh-IsbCXDfVmosK31eFDwHQ
+
+<> 2022-01-31T143820.200.json
+<> 2022-01-31T143341.400.json
+
+###
+GET http://localhost:8080/api/trade/get-by-customerId/1
+
+###
+GET http://localhost:8080/api/role
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzY5MjAzNywiZXhwIjoxNjQzNzI4MDM3LCJyb2xlIjoiQWRtaW4ifQ.sGMtvxWZkmOMx9wOwC3RsxpKs81Ni1m6mFavnOmoIjSzV_wlEO6_RJFF72-mbKKfh-IsbCXDfVmosK31eFDwHQ
+
+<> 2022-02-01T110449.200.json
+
+
+###
+POST http://localhost:8080/api/user
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzY5MjAzNywiZXhwIjoxNjQzNzI4MDM3LCJyb2xlIjoiQWRtaW4ifQ.sGMtvxWZkmOMx9wOwC3RsxpKs81Ni1m6mFavnOmoIjSzV_wlEO6_RJFF72-mbKKfh-IsbCXDfVmosK31eFDwHQ
+Content-Type: application/json
+
+{
+  "firstName": "Ibrohimjon",
+  "lastName": "Yursunov",
+  "username": "ali",
+  "password": "222",
+  "roleId": 1,
+  "branchId": 1,
+  "businessId": 1,
+  "enabled": true
+}
+
+<> 2022-02-01T101109.200.json
+
+###
+POST http://localhost:8080/api/trade
+
+###
+GET http://localhost:8080/api/address
