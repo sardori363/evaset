@@ -8,6 +8,7 @@ import uz.pdp.springsecurity.entity.template.AbsEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -19,4 +20,7 @@ public class Currency extends AbsEntity {
     private String name;
     @Column(nullable = false)
     private double currentCourse;
+
+    @ManyToOne
+    private Branch branch;
 }

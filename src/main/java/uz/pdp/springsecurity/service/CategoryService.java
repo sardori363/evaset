@@ -2,19 +2,31 @@ package uz.pdp.springsecurity.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import uz.pdp.springsecurity.entity.Branch;
 import uz.pdp.springsecurity.entity.Category;
 import uz.pdp.springsecurity.payload.ApiResponse;
 import uz.pdp.springsecurity.payload.CategoryDto;
+import uz.pdp.springsecurity.repository.BranchRepository;
 import uz.pdp.springsecurity.repository.CategoryRepository;
+
+import java.util.Optional;
 
 @Service
 public class CategoryService {
     @Autowired
     CategoryRepository categoryRepository;
 
+    @Autowired
+    BranchRepository branchRepository;
+
     public ApiResponse add(CategoryDto categoryDto) {
+        Optional<Branch> optionalBranch = branchRepository.findById(categoryDto.getBranchId());
+        if (optionalBranch.isEmpty()) {
+            return new ApiResponse("NOT FOUND BRANCH",false);
+        }
         Category category = new Category(
-                categoryDto.getName()
+                categoryDto.getName(),
+                optionalBranch.get()
         );
 
         categoryRepository.save(category);

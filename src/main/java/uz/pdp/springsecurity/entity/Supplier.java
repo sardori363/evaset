@@ -8,6 +8,7 @@ import uz.pdp.springsecurity.entity.template.AbsEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -24,6 +25,9 @@ public class Supplier extends AbsEntity {
     private String telegram;
 
     private String supplierType;
+
+    @ManyToOne
+    private Branch branch;
 
 
 }

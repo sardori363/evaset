@@ -12,8 +12,8 @@ import uz.pdp.springsecurity.service.TradeService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Date;
 import java.text.ParseException;
-import java.util.Date;
 
 @RestController
 @RequestMapping("/api/trade")

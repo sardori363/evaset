@@ -276,8 +276,8 @@ public class TradeService {
         return new ApiResponse("found", true, allByCustomer_id);
     }
 
-    public ApiResponse getByPayDate(Date payDate) throws ParseException {
-        List<Trade> allByPayDate = tradeRepository.findAllByPayDate(payDate);
+    public ApiResponse getByPayDate(java.sql.Date payDate) throws ParseException {
+        List<Trade> allByPayDate = tradeRepository.findTradeByOneDate(payDate);
         if (allByPayDate.isEmpty()) return new ApiResponse("not found", false);
         return new ApiResponse("found", true, allByPayDate);
     }

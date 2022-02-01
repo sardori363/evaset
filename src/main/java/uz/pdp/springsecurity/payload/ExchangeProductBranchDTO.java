@@ -24,4 +24,8 @@ public class ExchangeProductBranchDTO {
 
     private List<ExchangeProductDTO> exchangeProductDTOS;
 
+    private String branchId;
+
+
+
 }

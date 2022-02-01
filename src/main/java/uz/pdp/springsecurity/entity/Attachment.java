@@ -24,6 +24,7 @@ public class Attachment {
 
     private String name;
 
-
+    @ManyToOne
+    private Branch branch;
 
 }

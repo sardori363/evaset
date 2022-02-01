@@ -8,6 +8,7 @@ import uz.pdp.springsecurity.entity.template.AbsEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -17,4 +18,8 @@ import javax.persistence.Entity;
 public class PaymentMethod extends AbsEntity {
     @Column(nullable = false,unique = true)
     private String type;
+
+
+    @ManyToOne
+    private Branch branch;
 }

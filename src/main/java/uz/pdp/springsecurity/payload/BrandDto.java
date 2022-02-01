@@ -12,4 +12,6 @@ import javax.validation.constraints.NotNull;
 public class BrandDto {
     @NotNull(message = "required line")
     private String name;
+    @NotNull(message = "required line")
+    private Integer branchId;
 }

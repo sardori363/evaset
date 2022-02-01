@@ -2,22 +2,34 @@ package uz.pdp.springsecurity.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import uz.pdp.springsecurity.entity.Branch;
 import uz.pdp.springsecurity.entity.Supplier;
 import uz.pdp.springsecurity.payload.ApiResponse;
 import uz.pdp.springsecurity.payload.SupplierDto;
+import uz.pdp.springsecurity.repository.BranchRepository;
 import uz.pdp.springsecurity.repository.SupplierRepository;
+
+import java.util.Optional;
 
 @Service
 public class SupplierService {
     @Autowired
     SupplierRepository supplierRepository;
 
+    @Autowired
+    BranchRepository branchRepository;
+
     public ApiResponse add(SupplierDto supplierDto) {
+        Optional<Branch> optionalBranch = branchRepository.findById(supplierDto.getBranchId());
+        if (optionalBranch.isEmpty()) {
+            return new ApiResponse("NOT FOUND BRANCH",false);
+        }
         Supplier supplier = new Supplier(
                 supplierDto.getName(),
                 supplierDto.getPhoneNumber(),
                 supplierDto.getTelegram(),
-                supplierDto.getSupplierType()
+                supplierDto.getSupplierType(),
+                optionalBranch.get()
         );
             supplierRepository.save(supplier);
         return new ApiResponse("Saved", true);

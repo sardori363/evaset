@@ -16,4 +16,6 @@ public class CustomerDto {
     private String phoneNumber;
     @NotNull(message = "enter your telegram username")
     private String telegram;
+
+    private Integer branchId;
 }

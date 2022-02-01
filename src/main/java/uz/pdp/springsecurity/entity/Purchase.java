@@ -44,4 +44,5 @@ public class Purchase extends AbsEntity {
 
     @OneToMany
     private List<PurchaseProduct> purchaseProductList;
+
 }
