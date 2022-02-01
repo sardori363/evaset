@@ -19,7 +19,6 @@ public class PaymentMethod extends AbsEntity {
     @Column(nullable = false,unique = true)
     private String type;
 
-
     @ManyToOne
     private Branch branch;
 }

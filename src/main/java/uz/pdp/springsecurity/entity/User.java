@@ -56,13 +56,15 @@ public class User extends AbsEntity implements UserDetails {
     private boolean credentialsNonExpired = true;
 
 
-    public User(String firstName, String lastName, String username, String password, Role role, boolean enabled) {
+    public User(String firstName, String lastName, String username, String password, Role role, boolean enabled,Business business,Branch branch) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.password = password;
         this.role = role;
         this.enabled = enabled;
+        this.business = business;
+        this.branch = branch;
     }
 
     @Override

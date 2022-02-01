@@ -79,44 +79,10 @@ public class UserController {
     }
 
     @CheckPermission("VIEW_USER")
-    @GetMapping("/{business_id}/{id}")
-    public HttpEntity<?> getAllByBusinessId(@PathVariable Integer business_id, @PathVariable Integer id) {
-        ApiResponse apiResponse = userService.getOneByBusinessId(business_id, id);
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
-    }
-
-    @CheckPermission("VIEW_USER")
     @GetMapping("/{branch_id}")
     public HttpEntity<?> getAllByBranchId(@PathVariable Integer branch_id) {
         ApiResponse apiResponse = userService.getAllByBranchId(branch_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_USER")
-    @GetMapping("/{branch_id}/{id}")
-    public HttpEntity<?> getOneByBranchId(@PathVariable Integer branch_id, @PathVariable Integer id) {
-        ApiResponse apiResponse = userService.getOneByBranchId(branch_id, id);
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
-    }
-
-    @CheckPermission("VIEW_USER")
-    @GetMapping("/{business_id}/{branch_id}")
-    public HttpEntity<?> getAllByBusinessAndBranch(@PathVariable Integer business_id, @PathVariable Integer branch_id) {
-        ApiResponse apiResponse = userService.getAllByBusinessAndBranch(business_id, branch_id);
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
-    }
-
-    @CheckPermission("VIEW_USER")
-    @GetMapping("/{business_id}/{branch_id}/{id}")
-    public HttpEntity<?> getOneByBusinessAndBranch(@PathVariable Integer business_id, @PathVariable Integer branch_id, @PathVariable Integer id) {
-        ApiResponse apiResponse = userService.getOneByBusinessAndBranch(business_id, branch_id, id);
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
-    }
-
-    @CheckPermission("DELETE_USER")
-    @DeleteMapping("/{business_id}/{id}")
-    public HttpEntity<?> deleteOneByBusinessIdAndId(@PathVariable Integer business_id, @PathVariable Integer id) {
-        ApiResponse apiResponse = userService.deleteOneByBusinessIdAndId(business_id, id);
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
-    }
 }

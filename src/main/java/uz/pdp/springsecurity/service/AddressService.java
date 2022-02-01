@@ -3,13 +3,10 @@ package uz.pdp.springsecurity.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uz.pdp.springsecurity.entity.Address;
-import uz.pdp.springsecurity.entity.Business;
 import uz.pdp.springsecurity.payload.AddressDto;
 import uz.pdp.springsecurity.payload.ApiResponse;
 import uz.pdp.springsecurity.repository.AddressRepository;
 import uz.pdp.springsecurity.repository.BusinessRepository;
-
-import java.util.Optional;
 
 @Service
 public class AddressService {
@@ -25,11 +22,6 @@ public class AddressService {
         address.setDistrict(addressDto.getDistrict());
         address.setStreet(addressDto.getStreet());
         address.setHome(addressDto.getHome());
-        Optional<Business> optionalBusiness = businessRepository.findById(addressDto.getBusinessId());
-        if (optionalBusiness.isEmpty()) {
-            return new ApiResponse("NOT FOUND BUSINESS", true);
-        }
-        address.setBusiness(optionalBusiness.get());
 
         addressRepository.save(address);
         return new ApiResponse("Address successfully added", true);
@@ -42,12 +34,6 @@ public class AddressService {
         address.setDistrict(addressDto.getDistrict());
         address.setStreet(addressDto.getStreet());
         address.setHome(addressDto.getHome());
-
-        Optional<Business> optionalBusiness = businessRepository.findById(addressDto.getBusinessId());
-        if (optionalBusiness.isEmpty()) {
-            return new ApiResponse("NOT FOUND BUSINESS", true);
-        }
-        address.setBusiness(optionalBusiness.get());
 
         addressRepository.save(address);
         return new ApiResponse("Address successfully updated", true);

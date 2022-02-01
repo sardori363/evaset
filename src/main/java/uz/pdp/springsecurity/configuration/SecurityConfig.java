@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // slesh belgisini qoyish kk apidaan oldin
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/login/**").permitAll()
+                .antMatchers("/api/auth/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

@@ -55,14 +55,48 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+
+        List<Business> allBusiness = businessRepository.findAll();
+        Business business = null;
+        if (allBusiness.isEmpty()) {
+            business = new Business("Application", "Test Uchun");
+            businessRepository.save(business);
+        }
+//------------------------------------------------------------------------------------------//
+        List<Address> addresses = addressRepository.findAll();
+        Address address = null;
+        if (addresses.isEmpty()) {
+            address = new Address(
+                    "Tashkent",
+                    "Shayxontuxur",
+                    "Gulobod",
+                    "1"
+            );
+            addressRepository.save(address);
+        }
+//------------------------------------------------------------------------------------------//
+
+        List<Branch> allBranch = branchRepository.findAll();
+        Branch branch = null;
+        if (allBranch.isEmpty()) {
+            branch = new Branch(
+                    "Test Filial",
+                    address,
+                    business
+            );
+            branchRepository.save(branch);
+        }
+//------------------------------------------------------------------------------------------//
+
         if (initMode.equals("always")) {
             Permissions[] permissions = Permissions.values();
 
-            Role admin = roleRepository.save(new Role(Constants.ADMIN, Arrays.asList(permissions)));
+            Role admin = roleRepository.save(new Role(Constants.ADMIN, Arrays.asList(permissions),business));
 
             Role manager = roleRepository.save(new Role(
                     Constants.MANAGER,
-                    Arrays.asList(permissions)
+                    Arrays.asList(permissions),
+                    business
             ));
 
             Role employee = roleRepository.save(new Role(
@@ -94,8 +128,12 @@ public class DataLoader implements CommandLineRunner {
                             VIEW_PAY_STATUS,
                             DELETE_PAY_STATUS,
                             EDIT_MY_PROFILE,
-                            VIEW_PRODUCT)
+                            VIEW_PRODUCT
+
+                    ),
+                    business
             ));
+
 
             userRepository.save(new User(
                     "Admin",
@@ -103,7 +141,10 @@ public class DataLoader implements CommandLineRunner {
                     "admin",
                     passwordEncoder.encode("adminjon123"),
                     admin,
-                    true
+                    true,
+                    business,
+                    branch
+
             ));
             userRepository.save(new User(
                     "Manager",
@@ -111,7 +152,9 @@ public class DataLoader implements CommandLineRunner {
                     "manager",
                     passwordEncoder.encode("manager123"),
                     manager,
-                    true
+                    true,
+                    business,
+                    branch
             ));
 
             userRepository.save(new User(
@@ -120,47 +163,20 @@ public class DataLoader implements CommandLineRunner {
                     "employee",
                     passwordEncoder.encode("employee123"),
                     employee,
-                    true
+                    true,
+                    business,
+                    branch
             ));
 
         }
-        List<Business> allBusiness = businessRepository.findAll();
-        Business business = null;
-        if (allBusiness.isEmpty()) {
-            business = new Business("Application", "Test Uchun");
-            businessRepository.save(business);
-        }
 
-        List<Address> addresses = addressRepository.findAll();
-        Address address = null;
-        if (addresses.isEmpty()) {
-            address = new Address(
-                    "Tashkent",
-                    "Shayxontuxur",
-                    "Gulobod",
-                    "1",
-                    business
-            );
-            addressRepository.save(address);
-        }
-
-        List<Branch> allBranch = branchRepository.findAll();
-        Branch branch = null;
-        if (allBranch.isEmpty()) {
-            branch = new Branch(
-                    "Test Filial",
-                    address,
-                    business
-            );
-            branchRepository.save(branch);
-        }
 
         List<PaymentStatus> all = paymentStatusRepository.findAll();
         if (all.isEmpty()) {
             paymentStatusRepository.save(new PaymentStatus(
                     "To'langan",
                     branch
-            ));
+                    ));
 
             paymentStatusRepository.save(new PaymentStatus(
                     "Qisman to'langan",

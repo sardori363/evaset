@@ -40,9 +40,13 @@ public class Role {
     @UpdateTimestamp
     private Timestamp updateAt;
 
-    public Role(String name, List<Permissions> permissions) {
+    public Role(String name, List<Permissions> permissions,Business business) {
         this.name = name;
         this.permissions = permissions;
+        this.business = business;
     }
+
+    @ManyToOne
+    private Business business;
 
 }

@@ -151,11 +151,6 @@ public class UserService {
         return new ApiResponse("found", true, allByBusiness_id);
     }
 
-    public ApiResponse getOneByBusinessId(Integer business_id, Integer id) {
-        Optional<User> byBusiness_idAndId = userRepository.findByBusiness_IdAndId(business_id, id);
-        if (byBusiness_idAndId.isEmpty()) return new ApiResponse("not found", false);
-        return new ApiResponse("found", true, byBusiness_idAndId);
-    }
 
     public ApiResponse getAllByBranchId(Integer branch_id) {
         List<User> allByBranch_id = userRepository.findAllByBranch_Id(branch_id);
@@ -163,29 +158,4 @@ public class UserService {
         return new ApiResponse("found", true, allByBranch_id);
     }
 
-    public ApiResponse getOneByBranchId(Integer branch_id, Integer id) {
-        Optional<User> byBranch_idAndId = userRepository.findByBranch_IdAndId(branch_id, id);
-        if (byBranch_idAndId.isEmpty()) return new ApiResponse("not found", false);
-        return new ApiResponse("found", true, byBranch_idAndId);
-    }
-
-    public ApiResponse getAllByBusinessAndBranch(Integer business_id, Integer branch_id) {
-        List<User> allByBusiness_idAndBranch_id = userRepository.findAllByBusiness_IdAndBranch_Id(business_id, branch_id);
-        if (allByBusiness_idAndBranch_id.isEmpty()) return new ApiResponse("not found", false);
-        return new ApiResponse("found", true, allByBusiness_idAndBranch_id);
-    }
-
-    public ApiResponse getOneByBusinessAndBranch(Integer business_id, Integer branch_id, Integer id) {
-        Optional<User> byBusiness_idAndBranch_idAndId = userRepository.findByBusiness_IdAndBranch_IdAndId(business_id, branch_id, id);
-        if (byBusiness_idAndBranch_idAndId.isEmpty()) return new ApiResponse("not found", false);
-        return new ApiResponse("found", true, byBusiness_idAndBranch_idAndId);
-    }
-
-    public ApiResponse deleteOneByBusinessIdAndId(Integer business_id, Integer id) {
-        Optional<User> byBusiness_idAndId = userRepository.findByBusiness_IdAndId(business_id, id);
-        if (byBusiness_idAndId.isEmpty()) return new ApiResponse("not found",false);
-
-        userRepository.deleteByBusiness_IdAndId(business_id,id);
-        return new ApiResponse("deleted",true);
-    }
 }

@@ -11,4 +11,6 @@ public interface OutlayRepository extends JpaRepository<Outlay, Integer> {
     List<Outlay> findAllByDateIsBetweenAndBranch_Id(Date firs_date, Date second_date, Integer branch_id);
 
     List<Outlay> findAllByDateAndBranch_Id(Date firs_date, Integer branch_id);
+
+    //find  by one date
 }

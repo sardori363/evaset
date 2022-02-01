@@ -33,4 +33,7 @@ public interface TradeRepository extends JpaRepository<Trade, Integer> {
     @Query(value = "SELECT * FROM Trade t WHERE DATE(t.pay_date) = ?1", nativeQuery = true)
     List<Trade> findTradeByOneDate(java.sql.Date date);
 
+    @Query(value = "select * from Trade t where branches.business = ?1",nativeQuery = true)
+    List<Trade> findAllByBusinessId(Integer businessId);
+
 }
