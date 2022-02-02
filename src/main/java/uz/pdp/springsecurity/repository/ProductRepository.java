@@ -23,7 +23,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     List<Product> findAllByBranch_Id(Integer branch_id);
 
-    @Query(value = "select * from product inner join branches b on b.business_id = ?1",nativeQuery = true)
+
+    @Query(value = "select * from product p inner join product_branch pb on p.id = pb.product_id inner join branches b on pb.branch_id = b.id where b.business_id = ?1",nativeQuery = true)
     List<Product> findAllByBusinessId(Integer businessId);//tekshirib korish kere
 
 }
