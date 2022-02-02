@@ -13,6 +13,8 @@ import uz.pdp.springsecurity.repository.OutlayCategoryRepository;
 import uz.pdp.springsecurity.repository.OutlayRepository;
 import uz.pdp.springsecurity.repository.UserRepository;
 
+import java.sql.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -101,5 +103,23 @@ public class OutlayService {
     public ApiResponse deleteAll() {
         outlayRepository.deleteAll();
         return new ApiResponse("Outlays removed", true);
+    }
+
+    public ApiResponse getByDate(Date date) {
+        List<Outlay> allByDate = outlayRepository.findAllByDate(date);
+        if (allByDate.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByDate);
+    }
+
+    public ApiResponse getAllByBranchId(Integer branch_id) {
+        List<Outlay> allByBranch_id = outlayRepository.findAllByBranch_Id(branch_id);
+        if (allByBranch_id.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByBranch_id);
+    }
+
+    public ApiResponse getAllByBusinessId(Integer businessId) {
+        List<Outlay> allByBusinessId = outlayRepository.findAllByBusinessId(businessId);
+        if (allByBusinessId.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByBusinessId);
     }
 }

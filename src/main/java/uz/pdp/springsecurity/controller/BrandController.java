@@ -62,4 +62,11 @@ public class BrandController {
         ApiResponse apiResponse = brandService.deleteBrands();
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
+
+    @CheckPermission("VIEW_BRAND")
+    @GetMapping("by-branchId/{branch_id}")
+    public HttpEntity<?> getAllByBranchId(@PathVariable Integer branch_id) {
+        ApiResponse apiResponse = brandService.getAllByBranchId(branch_id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
 }

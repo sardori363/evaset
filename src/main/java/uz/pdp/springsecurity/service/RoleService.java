@@ -8,6 +8,7 @@ import uz.pdp.springsecurity.payload.ApiResponse;
 import uz.pdp.springsecurity.payload.RoleDto;
 import uz.pdp.springsecurity.repository.RoleRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -57,5 +58,11 @@ public class RoleService {
     public ApiResponse deleteAll() {
         roleRepository.deleteAll();
         return new ApiResponse("roles removed", true);
+    }
+
+    public ApiResponse getAllByBusiness(Integer business_id) {
+        List<Role> allByBusiness_id = roleRepository.findAllByBusiness_Id(business_id);
+        if (allByBusiness_id.isEmpty()) return new ApiResponse("not found", false);
+        return new ApiResponse("found", true, allByBusiness_id);
     }
 }

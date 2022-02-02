@@ -1,6 +1,7 @@
 package uz.pdp.springsecurity.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import uz.pdp.springsecurity.entity.Product;
 
 import java.util.List;
@@ -21,6 +22,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     List<Product> findAllByBrand_Id(Integer brand_id);
 
     List<Product> findAllByBranch_Id(Integer branch_id);
-    //biznezli
+
+    @Query(value = "select * from product inner join branches b on b.business_id = ?1",nativeQuery = true)
+    List<Product> findAllByBusinessId(Integer businessId);//tekshirib korish kere
 
 }

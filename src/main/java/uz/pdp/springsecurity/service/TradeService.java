@@ -326,4 +326,10 @@ public class TradeService {
 
         return new ApiResponse("CREATED", true);
     }
+
+    public ApiResponse getAllByBusinessId(Integer businessId) {
+        List<Trade> allByBusinessId = tradeRepository.findAllByBusinessId(businessId);
+        if (allByBusinessId.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByBusinessId);
+    }
 }

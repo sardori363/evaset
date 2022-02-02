@@ -9,6 +9,7 @@ import uz.pdp.springsecurity.payload.SupplierDto;
 import uz.pdp.springsecurity.repository.BranchRepository;
 import uz.pdp.springsecurity.repository.SupplierRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -66,5 +67,17 @@ public class SupplierService {
     public ApiResponse deleteAll() {
         supplierRepository.deleteAll();
         return new ApiResponse("suppliers removed",true);
+    }
+
+    public ApiResponse getAllByBranch(Integer branch_id) {
+        List<Supplier> allByBranch_id = supplierRepository.findAllByBranch_Id(branch_id);
+        if (allByBranch_id.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByBranch_id);
+    }
+
+    public ApiResponse getAllByBusiness(Integer businessId) {
+        List<Supplier> allByBusinessId = supplierRepository.findAllByBusinessId(businessId);
+        if (allByBusinessId.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByBusinessId);
     }
 }

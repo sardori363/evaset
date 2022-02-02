@@ -10,6 +10,7 @@ import uz.pdp.springsecurity.payload.OutlayDto;
 import uz.pdp.springsecurity.service.OutlayService;
 
 import javax.validation.Valid;
+import java.sql.Date;
 
 @RestController
 @RequestMapping("/api/outlay")
@@ -46,17 +47,38 @@ public class OutlayController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_OUTLAY")
+    @CheckPermission("DELETE_OUTLAY")
     @DeleteMapping("/{id}")
     public HttpEntity<?> delete(@PathVariable Integer id) {
         ApiResponse apiResponse = outlayService.delete(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_OUTLAY")
+    @CheckPermission("DELETE_OUTLAY")
     @DeleteMapping
     public HttpEntity<?> deleteAll() {
         ApiResponse apiResponse = outlayService.deleteAll();
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @CheckPermission("VIEW_OUTLAY")
+    @GetMapping("/get-by-date/{date}")
+    public HttpEntity<?> getByDate(@PathVariable Date date) {
+        ApiResponse apiResponse = outlayService.getByDate(date);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @CheckPermission("VIEW_OUTLAY")
+    @GetMapping("/get-by-branchId/{branch_id}")
+    public HttpEntity<?> getAllByBranchId(@PathVariable Integer branch_id) {
+        ApiResponse apiResponse = outlayService.getAllByBranchId(branch_id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @CheckPermission("VIEW_OUTLAY")
+    @GetMapping("/get-by-businessId/{businessId}")
+    public HttpEntity<?> getAllByBusinessId(@PathVariable Integer businessId) {
+        ApiResponse apiResponse = outlayService.getAllByBusinessId(businessId);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 }

@@ -83,7 +83,7 @@ public class PurchaseController {
     }
 
     @CheckPermission("VIEW_PURCHASE")
-    @GetMapping("get-purchase-;by-branch/{branch_id}")
+    @GetMapping("get-purchase-by-branch/{branch_id}")
     public HttpEntity<?> getByBranchId(Integer branch_id) {
         ApiResponse apiResponse = purchaseService.getByBranchId(branch_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
@@ -107,6 +107,13 @@ public class PurchaseController {
     @GetMapping("/get-pdf/{id}")
     public HttpEntity<?> getPdf(@PathVariable Integer id, HttpServletResponse response) throws IOException {
         ApiResponse apiResponse = purchaseService.getPdfFile(id, response);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @CheckPermission("VIEW_PURCHASE")
+    @GetMapping("/get-by-business/{businessId}")
+    public HttpEntity<?> getAllByBusiness(@PathVariable Integer businessId){
+        ApiResponse apiResponse = purchaseService.getAllByBusiness(businessId);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 }

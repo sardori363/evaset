@@ -9,6 +9,7 @@ import uz.pdp.springsecurity.payload.CategoryDto;
 import uz.pdp.springsecurity.repository.BranchRepository;
 import uz.pdp.springsecurity.repository.CategoryRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -65,5 +66,17 @@ public class CategoryService {
     public ApiResponse deleteAll() {
         categoryRepository.deleteAll();
         return new ApiResponse("categories removed", true);
+    }
+
+    public ApiResponse getAllByBranchId(Integer branch_id) {
+        List<Category> allByBranch_id = categoryRepository.findAllByBranch_Id(branch_id);
+        if (allByBranch_id.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByBranch_id);
+    }
+
+    public ApiResponse getAllByBusinessId(Integer businessId) {
+        List<Category> allByBusinessId = categoryRepository.findAllByBusinessId(businessId);
+        if (allByBusinessId.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByBusinessId);
     }
 }

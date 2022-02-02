@@ -9,6 +9,7 @@ import uz.pdp.springsecurity.payload.CustomerDto;
 import uz.pdp.springsecurity.repository.BranchRepository;
 import uz.pdp.springsecurity.repository.CustomerRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -69,5 +70,17 @@ public class CustomerService {
     public ApiResponse deleteAll() {
         customerRepository.deleteAll();
         return new ApiResponse("Customers removed", true);
+    }
+
+    public ApiResponse getAllByBranchId(Integer branch_id) {
+        List<Customer> allByBranch_id = customerRepository.findAllByBranch_Id(branch_id);
+        if (allByBranch_id.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByBranch_id);
+    }
+
+    public ApiResponse getAllByBusinessId(Integer businessId) {
+        List<Customer> allByBusinessId = customerRepository.findAllByBusinessId(businessId);
+        if (allByBusinessId.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByBusinessId);
     }
 }

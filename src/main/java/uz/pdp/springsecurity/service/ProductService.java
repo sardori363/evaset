@@ -149,4 +149,10 @@ public class ProductService {
 
         return new ApiResponse("found", true, allByBranch_id);
     }
+
+    public ApiResponse getByBusiness(Integer businessId) {
+        List<Product> allByBusinessId = productRepository.findAllByBusinessId(businessId);
+        if (allByBusinessId.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByBusinessId);
+    }
 }

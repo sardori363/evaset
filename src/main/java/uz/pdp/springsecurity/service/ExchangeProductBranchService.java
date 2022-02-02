@@ -163,4 +163,10 @@ public class ExchangeProductBranchService {
         if (allByExchangeStatus_id.isEmpty()) return new ApiResponse("Not found", false);
         return new ApiResponse("found", true, allByExchangeStatus_id);
     }
+
+    public ApiResponse getByBusinessId(Integer businessId) {
+        List<ExchangeProductBranch> allByBusinessId = exchangeProductBranchRepository.findAllByBusinessId(businessId);
+        if (allByBusinessId.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByBusinessId);
+    }
 }
