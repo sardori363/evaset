@@ -41,11 +41,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-
                 // slesh belgisini qoyish kk apidaan oldin
+                .cors().and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/**").permitAll()
+                .antMatchers("/api/auth/login").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -54,6 +54,34 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//        http
+//                .cors()
+//                .and()
+//                .csrf().disable()
+//                .exceptionHandling()
+//                .and()
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers("/",
+//                        "/favicon.ico",
+//                        "//*.png",
+//                        "//*.gif",
+//                        "//*.svg",
+//                        "//*.jpg",
+//                        "//*.html",
+//                        "//*.css",
+//                        "//*.js",
+//                        "/swagger-ui.html",
+//                        "/swagger-resources/",
+//                        "/v2/",
+//                        "/csrf",
+//                        "/webjars/")
+//                .permitAll()
+//                .antMatchers("/api/auth/", "/api/attachment/download/").permitAll()
+//                .antMatchers("/api/**")
+//                .authenticated();
+//        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean
