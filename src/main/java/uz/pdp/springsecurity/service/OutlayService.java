@@ -105,8 +105,8 @@ public class OutlayService {
         return new ApiResponse("Outlays removed", true);
     }
 
-    public ApiResponse getByDate(Date date) {
-        List<Outlay> allByDate = outlayRepository.findAllByDate(date);
+    public ApiResponse getByDate(Date date , Integer branch_id) {
+        List<Outlay> allByDate = outlayRepository.findAllByDate(date,branch_id);
         if (allByDate.isEmpty()) return new ApiResponse("not found",false);
         return new ApiResponse("found",true,allByDate);
     }

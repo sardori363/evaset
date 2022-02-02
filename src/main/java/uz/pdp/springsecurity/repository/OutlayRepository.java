@@ -13,8 +13,8 @@ public interface OutlayRepository extends JpaRepository<Outlay, Integer> {
 
     List<Outlay> findAllByDateAndBranch_Id(Date firs_date, Integer branch_id);
 
-    @Query(value = "SELECT * FROM outlay o WHERE DATE(o.date) = ?1", nativeQuery = true)
-    List<Outlay> findAllByDate(java.sql.Date date);
+    @Query(value = "SELECT * FROM outlay o WHERE DATE(o.date) = ?1 and o.branch_id = ?2", nativeQuery = true)
+    List<Outlay> findAllByDate(java.sql.Date date,Integer branch_id);
 
     List<Outlay> findAllByBranch_Id(Integer branch_id);
 
