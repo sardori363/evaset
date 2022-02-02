@@ -9,6 +9,7 @@ import uz.pdp.springsecurity.payload.MeasurementDto;
 import uz.pdp.springsecurity.repository.BranchRepository;
 import uz.pdp.springsecurity.repository.MeasurementRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -49,10 +50,6 @@ public class MeasurementService {
         return new ApiResponse("found", true, measurementRepository.findById(id).get());
     }
 
-    public ApiResponse getAll() {
-        return new ApiResponse("catch", true, measurementRepository.findAll());
-    }
-
     public ApiResponse delete(Integer id) {
         if (!measurementRepository.existsById(id)) return new ApiResponse("Measurement not found", false);
 
@@ -60,8 +57,15 @@ public class MeasurementService {
         return new ApiResponse("deleted", true);
     }
 
-    public ApiResponse deleteAll() {
-        measurementRepository.deleteAll();
-        return new ApiResponse("measurements removed", true);
+    public ApiResponse getByBranch(Integer branch_id) {
+        List<Measurement> allByBranch_id = measurementRepository.findAllByBranch_Id(branch_id);
+        if (allByBranch_id.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByBranch_id);
+    }
+
+    public ApiResponse getByBusiness(Integer business_id) {
+        List<Measurement> allByBranch_business_id = measurementRepository.findAllByBranch_Business_Id(business_id);
+        if (allByBranch_business_id.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByBranch_business_id);
     }
 }

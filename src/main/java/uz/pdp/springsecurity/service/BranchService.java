@@ -64,9 +64,9 @@ public class BranchService {
         return new ApiResponse("Branch found", true, branchRepository.findById(id).get());
     }
 
-    public ApiResponse getBranches() {
-        return new ApiResponse("Catch", true, branchRepository.findAll());
-    }
+//    public ApiResponse getBranches() {
+//        return new ApiResponse("Catch", true, branchRepository.findAll());
+//    }
 
     public ApiResponse deleteBranch(Integer id) {
         if (!branchRepository.existsById(id)) return new ApiResponse("Branch not found", false);
@@ -75,10 +75,6 @@ public class BranchService {
         return new ApiResponse("Branch successfully deleted", true);
     }
 
-    public ApiResponse deleteBranches() {
-        branchRepository.deleteAll();
-        return new ApiResponse("Branches successfully deleted", true);
-    }
 
     public ApiResponse getByBusinessId(Integer business_id) {
         List<Branch> allByBusiness_id = branchRepository.findAllByBusiness_Id(business_id);

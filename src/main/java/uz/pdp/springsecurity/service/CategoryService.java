@@ -51,21 +51,11 @@ public class CategoryService {
         return new ApiResponse("found", true, categoryRepository.findById(id).get());
     }
 
-    public ApiResponse getAll() {
-
-        return new ApiResponse("catch", true, categoryRepository.findAll());
-    }
-
     public ApiResponse delete(Integer id) {
         if (!categoryRepository.existsById(id)) return new ApiResponse("Category not found", false);
 
         categoryRepository.deleteById(id);
         return new ApiResponse("Category deleted", true);
-    }
-
-    public ApiResponse deleteAll() {
-        categoryRepository.deleteAll();
-        return new ApiResponse("categories removed", true);
     }
 
     public ApiResponse getAllByBranchId(Integer branch_id) {

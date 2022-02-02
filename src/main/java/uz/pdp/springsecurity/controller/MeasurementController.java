@@ -42,13 +42,6 @@ public class MeasurementController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_MEASUREMENT")
-    @GetMapping
-    public HttpEntity<?> getAll() {
-        ApiResponse apiResponse = measurementService.getAll();
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
-    }
-
     @CheckPermission("DELETE_MEASUREMENT")
     @DeleteMapping("/{id}")
     public HttpEntity<?> delete(@PathVariable Integer id) {
@@ -56,10 +49,17 @@ public class MeasurementController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("DELETE_MEASUREMENT")
-    @DeleteMapping
-    public HttpEntity<?> deleteAll() {
-        ApiResponse apiResponse = measurementService.deleteAll();
+    @CheckPermission("VIEW_MEASUREMENT")
+    @GetMapping("/get-by-branch/{branch_id}")
+    public HttpEntity<?> getAllByBranch(@PathVariable Integer branch_id) {
+        ApiResponse apiResponse = measurementService.getByBranch(branch_id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @CheckPermission("VIEW_MEASUREMENT")
+    @GetMapping("/get-by-business/{business_id}")
+    public HttpEntity<?> getAllByBusiness(@PathVariable Integer business_id) {
+        ApiResponse apiResponse = measurementService.getByBusiness(business_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 

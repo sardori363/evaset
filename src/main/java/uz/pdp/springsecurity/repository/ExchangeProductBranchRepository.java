@@ -9,9 +9,12 @@ import java.util.List;
 
 public interface ExchangeProductBranchRepository extends JpaRepository<ExchangeProductBranch,Integer> {
     List<ExchangeProductBranch> findAllByExchangeDate(Date exchangeDate);
-    List<ExchangeProductBranch> findAllByExchangeStatus_Id(Integer exchangeStatus_id);
+    List<ExchangeProductBranch> findAllByExchangeStatus_IdAndShippedBranch_Id(Integer exchangeStatus_id, Integer branch_id);
 
     @Query(value = "select * from exchange_product_branch inner join branches b on b.business_id = ?1",nativeQuery = true)
     List<ExchangeProductBranch> findAllByBusinessId(Integer businessId);
+
+    List<ExchangeProductBranch> findAllByShippedBranch_Id(Integer shippedBranch_id);
+    List<ExchangeProductBranch> findAllByReceivedBranch_Id(Integer receivedBranch_id);
 
 }

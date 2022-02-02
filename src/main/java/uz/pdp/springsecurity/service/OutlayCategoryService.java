@@ -51,19 +51,10 @@ public class OutlayCategoryService {
         return new ApiResponse("found", true, outlayCategoryRepository.findById(id).get());
     }
 
-    public ApiResponse getAll() {
-        return new ApiResponse("catch", true, outlayCategoryRepository.findAll());
-    }
-
     public ApiResponse delete(Integer id) {
         if (!outlayCategoryRepository.existsById(id)) return new ApiResponse("Outlay category not found", false);
         outlayCategoryRepository.deleteById(id);
         return new ApiResponse("outlay category deleted", true);
-    }
-
-    public ApiResponse deleteAll() {
-        outlayCategoryRepository.deleteAll();
-        return new ApiResponse("outlay categories removed", true);
     }
 
     public ApiResponse getAllByBranchId(Integer branch_id) {

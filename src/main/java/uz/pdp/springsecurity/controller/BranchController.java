@@ -42,24 +42,17 @@ public class BranchController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_BRANCH")
-    @GetMapping
-    public HttpEntity<?> getAll() {
-        ApiResponse apiResponse = branchService.getBranches();
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
-    }
+//    @CheckPermission("VIEW_BRANCH")
+//    @GetMapping
+//    public HttpEntity<?> getAll() {
+//        ApiResponse apiResponse = branchService.getBranches();
+//        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+//    }
 
     @CheckPermission("DELETE_BRANCH")
     @DeleteMapping("/{id}")
     public HttpEntity<?> delete(@PathVariable Integer id) {
         ApiResponse apiResponse = branchService.deleteBranch(id);
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
-    }
-
-    @CheckPermission("DELETE_BRANCH")
-    @DeleteMapping
-    public HttpEntity<?> deleteAll() {
-        ApiResponse apiResponse = branchService.deleteBranches();
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 

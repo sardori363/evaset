@@ -90,19 +90,10 @@ public class OutlayService {
         return new ApiResponse("found", true, outlayRepository.findById(id).get());
     }
 
-    public ApiResponse getAll() {
-        return new ApiResponse("catch", true, outlayRepository.findAll());
-    }
-
     public ApiResponse delete(Integer id) {
         if (!outlayRepository.existsById(id)) return new ApiResponse("Outlay not found", false);
         outlayRepository.deleteById(id);
         return new ApiResponse("Outlay deleted", true);
-    }
-
-    public ApiResponse deleteAll() {
-        outlayRepository.deleteAll();
-        return new ApiResponse("Outlays removed", true);
     }
 
     public ApiResponse getByDate(Date date , Integer branch_id) {

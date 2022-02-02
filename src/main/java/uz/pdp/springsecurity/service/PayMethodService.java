@@ -45,19 +45,10 @@ public class PayMethodService {
         return new ApiResponse("found",true,payMethodRepository.findById(id).get());
     }
 
-    public ApiResponse getAll() {
-        return new ApiResponse("catch",true,payMethodRepository.findAll());
-    }
-
     public ApiResponse delete(Integer id) {
         if (!payMethodRepository.existsById(id)) return new ApiResponse("not found",false);
 
         payMethodRepository.deleteById(id);
         return new ApiResponse("deleted",true);
-    }
-
-    public ApiResponse deleteAll() {
-        payMethodRepository.deleteAll();
-        return new ApiResponse("removed",true);
     }
 }

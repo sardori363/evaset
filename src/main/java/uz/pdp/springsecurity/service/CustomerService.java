@@ -57,19 +57,10 @@ public class CustomerService {
         return new ApiResponse("found", true, customerRepository.findById(id).get());
     }
 
-    public ApiResponse getAll() {
-        return new ApiResponse("catch", true, customerRepository.findAll());
-    }
-
     public ApiResponse delete(Integer id) {
         if (!customerRepository.existsById(id)) return new ApiResponse("Customer not found", false);
         customerRepository.deleteById(id);
         return new ApiResponse("Customer deleted", true);
-    }
-
-    public ApiResponse deleteAll() {
-        customerRepository.deleteAll();
-        return new ApiResponse("Customers removed", true);
     }
 
     public ApiResponse getAllByBranchId(Integer branch_id) {

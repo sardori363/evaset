@@ -102,6 +102,4 @@ public enum Permissions {
     EDIT_BUSINESS,
     VIEW_BUSINESS,
     DELETE_BUSINESS
-
-
 }

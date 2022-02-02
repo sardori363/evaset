@@ -138,19 +138,10 @@ public class ExchangeProductBranchService {
         return new ApiResponse("found", true, exchangeProductBranchRepository.getById(id));
     }
 
-    public ApiResponse getAll() {
-        return new ApiResponse("catch", true, exchangeProductBranchRepository.findAll());
-    }
-
     public ApiResponse deleteOne(Integer id) {
         if (exchangeProductBranchRepository.findById(id).isEmpty()) return new ApiResponse("not found", false);
         exchangeProductBranchRepository.deleteById(id);
         return new ApiResponse("deleted", true);
-    }
-
-    public ApiResponse deleteAll() {
-        exchangeProductBranchRepository.deleteAll();
-        return new ApiResponse("exchanges removed", true);
     }
 
     public ApiResponse getByDate(Date exchangeDate) {
@@ -158,8 +149,8 @@ public class ExchangeProductBranchService {
         return new ApiResponse("catch", true, allByExchangeDate);
     }
 
-    public ApiResponse getByStatusId(Integer exchangeStatus_id) {
-        List<ExchangeProductBranch> allByExchangeStatus_id = exchangeProductBranchRepository.findAllByExchangeStatus_Id(exchangeStatus_id);
+    public ApiResponse getByStatusId(Integer exchangeStatusId, Integer branch_id) {
+        List<ExchangeProductBranch> allByExchangeStatus_id = exchangeProductBranchRepository.findAllByExchangeStatus_IdAndShippedBranch_Id(exchangeStatusId,branch_id);
         if (allByExchangeStatus_id.isEmpty()) return new ApiResponse("Not found", false);
         return new ApiResponse("found", true, allByExchangeStatus_id);
     }
@@ -168,5 +159,17 @@ public class ExchangeProductBranchService {
         List<ExchangeProductBranch> allByBusinessId = exchangeProductBranchRepository.findAllByBusinessId(businessId);
         if (allByBusinessId.isEmpty()) return new ApiResponse("not found",false);
         return new ApiResponse("found",true,allByBusinessId);
+    }
+
+    public ApiResponse getByShippedBranchId(Integer shippedBranch_id) {
+        List<ExchangeProductBranch> allByShippedBranch_id = exchangeProductBranchRepository.findAllByShippedBranch_Id(shippedBranch_id);
+        if (allByShippedBranch_id.isEmpty()) return new ApiResponse("NOT FOUND",false);
+        return new ApiResponse("FOUND",true,allByShippedBranch_id);
+    }
+
+    public ApiResponse getByReceivedBranchId(Integer receivedBranch_id) {
+        List<ExchangeProductBranch> allByShippedBranch_id = exchangeProductBranchRepository.findAllByReceivedBranch_Id(receivedBranch_id);
+        if (allByShippedBranch_id.isEmpty()) return new ApiResponse("NOT FOUND",false);
+        return new ApiResponse("FOUND",true,allByShippedBranch_id);
     }
 }

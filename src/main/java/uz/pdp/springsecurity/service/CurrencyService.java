@@ -55,19 +55,11 @@ public class CurrencyService {
         return new ApiResponse("found", true, currencyRepository.findById(id).get());
     }
 
-    public ApiResponse getAll() {
-        return new ApiResponse("catch", true, currencyRepository.findAll());
-    }
 
     public ApiResponse delete(Integer id) {
         if (!currencyRepository.existsById(id)) return new ApiResponse("currency not found", false);
         currencyRepository.deleteById(id);
         return new ApiResponse("currency deleted", true);
-    }
-
-    public ApiResponse deleteAll() {
-        currencyRepository.deleteAll();
-        return new ApiResponse("currencies removed", true);
     }
 
     public ApiResponse getAllByBranchId(Integer branch_id) {

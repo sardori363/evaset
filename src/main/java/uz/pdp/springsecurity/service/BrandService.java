@@ -54,19 +54,10 @@ public class BrandService {
         return new ApiResponse("Found", true, brandRepository.findById(id).get());
     }
 
-    public ApiResponse getBrands() {
-        return new ApiResponse("Found", true, brandRepository.findAll());
-    }
-
     public ApiResponse deleteBrand(Integer id) {
         if (!brandRepository.existsById(id)) return new ApiResponse("Brand not found", false);
         brandRepository.deleteById(id);
         return new ApiResponse("Brand deleted", true);
-    }
-
-    public ApiResponse deleteBrands() {
-        brandRepository.deleteAll();
-        return new ApiResponse("Brands successfully deleted", true);
     }
 
     public ApiResponse getAllByBranchId(Integer branch_id) {

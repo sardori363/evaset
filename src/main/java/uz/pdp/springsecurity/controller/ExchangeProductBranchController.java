@@ -40,24 +40,10 @@ public class ExchangeProductBranchController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_EXCHANGE")
-    @GetMapping
-    public HttpEntity<?> getAll() {
-        ApiResponse apiResponse = exchangeProductBranchService.getAll();
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
-    }
-
     @CheckPermission("DELETE_EXCHANGE")
     @DeleteMapping("/{id}")
     public HttpEntity<?> deleteOne(@PathVariable Integer id) {
         ApiResponse apiResponse = exchangeProductBranchService.deleteOne(id);
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
-    }
-
-    @CheckPermission("DELETE_EXCHANGE")
-    @DeleteMapping
-    public HttpEntity<?> deleteAll() {
-        ApiResponse apiResponse = exchangeProductBranchService.deleteAll();
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
@@ -69,9 +55,9 @@ public class ExchangeProductBranchController {
     }
 
     @CheckPermission("VIEW_EXCHANGE")
-    @GetMapping("/get-by-statusId/{exchangeStatus_id}")
-    public HttpEntity<?> getByExchangeStatus(@PathVariable Integer exchangeStatus_id) {
-        ApiResponse apiResponse = exchangeProductBranchService.getByStatusId(exchangeStatus_id);
+    @GetMapping("/get-by-statusId/{exchangeStatus_id}/{branch_id}")
+    public HttpEntity<?> getByExchangeStatus(@PathVariable Integer exchangeStatus_id, @PathVariable Integer branch_id) {
+        ApiResponse apiResponse = exchangeProductBranchService.getByStatusId(exchangeStatus_id, branch_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
@@ -79,6 +65,20 @@ public class ExchangeProductBranchController {
     @GetMapping("/get-by-businessId/{businessId}")
     public HttpEntity<?> getByBusinessId(@PathVariable Integer businessId) {
         ApiResponse apiResponse = exchangeProductBranchService.getByBusinessId(businessId);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @CheckPermission("VIEW_EXCHANGE")
+    @GetMapping("/get-by-shipped-branch/{shippedBranch_id}")
+    public HttpEntity<?> getByShippedBranchId(@PathVariable Integer shippedBranch_id) {
+        ApiResponse apiResponse = exchangeProductBranchService.getByShippedBranchId(shippedBranch_id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @CheckPermission("VIEW_EXCHANGE")
+    @GetMapping("/get-by-received-branch/{receivedBranch_id}")
+    public HttpEntity<?> getByReceivedBranchId(@PathVariable Integer receivedBranch_id) {
+        ApiResponse apiResponse = exchangeProductBranchService.getByReceivedBranchId(receivedBranch_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 }
