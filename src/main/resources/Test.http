@@ -1,392 +1,97 @@
 
 ###
-POST http://localhost:8080/api/address/add
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzM0Nzk3OSwiZXhwIjoxNjQzMzgzOTc5LCJyb2xlIjoiQWRtaW4ifQ.2czxcvpOMKWz4UUW6DuNpopWNYbOKkB7dZbTG8nB5FZo2sW1mLeHK0hpGHkChs6UwEPVFtp7q8oVvXRYrg_IQw
-Content-Type:application/json
-
-{
-  "city": "Tashkent",
-  "district": "Chilonzor",
-  "street": "Mirobod",
-  "home": "1"
-}
-
-###
-POST http://localhost:8080/api/product
-Content-Type: application/json
-
-{
-  "name": "CORI 9",
-  "quantity": 100,
-  "barcode": 8220202,
-  "brandId": 3,
-  "categoryId": 1,
-  "measurementId": 1,
-  "photoIds": [
-    3
-  ],
-  "minQuantity": 1,
-  "buyPrice": 50,
-  "salePrice": 60,
-  "tax": 20,
-  "branchId": [
-    1
-  ],
-  "expireDate": null,
-  "dueDate": null
-}
-
-###
-
-
-
-
-###
-POST http://localhost:80/api/category/
-Content-Type: application/json
-
-{
-  "id": 500,
-  "name": "temir"
-}
-
-<> 2022-01-16T204919.401.json
-
-###
-POST http://localhost:8080/api/user
-Content-Type: application/json
-
-{
-  "firstName": "aaaaa",
-  "lastName": "bbbbb"
-}
-
-###
-POST http://localhost:8080/api/user
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbGkiLCJpYXQiOjE2NDI0ODY4MDEsImV4cCI6MTY0MjUyMjgwMSwicm9sZSI6IkFkbWluIn0.fpZwsZBei5bI7GdAJmE7lkV_ZdKAVSCnKqMcdUyAfqOt05ljU6ueq0yoWpeY4J6S4i7w_fPeQ4YQOCwZbFcrDQ
-Content-Type: application/json
-
-{
-  "firstName": "Sardor",
-  "lastName": "Shokirov",
-  "username": "sar",
-  "password": "111",
-  "roleId": 1,
-  "enabled": true
-}
-
-
-###
-POST http://localhost:8080/api/role
-Content-Type: application/json
-
-{
-  "name": "MANGER",
-  "permissions": [
-    "VIEW_USERS",
-    "ADD_USERS"
-  ],
-  "description": "katta"
-}
-
-
-
-###
-POST http://localhost:80/api/post
-Content-Type: application/json
-
-{
-  "title": "Ketmon",
-  "text": "aaaddd  ",
-  "url": "ddssadvsadvsdav"
-}
-
-<> 2022-01-17T160030.403.json
-
-###
-GET http://localhost:8080/api/user
-
-###
-POST http://localhost:8080/api/auth/login
-Content-Type: application/json
-
-{
-  "username": "admin",
-  "password": "adminjon123"
-}
-
-###
-PUT http://localhost:8080/api/user/1
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MjQyNDkxMSwiZXhwIjoxNjQyNDYwOTExLCJyb2xlIjoiQWRtaW4ifQ.9IJISoK1vs98f4QWMEAf0dqJVxllKJpu_pMymYSKzvDFT-ML_tRW648f3M0yQDk6-5Z1gg6gZvNaauzv-WwA1A
-Content-Type: application/json
-
-{
-  "firstName": "admin",
-  "lastName": "AdminLast",
-  "username": "admin2",
-  "password": "123",
-  "roleId": 1,
-  "enabled": true
-}
-
-###
-GET http://localhost:8080/api/user/3
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbGkiLCJpYXQiOjE2NDI0ODY4MDEsImV4cCI6MTY0MjUyMjgwMSwicm9sZSI6IkFkbWluIn0.fpZwsZBei5bI7GdAJmE7lkV_ZdKAVSCnKqMcdUyAfqOt05ljU6ueq0yoWpeY4J6S4i7w_fPeQ4YQOCwZbFcrDQ
-
-
-###
-POST http://localhost:8080/api/attachment/upload
-
-###
-POST http://localhost:8080/api/attachment/uploadAnyFile
-
-###
-
-POST http://localhost:8080/api/address
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0Mjc0MDYxMiwiZXhwIjoxNjQyNzc2NjEyLCJyb2xlIjoiQWRtaW4ifQ.hcI1UUtxPAix4Q_ZX5NDRh_90ToGfTzL9QnuGnr1LmlVBYVCNSrRTh4Nt4rEaZwFvebt193SnlzTCG1gqrNrTw
-Content-Type: application/json
-
-{
-  "city": "Tashkent",
-  "district": "Chilonzor",
-  "street": "Temirobod",
-  "home": "8"
-}
-
-###
-POST http://localhost:8080/api/trade
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzY5MjAzNywiZXhwIjoxNjQzNzI4MDM3LCJyb2xlIjoiQWRtaW4ifQ.sGMtvxWZkmOMx9wOwC3RsxpKs81Ni1m6mFavnOmoIjSzV_wlEO6_RJFF72-mbKKfh-IsbCXDfVmosK31eFDwHQ
-Content-Type:   application/json
-
-{
-  "customerId": 1,
-  "userId": 2,
-  "productTraderDto": [
-    {
-      "tradedQuantity": 100,
-      "productTradeId": 3
-    },
-    {
-      "tradedQuantity": 50,
-      "productTradeId": 4
-    }
-  ],
-  "payDate": "2022-01-20",
-  "branchId": 2,
-  "payMethodId": 1,
-  "currencyId": 1,
-  "amountPaid": 500,
-  "addressId": 1
-}
-
-<> 2022-01-21T113025.500.json
-
-
-###
-POST http://localhost:8080/api/trade
-Content-Type: application/json
-
-{
-  "customerId": 1,
-  "userId": 1,
-  "productTraderDto": [
-    {
-      "tradedQuantity": 100,
-      "productTradeId": 1
-    }
-  ],
-  "payDate": "2022-01-17",
-  "branchId": 1,
-  "paymentStatusId": 1,
-  "payMethodId": 1,
-  "amountPaid": 0,
-  "addressId": 1
-}
-
-###
-GET http://localhost:8080/api/trade/3
-
-###
-PUT http://localhost:8080/api/trade/2
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0Mjc0MDYxMiwiZXhwIjoxNjQyNzc2NjEyLCJyb2xlIjoiQWRtaW4ifQ.hcI1UUtxPAix4Q_ZX5NDRh_90ToGfTzL9QnuGnr1LmlVBYVCNSrRTh4Nt4rEaZwFvebt193SnlzTCG1gqrNrTw
-Content-Type: application/json
-
-{
-  "customerId": 2,
-  "userId": 2,
-  "productTraderDto": [
-    {
-      "tradedQuantity": 10,
-      "productTradeId": 4
-    },
-    {
-      "tradedQuantity": 15,
-      "productTradeId": 1
-    }
-  ],
-  "payDate": "2022-01-19",
-  "branchId": 1,
-  "payMethodId": 1,
-  "amountPaid": 15000,
-  "addressId": 1
-}
-
-<> 2022-01-21T113533.200.json
-
-###
-DELETE http://localhost:8080/api/trade/25
-
-###
-GET http://localhost:8080/api/sell-history/23
-
-###
-POST http://localhost:8080/api/sell-history
-Content-Type: application/json
-
-{
-  "paidAmount": 1000,
-  "paidDate": "2022-01-19",
-  "tradeId": 38,
-  "description": "to'laganim yo'q",
-  "paymentMethodId": 1
-}
-
-###
-GET http://localhost:8080/api/sell-history/24
-
-
-
-###
-PUT http://localhost:8080/api/sell-history/25
-Content-Type: application/json
-
-{
-  "paidAmount": 50000000,
-  "paidDate": "2022-01-19",
-  "tradeId": 39,
-  "description": "to'laganim yo'q",
-  "paymentMethodId": 1
-}
-
-###
-POST http://localhost:8080/api/auth/login
-Content-Type: application/json
-
-{
-  "username": "admin",
-  "password": "adminjon123"
-}
-
-###
-GET http://localhost:8080/api/role/88
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzYxNTAzNywiZXhwIjoxNjQzNjUxMDM3LCJyb2xlIjoiQWRtaW4ifQ.goCJxZ-B55cUTVCHNIqD7VLp_i4166epWe9wU6MbULxfJ1GxZoydqX-2H8e8xwCd4KA_IDdKAIoc1Ua2LmEFBw
-
-<> 2022-01-31T124623.404.json
-<> 2022-01-31T124617.404.json
-<> 2022-01-31T124608.404.json
-<> 2022-01-31T124548.200.json
-
-###
-GET http://localhost:8080/api/address
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzYxNTAzNywiZXhwIjoxNjQzNjUxMDM3LCJyb2xlIjoiQWRtaW4ifQ.goCJxZ-B55cUTVCHNIqD7VLp_i4166epWe9wU6MbULxfJ1GxZoydqX-2H8e8xwCd4KA_IDdKAIoc1Ua2LmEFBw
-
-<> 2022-01-31T124508.200.json
-<> 2022-01-31T124438.401.json
-<> 2022-01-21T095329.200.json
-
-
-
-###
-POST http://localhost:8080/api/attachment/uploadAnyFile
-
-###
 POST http://localhost:8080/api/branch
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzY5MjAzNywiZXhwIjoxNjQzNzI4MDM3LCJyb2xlIjoiQWRtaW4ifQ.sGMtvxWZkmOMx9wOwC3RsxpKs81Ni1m6mFavnOmoIjSzV_wlEO6_RJFF72-mbKKfh-IsbCXDfVmosK31eFDwHQ
 Content-Type: application/json
 
 {
-  "name": "Namangan filial",
-  "addressId": 1
+  "name": "Farg'ona filial",
+  "addressId": 1,
+  "businessId": 1
 }
 
 ###
 POST http://localhost:8080/api/brand
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzM0Nzk3OSwiZXhwIjoxNjQzMzgzOTc5LCJyb2xlIjoiQWRtaW4ifQ.2czxcvpOMKWz4UUW6DuNpopWNYbOKkB7dZbTG8nB5FZo2sW1mLeHK0hpGHkChs6UwEPVFtp7q8oVvXRYrg_IQw
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzY5MjAzNywiZXhwIjoxNjQzNzI4MDM3LCJyb2xlIjoiQWRtaW4ifQ.sGMtvxWZkmOMx9wOwC3RsxpKs81Ni1m6mFavnOmoIjSzV_wlEO6_RJFF72-mbKKfh-IsbCXDfVmosK31eFDwHQ
 Content-Type: application/json
 
 {
-  "name": "ASUS"
+  "name": "APPLE",
+  "branchId": 3
 }
 
 ###
 POST http://localhost:8080/api/category
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzM0Nzk3OSwiZXhwIjoxNjQzMzgzOTc5LCJyb2xlIjoiQWRtaW4ifQ.2czxcvpOMKWz4UUW6DuNpopWNYbOKkB7dZbTG8nB5FZo2sW1mLeHK0hpGHkChs6UwEPVFtp7q8oVvXRYrg_IQw
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzY5MjAzNywiZXhwIjoxNjQzNzI4MDM3LCJyb2xlIjoiQWRtaW4ifQ.sGMtvxWZkmOMx9wOwC3RsxpKs81Ni1m6mFavnOmoIjSzV_wlEO6_RJFF72-mbKKfh-IsbCXDfVmosK31eFDwHQ
 Content-Type: application/json
 
 {
-  "name": "Noutbook"
+  "name": "Noutbook",
+  "branchId": 1
 }
 
 ###
 POST http://localhost:8080/api/currency
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0Mjc0MDYxMiwiZXhwIjoxNjQyNzc2NjEyLCJyb2xlIjoiQWRtaW4ifQ.hcI1UUtxPAix4Q_ZX5NDRh_90ToGfTzL9QnuGnr1LmlVBYVCNSrRTh4Nt4rEaZwFvebt193SnlzTCG1gqrNrTw
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzY5MjAzNywiZXhwIjoxNjQzNzI4MDM3LCJyb2xlIjoiQWRtaW4ifQ.sGMtvxWZkmOMx9wOwC3RsxpKs81Ni1m6mFavnOmoIjSzV_wlEO6_RJFF72-mbKKfh-IsbCXDfVmosK31eFDwHQ
 Content-Type: application/json
 
 {
   "name": "Dollar",
-  "currentCourse": 10050
+  "currentCourse": 10050,
+  "branchId": 1
 }
 
 ###
 POST http://localhost:8080/api/customer
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzM0Nzk3OSwiZXhwIjoxNjQzMzgzOTc5LCJyb2xlIjoiQWRtaW4ifQ.2czxcvpOMKWz4UUW6DuNpopWNYbOKkB7dZbTG8nB5FZo2sW1mLeHK0hpGHkChs6UwEPVFtp7q8oVvXRYrg_IQw
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzY5MjAzNywiZXhwIjoxNjQzNzI4MDM3LCJyb2xlIjoiQWRtaW4ifQ.sGMtvxWZkmOMx9wOwC3RsxpKs81Ni1m6mFavnOmoIjSzV_wlEO6_RJFF72-mbKKfh-IsbCXDfVmosK31eFDwHQ
 Content-Type: application/json
 
 {
-  "name": "Sardor",
+  "name": "Sardor3",
   "phoneNumber": "+998950041830",
-  "telegram": "@sari"
+  "telegram": "@sari3",
+  "branchId": 3
 }
 
 ###
 POST http://localhost:8080/api/measurement
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0Mjc0MDYxMiwiZXhwIjoxNjQyNzc2NjEyLCJyb2xlIjoiQWRtaW4ifQ.hcI1UUtxPAix4Q_ZX5NDRh_90ToGfTzL9QnuGnr1LmlVBYVCNSrRTh4Nt4rEaZwFvebt193SnlzTCG1gqrNrTw
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzY5MjAzNywiZXhwIjoxNjQzNzI4MDM3LCJyb2xlIjoiQWRtaW4ifQ.sGMtvxWZkmOMx9wOwC3RsxpKs81Ni1m6mFavnOmoIjSzV_wlEO6_RJFF72-mbKKfh-IsbCXDfVmosK31eFDwHQ
 Content-Type: application/json
 
 {
-  "name": "Dona"
+  "name": "Dona",
+  "branchId": 3
 }
 
 ###
 POST http://localhost:8080/api/paymethod
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0Mjc0MDYxMiwiZXhwIjoxNjQyNzc2NjEyLCJyb2xlIjoiQWRtaW4ifQ.hcI1UUtxPAix4Q_ZX5NDRh_90ToGfTzL9QnuGnr1LmlVBYVCNSrRTh4Nt4rEaZwFvebt193SnlzTCG1gqrNrTw
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzY5MjAzNywiZXhwIjoxNjQzNzI4MDM3LCJyb2xlIjoiQWRtaW4ifQ.sGMtvxWZkmOMx9wOwC3RsxpKs81Ni1m6mFavnOmoIjSzV_wlEO6_RJFF72-mbKKfh-IsbCXDfVmosK31eFDwHQ
 Content-Type: application/json
 
 {
-  "type": "Uzs"
+  "type": "Uzs",
+  "branchId": 1
 }
 
 ###
-DELETE http://localhost:8080/api/product/1
-
-###
 POST http://localhost:8080/api/product
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzM0Nzk3OSwiZXhwIjoxNjQzMzgzOTc5LCJyb2xlIjoiQWRtaW4ifQ.2czxcvpOMKWz4UUW6DuNpopWNYbOKkB7dZbTG8nB5FZo2sW1mLeHK0hpGHkChs6UwEPVFtp7q8oVvXRYrg_IQw
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0MzY5MjAzNywiZXhwIjoxNjQzNzI4MDM3LCJyb2xlIjoiQWRtaW4ifQ.sGMtvxWZkmOMx9wOwC3RsxpKs81Ni1m6mFavnOmoIjSzV_wlEO6_RJFF72-mbKKfh-IsbCXDfVmosK31eFDwHQ
 Content-Type: application/json
 
 {
-  "name": "Cori 7",
-  "quantity": 500,
-  "barcode": 889977,
+  "name": "Cori 3",
+  "quantity": 1000,
+  "barcode": 1111,
   "brandId": 2,
   "categoryId": 1,
   "measurementId": 1,
   "photoIds": [
-    3,
-    4
+    1,
+    2
   ],
   "minQuantity": 10,
   "buyPrice": 100,
-  "salePrice": 120,
+  "salePrice": 200,
   "tax": 20,
   "branchId": [
     4
@@ -430,19 +135,6 @@ Content-Type:application/json
   "telegram": "dasdsdcsad",
   "supplierType": "Yetkazib beruvchi"
 }
-
-###
-GET http://localhost:8080/api/supplier
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0Mjc0MDYxMiwiZXhwIjoxNjQyNzc2NjEyLCJyb2xlIjoiQWRtaW4ifQ.hcI1UUtxPAix4Q_ZX5NDRh_90ToGfTzL9QnuGnr1LmlVBYVCNSrRTh4Nt4rEaZwFvebt193SnlzTCG1gqrNrTw
-
-###
-GET http://localhost:8080/api/trade-history/get-one/1
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0Mjc0MDYxMiwiZXhwIjoxNjQyNzc2NjEyLCJyb2xlIjoiQWRtaW4ifQ.hcI1UUtxPAix4Q_ZX5NDRh_90ToGfTzL9QnuGnr1LmlVBYVCNSrRTh4Nt4rEaZwFvebt193SnlzTCG1gqrNrTw
-
-###
-GET http://localhost:8080/api/trade-history
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0Mjc0MDYxMiwiZXhwIjoxNjQyNzc2NjEyLCJyb2xlIjoiQWRtaW4ifQ.hcI1UUtxPAix4Q_ZX5NDRh_90ToGfTzL9QnuGnr1LmlVBYVCNSrRTh4Nt4rEaZwFvebt193SnlzTCG1gqrNrTw
-
 ###
 PUT http://localhost:8080/api/product/{{id}}
 
@@ -685,6 +377,3 @@ Content-Type: application/json
 
 ###
 POST http://localhost:8080/api/trade
-
-###
-GET http://localhost:8080/api/address
