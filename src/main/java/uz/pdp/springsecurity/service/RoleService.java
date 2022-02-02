@@ -44,20 +44,11 @@ public class RoleService {
         return optionalRole.map(role -> new ApiResponse("Found", true, role)).orElseThrow(() -> new RescuersNotFoundEx("Role", "id", id));
     }
 
-    public ApiResponse getAll() {
-        return new ApiResponse("Found", true, roleRepository.findAll());
-    }
-
     public ApiResponse delete(Integer id) {
         boolean b = roleRepository.existsById(id);
         if (!b) return new ApiResponse("Role not found", false);
         roleRepository.deleteById(id);
         return new ApiResponse("Deleted", true);
-    }
-
-    public ApiResponse deleteAll() {
-        roleRepository.deleteAll();
-        return new ApiResponse("roles removed", true);
     }
 
     public ApiResponse getAllByBusiness(Integer business_id) {

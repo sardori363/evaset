@@ -9,6 +9,7 @@ import uz.pdp.springsecurity.payload.PayStatusDto;
 import uz.pdp.springsecurity.repository.BranchRepository;
 import uz.pdp.springsecurity.repository.PaymentStatusRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -56,18 +57,21 @@ public class PayStatusService {
         return new ApiResponse("found", true, payStatusRepository.findById(id).get());
     }
 
-    public ApiResponse getAll() {
-        return new ApiResponse("catch", true, payStatusRepository.findAll());
-    }
-
     public ApiResponse delete(Integer id) {
         if (!payStatusRepository.existsById(id)) return new ApiResponse("not found", false);
         payStatusRepository.deleteById(id);
         return new ApiResponse("deleted", true);
     }
 
-    public ApiResponse deleteAll() {
-        payStatusRepository.deleteAll();
-        return new ApiResponse("statuses removed", true);
+    public ApiResponse getAllByBranch(Integer branch_id) {
+        List<PaymentStatus> allByBranch_id = payStatusRepository.findAllByBranch_Id(branch_id);
+        if (allByBranch_id.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByBranch_id);
+    }
+
+    public ApiResponse getAllByBusiness(Integer business_id) {
+        List<PaymentStatus> allByBranch_business_id = payStatusRepository.findAllByBranch_Business_Id(business_id);
+        if (allByBranch_business_id.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByBranch_business_id);
     }
 }

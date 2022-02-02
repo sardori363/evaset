@@ -39,13 +39,6 @@ public class TradeHistoryController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_ALL_TRADE")
-    @GetMapping
-    public HttpEntity<?> getAll() {
-        ApiResponse apiResponse = tradeHistoryService.getAll();
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
-    }
-
     @CheckPermission("DELETE_TRADE")
     @DeleteMapping("/{id}")
     public HttpEntity<?> deleteOne(@PathVariable Integer id) {
@@ -89,17 +82,17 @@ public class TradeHistoryController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("DELETE_TRADE")
-    @DeleteMapping
-    public HttpEntity<?> deleteAll() {
-        ApiResponse apiResponse = tradeHistoryService.deleteAll();
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
-    }
-
     @CheckPermission("VIEW_ALL_TRADE")
     @GetMapping("/get-by-branch/{trade_branch_id}")
     public HttpEntity<?> getAllByBranch(@PathVariable Integer trade_branch_id) {
         ApiResponse apiResponse = tradeHistoryService.getAllByBranch(trade_branch_id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @CheckPermission("VIEW_ALL_TRADE")
+    @GetMapping("/get-by-business/{business_id}")
+    public HttpEntity<?> getAllByBusiness(@PathVariable Integer business_id) {
+        ApiResponse apiResponse = tradeHistoryService.getAllByBusiness(business_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 }

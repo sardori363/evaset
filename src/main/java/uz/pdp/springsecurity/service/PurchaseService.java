@@ -64,19 +64,10 @@ public class PurchaseService {
         return new ApiResponse("found", true, purchaseRepository.findById(id).get());
     }
 
-    public ApiResponse getAll() {
-        return new ApiResponse("catch", true, purchaseRepository.findAll());
-    }
-
     public ApiResponse delete(Integer id) {
         if (!purchaseRepository.existsById(id)) return new ApiResponse("purchase not found", false);
         purchaseRepository.deleteById(id);
         return new ApiResponse("purchase deleted", false);
-    }
-
-    public ApiResponse deleteAll() {
-        purchaseRepository.deleteAll();
-        return new ApiResponse("purchases removed", true);
     }
 
     private ApiResponse addPurchase(Purchase purchase, PurchaseDto purchaseDto) {

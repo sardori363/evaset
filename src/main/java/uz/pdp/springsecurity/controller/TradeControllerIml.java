@@ -38,13 +38,6 @@ public class TradeControllerIml {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_ALL_TRADE")
-    @GetMapping
-    public HttpEntity<?> get() {
-        ApiResponse apiResponse = tradeService.getAll();
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
-    }
-
     @CheckPermission("VIEW_TRADE")
     @GetMapping("/{id}")
     public HttpEntity<?> get(@PathVariable Integer id) {
@@ -56,13 +49,6 @@ public class TradeControllerIml {
     @DeleteMapping("/{id}")
     public HttpEntity<?> delete(@PathVariable Integer id) {
         ApiResponse apiResponse = tradeService.deleteTrade(id);
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
-    }
-
-    @CheckPermission("DELETE_TRADE")
-    @DeleteMapping
-    public HttpEntity<?> deleteAll() {
-        ApiResponse apiResponse = tradeService.deleteAll();
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 

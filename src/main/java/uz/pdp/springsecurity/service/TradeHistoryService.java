@@ -29,7 +29,7 @@ public class TradeHistoryService {
 
         Optional<Trade> optionalTrade = tradeRepository.findById(tradeHistoryDto.getTradeId());
         TradeHistory tradeHistory = new TradeHistory();
-        if (!optionalTrade.isPresent()) return new ApiResponse("not found",false);
+        if (optionalTrade.isEmpty()) return new ApiResponse("not found",false);
         tradeHistory.setTrade(optionalTrade.get());
         tradeHistory.setDescription(tradeHistoryDto.getDescription());
         Optional<PaymentMethod> optionalPaymentMethod = payMethodRepository.findById(tradeHistoryDto.getPaymentMethodId());
@@ -41,7 +41,7 @@ public class TradeHistoryService {
 
     public ApiResponse edit(Integer id, TradeHistoryDto tradeHistoryDto) {
         Optional<TradeHistory> optionalHistory = tradeHistoryRepository.findById(id);
-        if (!optionalHistory.isPresent()) return new ApiResponse("not found",false);
+        if (optionalHistory.isEmpty()) return new ApiResponse("not found",false);
 
         TradeHistory tradeHistory = optionalHistory.get();
 
@@ -49,7 +49,7 @@ public class TradeHistoryService {
         tradeHistory.setPaidDate(tradeHistoryDto.getPaidDate());
 
         Optional<Trade> optionalTrade = tradeRepository.findById(tradeHistoryDto.getTradeId());
-        if (!optionalTrade.isPresent()) return new ApiResponse("not found",false);
+        if (optionalTrade.isEmpty()) return new ApiResponse("not found",false);
         tradeHistory.setTrade(optionalTrade.get());
         tradeHistory.setDescription(tradeHistoryDto.getDescription());
         Optional<PaymentMethod> optionalPaymentMethod = payMethodRepository.findById(tradeHistoryDto.getPaymentMethodId());
@@ -61,23 +61,12 @@ public class TradeHistoryService {
 
     public ApiResponse getOne(Integer id) {
         Optional<TradeHistory> optionalTradeHistory = tradeHistoryRepository.findById(id);
-        if (!optionalTradeHistory.isPresent()) {
-            return new ApiResponse("NOT FOUND" , false);
-        }
-        return new ApiResponse("FOUND" , true , optionalTradeHistory.get());
-    }
-
-    public ApiResponse getAll() {
-        List<TradeHistory> tradeHistoryRepositoryAll = tradeHistoryRepository.findAll();
-        return new ApiResponse(true , tradeHistoryRepositoryAll);
+        return optionalTradeHistory.map(tradeHistory -> new ApiResponse("FOUND", true, tradeHistory)).orElseGet(() -> new ApiResponse("NOT FOUND", false));
     }
 
     public ApiResponse deleteOne(Integer id) {
         Optional<TradeHistory> optional = tradeHistoryRepository.findById(id);
-        if (!optional.isPresent()) {
-        return new ApiResponse("NOT FOUND",false);
-        }
-            return new ApiResponse("FOUND" , true , optional.get());
+        return optional.map(tradeHistory -> new ApiResponse("FOUND", true, tradeHistory)).orElseGet(() -> new ApiResponse("NOT FOUND", false));
     }
 
     public ApiResponse deleteAllByTradeId(Integer trade_id) {
@@ -92,13 +81,8 @@ public class TradeHistoryService {
 
     public ApiResponse getByTradeIdAndId(Integer id, Integer trade_id) {
         Optional<TradeHistory> byIdAndTrade_id = tradeHistoryRepository.findByIdAndTrade_Id(id, trade_id);
-        if (!byIdAndTrade_id.isPresent()) return new ApiResponse("not found",false);
+        if (byIdAndTrade_id.isEmpty()) return new ApiResponse("not found",false);
         return new ApiResponse("found",true,byIdAndTrade_id);
-    }
-
-    public ApiResponse deleteAll() {
-        tradeHistoryRepository.deleteAll();
-        return new ApiResponse("trade history removed",true);
     }
 
     public ApiResponse deleteByTradeId(Integer trade_id) {
@@ -115,5 +99,11 @@ public class TradeHistoryService {
         List<TradeHistory> allByTrade_branch_id = tradeHistoryRepository.findAllByTrade_Branch_Id(trade_branch_id);
         if (allByTrade_branch_id.isEmpty()) return new ApiResponse("not found",false);
         return new ApiResponse("found",true,allByTrade_branch_id);
+    }
+
+    public ApiResponse getAllByBusiness(Integer business_id) {
+        List<TradeHistory> allByTrade_branch_business_id = tradeHistoryRepository.findAllByTrade_Branch_Business_Id(business_id);
+        if (allByTrade_branch_business_id.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByTrade_branch_business_id);
     }
 }

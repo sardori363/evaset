@@ -38,24 +38,10 @@ public class RoleController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_ROLE")
-    @GetMapping
-    public HttpEntity<?> all() {
-        ApiResponse apiResponse = roleService.getAll();
-        return ResponseEntity.ok(apiResponse);
-    }
-
     @CheckPermission("DELETE_ROLE")
     @DeleteMapping("/{id}")
     public HttpEntity<?> delete(@PathVariable Integer id) {
         ApiResponse apiResponse = roleService.delete(id);
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
-    }
-
-    @CheckPermission("DELETE_ROLE")
-    @DeleteMapping
-    public HttpEntity<?> deleteAll() {
-        ApiResponse apiResponse = roleService.deleteAll();
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 

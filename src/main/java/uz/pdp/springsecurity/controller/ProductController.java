@@ -40,24 +40,10 @@ public class ProductController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_PRODUCT")
-    @GetMapping()
-    public HttpEntity<?> getAll() {
-        ApiResponse apiResponse = productService.getProducts();
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
-    }
-
     @CheckPermission("DELETE_PRODUCT")
     @DeleteMapping("/{id}")
     public HttpEntity<?> deleteOne(@PathVariable Integer id) {
         ApiResponse apiResponse = productService.deleteProduct(id);
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
-    }
-
-    @CheckPermission("DELETE_PRODUCT")
-    @DeleteMapping()
-    public HttpEntity<?> deleteAll() {
-        ApiResponse apiResponse = productService.deleteProducts();
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 

@@ -103,21 +103,11 @@ public class UserService {
         return new ApiResponse("FOUND", true, userRepository.findById(id).get());
     }
 
-    public ApiResponse getAll() {
-        List<User> userRepositoryAll = userRepository.findAll();
-        return new ApiResponse(true, userRepositoryAll);
-    }
-
     public ApiResponse delete(Integer id) {
         Optional<User> byId = userRepository.findById(id);
         if (byId.isEmpty()) return new ApiResponse("User not found", false);
         userRepository.deleteById(id);
         return new ApiResponse("Deleted", true);
-    }
-
-    public ApiResponse deleteAll() {
-        userRepository.deleteAll();
-        return new ApiResponse("users removed", true);
     }
 
     public ApiResponse editMyProfile(ProfileDto profileDto) {

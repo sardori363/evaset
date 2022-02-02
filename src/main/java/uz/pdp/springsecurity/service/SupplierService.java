@@ -54,19 +54,10 @@ public class SupplierService {
         return new ApiResponse("found",true,supplierRepository.findById(id).get());
     }
 
-    public ApiResponse getAll() {
-        return new ApiResponse("catch",true,supplierRepository.findAll());
-    }
-
     public ApiResponse delete(Integer id) {
         if (!supplierRepository.existsById(id)) return new ApiResponse("supplier not found",false);
         supplierRepository.deleteById(id);
         return new ApiResponse("deleted",true);
-    }
-
-    public ApiResponse deleteAll() {
-        supplierRepository.deleteAll();
-        return new ApiResponse("suppliers removed",true);
     }
 
     public ApiResponse getAllByBranch(Integer branch_id) {

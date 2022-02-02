@@ -40,24 +40,10 @@ public class PurchaseController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_PURCHASE")
-    @GetMapping
-    public HttpEntity<?> getAll() {
-        ApiResponse apiResponse = purchaseService.getAll();
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
-    }
-
     @CheckPermission("DELETE_PURCHASE")
     @DeleteMapping("/{id}")
     public HttpEntity<?> delete(@PathVariable Integer id) {
         ApiResponse apiResponse = purchaseService.delete(id);
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
-    }
-
-    @CheckPermission("DELETE_PURCHASE")
-    @DeleteMapping
-    public HttpEntity<?> deleteAll() {
-        ApiResponse apiResponse = purchaseService.deleteAll();
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 

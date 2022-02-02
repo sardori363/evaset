@@ -64,11 +64,6 @@ public class ProductService {
         return new ApiResponse(true, product);
     }
 
-    public ApiResponse getProducts() {
-        List<Product> allProduct = productRepository.findAll();
-        return new ApiResponse(allProduct);
-    }
-
     public ApiResponse deleteProduct(Integer id) {
         Optional<Product> optionalProduct = productRepository.findById(id);
         if (optionalProduct.isPresent()) {
@@ -77,11 +72,6 @@ public class ProductService {
             return new ApiResponse("NOT FOUND!", false);
         }
         return new ApiResponse("Deleted", true);
-    }
-
-    public ApiResponse deleteProducts() {
-        productRepository.deleteAll();
-        return new ApiResponse("DELETED", true);
     }
 
     Product addProductDtotoProduct(Product product, ProductDto productDto) {

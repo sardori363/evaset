@@ -7,6 +7,7 @@ import uz.pdp.springsecurity.payload.ApiResponse;
 import uz.pdp.springsecurity.payload.PayMethodDto;
 import uz.pdp.springsecurity.repository.PayMethodRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -50,5 +51,17 @@ public class PayMethodService {
 
         payMethodRepository.deleteById(id);
         return new ApiResponse("deleted",true);
+    }
+
+    public ApiResponse getAllByBranch(Integer branch_id) {
+        List<PaymentMethod> allByBranch_id = payMethodRepository.findAllByBranch_Id(branch_id);
+        if (allByBranch_id.isEmpty()) return new ApiResponse("NOT FOUND",false);
+        return new ApiResponse("FOUND",true,allByBranch_id);
+    }
+
+    public ApiResponse getAllByBusiness(Integer business_id) {
+        List<PaymentMethod> allByBranch_business_id = payMethodRepository.findAllByBranch_Business_Id(business_id);
+        if (allByBranch_business_id.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByBranch_business_id);
     }
 }

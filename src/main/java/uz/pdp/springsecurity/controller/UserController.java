@@ -41,14 +41,6 @@ public class UserController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_USER")
-    @GetMapping
-    public HttpEntity<?> getAll() {
-        ApiResponse apiResponse = userService.getAll();
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
-
-    }
-
     @CheckPermission("DELETE_USER")
     @DeleteMapping("/{id}")
     public HttpEntity<?> deleteById(@PathVariable Integer id) {

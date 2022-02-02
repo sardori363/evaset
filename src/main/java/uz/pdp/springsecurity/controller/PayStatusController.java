@@ -36,13 +36,6 @@ public class PayStatusController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_PAY_STATUS")
-    @GetMapping
-    public HttpEntity<?> getAll() {
-        ApiResponse apiResponse = payStatusService.getAll();
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
-    }
-
     @CheckPermission("DELETE_PAY_STATUS")
     @DeleteMapping("/{id}")
     public HttpEntity<?> delete(@PathVariable Integer id) {
@@ -50,10 +43,17 @@ public class PayStatusController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("DELETE_PAY_STATUS")
-    @DeleteMapping
-    public HttpEntity<?> deleteAll() {
-        ApiResponse apiResponse = payStatusService.deleteAll();
+    @CheckPermission("VIEW_PAY_STATUS")
+    @GetMapping("/get-by-branch/{branch_id}")
+    public HttpEntity<?> getAllByBranch(@PathVariable Integer branch_id) {
+        ApiResponse apiResponse = payStatusService.getAllByBranch(branch_id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @CheckPermission("VIEW_PAY_STATUS")
+    @GetMapping("/get-by-business/{business_id}")
+    public HttpEntity<?> getAllByBusiness(@PathVariable Integer business_id) {
+        ApiResponse apiResponse = payStatusService.getAllByBusiness(business_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 }

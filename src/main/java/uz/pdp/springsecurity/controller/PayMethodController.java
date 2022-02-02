@@ -42,4 +42,18 @@ public class PayMethodController {
         ApiResponse apiResponse = payMethodService.delete(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
+
+    @CheckPermission("VIEW_PAY_METHOD")
+    @GetMapping("/get-by-branch/{branch_id}")
+    public HttpEntity<?> getAllByBranch(@PathVariable Integer branch_id) {
+        ApiResponse apiResponse = payMethodService.getAllByBranch(branch_id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @CheckPermission("VIEW_PAY_METHOD")
+    @GetMapping("/get-by-business/{business_id}")
+    public HttpEntity<?> getAllByBusiness(@PathVariable Integer business_id) {
+        ApiResponse apiResponse = payMethodService.getAllByBusiness(business_id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
 }
