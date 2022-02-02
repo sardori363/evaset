@@ -96,5 +96,12 @@ public enum Permissions {
     VIEW_EXCHANGE,
     DELETE_EXCHANGE,
 
+    VIEW_BENEFIT_AND_LOST,
+
+    ADD_BUSINESS,
+    EDIT_BUSINESS,
+    VIEW_BUSINESS,
+    DELETE_BUSINESS
+
 
 }

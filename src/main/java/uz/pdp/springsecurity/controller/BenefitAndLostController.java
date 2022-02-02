@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import uz.pdp.springsecurity.annotations.CheckPermission;
 import uz.pdp.springsecurity.payload.ApiResponse;
 import uz.pdp.springsecurity.payload.BenefitAndLostDto;
 import uz.pdp.springsecurity.service.BenefitAndLostService;
@@ -19,12 +20,14 @@ public class BenefitAndLostController {
     @Autowired
     BenefitAndLostService benefitAndLostService;
 
+    @CheckPermission("VIEW_BENEFIT_AND_LOST")
     @PostMapping
     public HttpEntity<?> find(@RequestBody BenefitAndLostDto benefitAndLostDto) throws ParseException {
         ApiResponse apiResponse = benefitAndLostService.findBenefitLost(benefitAndLostDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    @CheckPermission("VIEW_BENEFIT_AND_LOST")
     @PostMapping("/one-date")
     public HttpEntity<?> getPayDate(@RequestBody BenefitAndLostDto benefitAndLostDto) throws ParseException {
         ApiResponse apiResponse = benefitAndLostService.findBenefitAndLostByDate(benefitAndLostDto);
