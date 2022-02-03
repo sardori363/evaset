@@ -51,7 +51,7 @@ public class BranchController {
     }
 
     @CheckPermission("VIEW_BRANCH_ADMIN")
-    @GetMapping("get-all-by-businessId/{business_id}")
+    @GetMapping("get-all-by-business-id/{business_id}")
     public HttpEntity<?> getByBusinessId(@PathVariable Integer business_id) {
         ApiResponse apiResponse = branchService.getByBusinessId(business_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);

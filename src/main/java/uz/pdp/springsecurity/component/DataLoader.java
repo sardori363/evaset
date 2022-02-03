@@ -7,13 +7,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import uz.pdp.springsecurity.entity.*;
 import uz.pdp.springsecurity.enums.Permissions;
+import uz.pdp.springsecurity.enums.SuperAdmin;
 import uz.pdp.springsecurity.repository.*;
 import uz.pdp.springsecurity.util.Constants;
 
-
 import java.util.Arrays;
 import java.util.List;
-
 
 import static uz.pdp.springsecurity.enums.Permissions.*;
 
@@ -90,8 +89,11 @@ public class DataLoader implements CommandLineRunner {
 
         if (initMode.equals("always")) {
             Permissions[] permissions = Permissions.values();
+            SuperAdmin[] superAdmins = SuperAdmin.values();
 
-            Role admin = roleRepository.save(new Role(Constants.ADMIN, Arrays.asList(permissions),business));
+            Role admin = roleRepository.save(new Role(Constants.ADMIN, Arrays.asList(permissions), business));
+
+            Role superAdmin = roleRepository.save(new Role(Constants.SUPERADMIN, Arrays.asList(ADD_BUSINESS,EDIT_BUSINESS,VIEW_BUSINESS,DELETE_BUSINESS), business));
 
             Role manager = roleRepository.save(new Role(
                     Constants.MANAGER,
@@ -236,6 +238,18 @@ public class DataLoader implements CommandLineRunner {
                     branch
 
             ));
+
+            userRepository.save(new User(
+                    "SuperAdmin",
+                    "Admin of site",
+                    "admin",
+                    passwordEncoder.encode("admin123"),
+                    superAdmin,
+                    true,
+                    business,
+                    branch
+
+            ));
             userRepository.save(new User(
                     "Manager",
                     "manager",
@@ -266,7 +280,7 @@ public class DataLoader implements CommandLineRunner {
             paymentStatusRepository.save(new PaymentStatus(
                     "To'langan",
                     branch
-                    ));
+            ));
 
             paymentStatusRepository.save(new PaymentStatus(
                     "Qisman to'langan",

@@ -66,6 +66,14 @@ public class User extends AbsEntity implements UserDetails {
         this.business = business;
         this.branch = branch;
     }
+    public User(String firstName, String lastName, String username, String password, Role role, boolean enabled) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.enabled = enabled;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

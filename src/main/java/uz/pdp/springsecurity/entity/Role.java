@@ -45,6 +45,10 @@ public class Role {
         this.permissions = permissions;
         this.business = business;
     }
+    public Role(String name, List<Permissions> permissions) {
+        this.name = name;
+        this.permissions = permissions;
+    }
 
     @ManyToOne
     private Business business;
