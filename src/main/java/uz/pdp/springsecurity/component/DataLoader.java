@@ -245,9 +245,7 @@ public class DataLoader implements CommandLineRunner {
                     "admin",
                     passwordEncoder.encode("admin123"),
                     superAdmin,
-                    true,
-                    business,
-                    branch
+                    true
 
             ));
             userRepository.save(new User(
