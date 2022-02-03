@@ -50,7 +50,7 @@ public class PayStatusController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_PAY_STATUS")
+    @CheckPermission("VIEW_PAY_STATUS_ADMIN")
     @GetMapping("/get-by-business/{business_id}")
     public HttpEntity<?> getAllByBusiness(@PathVariable Integer business_id) {
         ApiResponse apiResponse = payStatusService.getAllByBusiness(business_id);

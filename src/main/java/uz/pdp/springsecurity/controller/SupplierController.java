@@ -56,7 +56,7 @@ public class SupplierController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_SUPPLIER")
+    @CheckPermission("VIEW_SUPPLIER_ADMIN")
     @GetMapping("/get-by-business/{businessId}")
     public HttpEntity<?> getAllByBusiness(@PathVariable Integer businessId) {
         ApiResponse apiResponse = supplierService.getAllByBusiness(businessId);

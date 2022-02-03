@@ -47,30 +47,35 @@ public class ProductController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    @CheckPermission("VIEW_PRODUCT")
     @GetMapping("/get-by-barcode/{barcode}")
     public HttpEntity<?> getByBarcode(@PathVariable long barcode) {
         ApiResponse apiResponse = productService.getByBarcode(barcode);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    @CheckPermission("VIEW_PRODUCT")
     @GetMapping("/get-by-category/{category_id}")
     public HttpEntity<?> getByCategory(@PathVariable Integer category_id) {
         ApiResponse apiResponse = productService.getByCategory(category_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    @CheckPermission("VIEW_PRODUCT")
     @GetMapping("/get-by-brand/{brand_id}")
     public HttpEntity<?> getByBrand(@PathVariable Integer brand_id) {
         ApiResponse apiResponse = productService.getByBrand(brand_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    @CheckPermission("VIEW_PRODUCT")
     @GetMapping("/get-by-branch/{branch_id}")
     public HttpEntity<?> getByBranch(@PathVariable Integer branch_id) {
         ApiResponse apiResponse = productService.getByBranch(branch_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    @CheckPermission("VIEW_PRODUCT_ADMIN")
     @GetMapping("/get-by-business/{businessId}")
     public HttpEntity<?> getByBusiness(@PathVariable Integer businessId) {
         ApiResponse apiResponse = productService.getByBusiness(businessId);

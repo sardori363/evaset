@@ -56,7 +56,7 @@ public class CategoryController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_CATEGORY")
+    @CheckPermission("VIEW_CATEGORY_ADMIN")
     @GetMapping("/get-by-businessId/{businessId}")
     public HttpEntity<?> getAllByBusinessId(@PathVariable Integer businessId) {
         ApiResponse apiResponse = categoryService.getAllByBusinessId(businessId);

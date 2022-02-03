@@ -42,12 +42,6 @@ public class BranchController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-//    @CheckPermission("VIEW_BRANCH")
-//    @GetMapping
-//    public HttpEntity<?> getAll() {
-//        ApiResponse apiResponse = branchService.getBranches();
-//        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
-//    }
 
     @CheckPermission("DELETE_BRANCH")
     @DeleteMapping("/{id}")
@@ -56,7 +50,7 @@ public class BranchController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_BRANCH")
+    @CheckPermission("VIEW_BRANCH_ADMIN")
     @GetMapping("get-all-by-businessId/{business_id}")
     public HttpEntity<?> getByBusinessId(@PathVariable Integer business_id) {
         ApiResponse apiResponse = branchService.getByBusinessId(business_id);

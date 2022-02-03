@@ -53,7 +53,7 @@ public class TradeControllerIml {
     }
 
     @CheckPermission("DELETE_MY_TRADE")
-    @DeleteMapping("/delete-by-tradeId/trader_id")
+    @DeleteMapping("/delete-by-traderId/trader_id")
     public HttpEntity<?> deleteByTradeId(@PathVariable Integer trader_id) {
         ApiResponse apiResponse = tradeService.deleteByTraderId(trader_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
@@ -73,42 +73,42 @@ public class TradeControllerIml {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_ALL_TRADE")
+    @CheckPermission("VIEW_TRADE")
     @GetMapping("/get-by-branchId/{branch_id}")
     public HttpEntity<?> getByBranch(@PathVariable Integer branch_id) {
         ApiResponse apiResponse = tradeService.getByBranchId(branch_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_ALL_TRADE")
+    @CheckPermission("VIEW_TRADE")
     @GetMapping("/get-by-customerId/{customer_id}")
     public HttpEntity<?> getByCustomer(@PathVariable Integer customer_id) {
         ApiResponse apiResponse = tradeService.getByCustomerId(customer_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_ALL_TRADE")
+    @CheckPermission("VIEW_TRADE")
     @GetMapping("/get-by-PayDate/{payDate}")
     public HttpEntity<?> getByPayDate(@PathVariable Date payDate) throws ParseException {
         ApiResponse apiResponse = tradeService.getByPayDate(payDate);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_ALL_TRADE")
+    @CheckPermission("VIEW_TRADE")
     @GetMapping("/get-by-PayStatusId/{paymentStatus_id}")
     public HttpEntity<?> getByPayStatus(@PathVariable Integer paymentStatus_id) {
         ApiResponse apiResponse = tradeService.getByPayStatus(paymentStatus_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_ALL_TRADE")
+    @CheckPermission("VIEW_TRADE")
     @GetMapping("/get-by-PayMethodId/{payMethod_id}")
     public HttpEntity<?> getByPayMethod(@PathVariable Integer payMethod_id) {
         ApiResponse apiResponse = tradeService.getByPayMethod(payMethod_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_ALL_TRADE")
+    @CheckPermission("VIEW_TRADE")
     @GetMapping("/get-by-AddressId/{address_id}")
     public HttpEntity<?> getByAddress(@PathVariable Integer address_id) {
         ApiResponse apiResponse = tradeService.getByAddress(address_id);
@@ -122,7 +122,7 @@ public class TradeControllerIml {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_ALL_TRADE")
+    @CheckPermission("VIEW_TRADE_ADMIN")
     @GetMapping("/get-by-business/{}")
     public HttpEntity<?> getAllByBusinessId(@PathVariable Integer businessId) {
         ApiResponse apiResponse = tradeService.getAllByBusinessId(businessId);

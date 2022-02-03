@@ -96,7 +96,7 @@ public class PurchaseController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_PURCHASE")
+    @CheckPermission("VIEW_PURCHASE_ADMIN")
     @GetMapping("/get-by-business/{businessId}")
     public HttpEntity<?> getAllByBusiness(@PathVariable Integer businessId){
         ApiResponse apiResponse = purchaseService.getAllByBusiness(businessId);

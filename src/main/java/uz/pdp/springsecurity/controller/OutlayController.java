@@ -61,7 +61,7 @@ public class OutlayController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_OUTLAY")
+    @CheckPermission("VIEW_OUTLAY_ADMIN")
     @GetMapping("/get-by-businessId/{businessId}")
     public HttpEntity<?> getAllByBusinessId(@PathVariable Integer businessId) {
         ApiResponse apiResponse = outlayService.getAllByBusinessId(businessId);

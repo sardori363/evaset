@@ -45,7 +45,7 @@ public class RoleController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_ROLE")
+    @CheckPermission("VIEW_ROLE_ADMIN")
     @GetMapping("/get-by-business/{business_id}")
     public HttpEntity<?> getAllByBusiness(@PathVariable Integer business_id) {
         ApiResponse apiResponse = roleService.getAllByBusiness(business_id);

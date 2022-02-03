@@ -61,7 +61,7 @@ public class ExchangeProductBranchController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_EXCHANGE")
+    @CheckPermission("VIEW_EXCHANGE_ADMIN")
     @GetMapping("/get-by-businessId/{businessId}")
     public HttpEntity<?> getByBusinessId(@PathVariable Integer businessId) {
         ApiResponse apiResponse = exchangeProductBranchService.getByBusinessId(businessId);

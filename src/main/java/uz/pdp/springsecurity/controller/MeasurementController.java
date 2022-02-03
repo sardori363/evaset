@@ -56,7 +56,7 @@ public class MeasurementController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_MEASUREMENT")
+    @CheckPermission("VIEW_MEASUREMENT_ADMIN")
     @GetMapping("/get-by-business/{business_id}")
     public HttpEntity<?> getAllByBusiness(@PathVariable Integer business_id) {
         ApiResponse apiResponse = measurementService.getByBusiness(business_id);

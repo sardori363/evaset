@@ -50,7 +50,7 @@ public class PayMethodController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_PAY_METHOD")
+    @CheckPermission("VIEW_PAY_METHOD_ADMIN")
     @GetMapping("/get-by-business/{business_id}")
     public HttpEntity<?> getAllByBusiness(@PathVariable Integer business_id) {
         ApiResponse apiResponse = payMethodService.getAllByBusiness(business_id);
