@@ -236,13 +236,12 @@ public class DataLoader implements CommandLineRunner {
                     true,
                     business,
                     branch
-
             ));
 
             userRepository.save(new User(
                     "SuperAdmin",
                     "Admin of site",
-                    "admin",
+                    "superadmin",
                     passwordEncoder.encode("admin123"),
                     superAdmin,
                     true

@@ -126,6 +126,7 @@ public class AttachmentController {
                 String originalFilename = file.getOriginalFilename();
                 Attachment attachment = new Attachment();
                 attachment.setName(originalFilename);
+                attachment.setFileOriginalName(originalFilename);
                 attachment.setSize(file.getSize());
                 attachment.setContentType(file.getContentType());
 

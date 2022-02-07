@@ -16,7 +16,7 @@ import javax.persistence.ManyToOne;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Currency extends AbsEntity {
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String name;
     @Column(nullable = false)
     private double currentCourse;
