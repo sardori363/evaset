@@ -292,18 +292,15 @@ public class DataLoader implements CommandLineRunner {
         List<ExchangeStatus> exchangeStatusRepositoryAll = exchangeStatusRepository.findAll();
         if (exchangeStatusRepositoryAll.isEmpty()) {
             exchangeStatusRepository.save(new ExchangeStatus(
-                    "Buyurtma berildi",
-                    business
+                    "Buyurtma berildi"
             ));
 
             exchangeStatusRepository.save(new ExchangeStatus(
-                    "Kutilmoqda",
-                    business
+                    "Kutilmoqda"
             ));
 
             exchangeStatusRepository.save(new ExchangeStatus(
-                    "Qabul qilinndi",
-                    business
+                    "Qabul qilinndi"
             ));
         }
 
@@ -331,13 +328,13 @@ public class DataLoader implements CommandLineRunner {
             currencyRepository.save(new Currency(
                     "DOLLAR",
                     10785.85,
-                    branch
+                    business
             ));
 
             currencyRepository.save(new Currency(
                     "SO'M",
                     0,
-                    branch
+                    business
             ));
         }
 
