@@ -13,5 +13,5 @@ public class BrandDto {
     @NotNull(message = "required line")
     private String name;
     @NotNull(message = "required line")
-    private Integer branchId;
+    private Integer businessId;
 }

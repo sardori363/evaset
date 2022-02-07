@@ -6,5 +6,5 @@ import uz.pdp.springsecurity.entity.Brand;
 import java.util.List;
 
 public interface BrandRepository extends JpaRepository<Brand,Integer> {
-    List<Brand> findAllByBranch_Id(Integer branch_id);
+    List<Brand> findAllByBusiness_Id(Integer branch_id);
 }

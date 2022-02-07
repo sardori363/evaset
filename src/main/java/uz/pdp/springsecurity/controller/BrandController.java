@@ -50,9 +50,9 @@ public class BrandController {
     }
 
     @CheckPermission("VIEW_BRAND")
-    @GetMapping("by-branchId/{branch_id}")
-    public HttpEntity<?> getAllByBranchId(@PathVariable Integer branch_id) {
-        ApiResponse apiResponse = brandService.getAllByBranchId(branch_id);
+    @GetMapping("by-businessId/{business_id}")
+    public HttpEntity<?> getAllByBranchId(@PathVariable Integer business_id) {
+        ApiResponse apiResponse = brandService.getAllByBusiness(business_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 }

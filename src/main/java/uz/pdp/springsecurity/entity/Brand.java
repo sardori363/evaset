@@ -23,6 +23,6 @@ public class Brand extends AbsEntity {
 
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Branch branch;
+    private Business business;
 
 }
