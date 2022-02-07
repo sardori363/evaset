@@ -123,7 +123,7 @@ public class TradeControllerIml {
     }
 
     @CheckPermission("VIEW_TRADE_ADMIN")
-    @GetMapping("/get-by-business/{}")
+    @GetMapping("/get-by-business/{businessId}")
     public HttpEntity<?> getAllByBusinessId(@PathVariable Integer businessId) {
         ApiResponse apiResponse = tradeService.getAllByBusinessId(businessId);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);

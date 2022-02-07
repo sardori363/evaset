@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,9 +13,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import uz.pdp.springsecurity.entity.template.AbsEntity;
 import uz.pdp.springsecurity.enums.Permissions;
 
-
 import javax.persistence.*;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity(name = "users")
@@ -44,6 +48,7 @@ public class User extends AbsEntity implements UserDetails {
     private Branch branch;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Business business;
 
     //yoqilgan

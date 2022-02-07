@@ -45,14 +45,14 @@ public class PDFService {
         paragraph1.setTextAlignment(TextAlignment.CENTER);
 
 
-        Text text = new Text("Invoice");
+        Text text = new Text("Check");
         text.setFontSize(24);
 
         Paragraph paragraph2 = new Paragraph(text);
         paragraph2.setTextAlignment(TextAlignment.CENTER);
 
         Text id = new Text(String.valueOf(trade.getId()));
-        Text text1 = new Text("Invoice N: ");
+        Text text1 = new Text("Check N: ");
         text1.setBold();
         text1.setFontSize(14);
         Paragraph paragraph3 = new Paragraph();
@@ -64,7 +64,7 @@ public class PDFService {
         String substring = dateDB.substring(0, 16);
         Paragraph date = new Paragraph();
         Text dateTime = new Text(substring);
-        Text dateText = new Text("Date: ");
+        Text dateText = new Text("Sana: ");
         dateText.setBold();
         dateText.setFontSize(14);
         date.add(dateText);
@@ -72,14 +72,14 @@ public class PDFService {
 
         Paragraph customer = new Paragraph();
         Text custValue = new Text(trade.getCustomer().getName());
-        Text custText = new Text("Customer: ");
+        Text custText = new Text("Mijoz: ");
         custText.setFontSize(14);
         custText.setBold();
         customer.add(custText);
         customer.add(custValue);
 
         Paragraph seller = new Paragraph();
-        Text sellerText = new Text("Seller: ");
+        Text sellerText = new Text("Sotuvchi: ");
         Text sellerValue = new Text(trade.getTrader().getFirstName());
         sellerText.setFontSize(14);
         sellerText.setBold();
@@ -103,9 +103,9 @@ public class PDFService {
         header.addCell(row2);
 
         Table table = new Table(2);
-        Text productText = new Text("Product: ");
+        Text productText = new Text("Maxsulot: ");
         productText.setBold();
-        Text quantityText = new Text("Quantity");
+        Text quantityText = new Text("Miqdor");
         quantityText.setBold();
         Text unitText = new Text("Unit Price");
         unitText.setBold();
