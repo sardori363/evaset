@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import uz.pdp.springsecurity.enums.Permissions;
@@ -28,8 +26,11 @@ public class Role {
     private String name;
 
     @Enumerated(EnumType.STRING)
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection
     private List<Permissions> permissions;
+
+    @ManyToOne
+    private Business business;
 
     private String description;
 
@@ -42,9 +43,7 @@ public class Role {
     @UpdateTimestamp
     private Timestamp updateAt;
 
-    @ManyToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Business business;
+
 
     public Role(String name, List<Permissions> permissions,Business business) {
         this.name = name;

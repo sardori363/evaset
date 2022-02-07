@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -48,7 +46,6 @@ public class User extends AbsEntity implements UserDetails {
     private Branch branch;
 
     @ManyToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Business business;
 
     //yoqilgan

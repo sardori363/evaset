@@ -50,11 +50,4 @@ public class BusinessController {
         ApiResponse apiResponse = businessService.deleteOne(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
-
-    @CheckPermission("DELETE_BUSINESS")
-    @DeleteMapping
-    public HttpEntity<?> deleteAll() {
-        ApiResponse apiResponse = businessService.deleteAll();
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
-    }
 }

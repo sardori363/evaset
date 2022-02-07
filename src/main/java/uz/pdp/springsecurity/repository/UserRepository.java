@@ -19,4 +19,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     List<User> findAllByBusiness_Id(Integer business_id);
 
     List<User> findAllByBranch_Id(Integer branch_id);
+
+
+    void deleteAllByBusiness_Id(Integer business_id);
 }

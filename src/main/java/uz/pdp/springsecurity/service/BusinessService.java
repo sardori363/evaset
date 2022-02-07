@@ -3,9 +3,13 @@ package uz.pdp.springsecurity.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uz.pdp.springsecurity.entity.Business;
+import uz.pdp.springsecurity.entity.Role;
+import uz.pdp.springsecurity.entity.User;
 import uz.pdp.springsecurity.payload.ApiResponse;
 import uz.pdp.springsecurity.payload.BusinessDto;
 import uz.pdp.springsecurity.repository.BusinessRepository;
+import uz.pdp.springsecurity.repository.RoleRepository;
+import uz.pdp.springsecurity.repository.UserRepository;
 
 import java.util.Optional;
 
@@ -13,6 +17,12 @@ import java.util.Optional;
 public class BusinessService {
     @Autowired
     BusinessRepository businessRepository;
+
+    @Autowired
+    RoleRepository roleRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
 
     public ApiResponse add(BusinessDto businessDto) {
@@ -51,13 +61,16 @@ public class BusinessService {
     }
 
     public ApiResponse deleteOne(Integer id) {
+
+        for (User user : userRepository.findAllByBusiness_Id(id)) {
+            userRepository.deleteById(user.getId());
+        }
+        for (Role role : roleRepository.findAllByBusiness_Id(id)) {
+            roleRepository.deleteById(role.getId());
+        }
+
         if (!businessRepository.existsById(id)) return new ApiResponse("not found",false);
         businessRepository.deleteById(id);
         return new ApiResponse("deleted",true);
-    }
-
-    public ApiResponse deleteAll() {
-        businessRepository.deleteAll();
-        return new ApiResponse("business removed",true);
     }
 }
