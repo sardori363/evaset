@@ -27,7 +27,7 @@ public class Supplier extends AbsEntity {
     private String supplierType;
 
     @ManyToOne
-    private Branch branch;
+    private Business business;
 
 
 }

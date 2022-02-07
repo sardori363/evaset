@@ -49,13 +49,6 @@ public class SupplierController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_SUPPLIER")
-    @GetMapping("/get-by-branch/{branch_id}")
-    public HttpEntity<?> getAllByBranch(@PathVariable Integer branch_id) {
-        ApiResponse apiResponse = supplierService.getAllByBranch(branch_id);
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
-    }
-
     @CheckPermission("VIEW_SUPPLIER_ADMIN")
     @GetMapping("/get-by-business/{businessId}")
     public HttpEntity<?> getAllByBusiness(@PathVariable Integer businessId) {

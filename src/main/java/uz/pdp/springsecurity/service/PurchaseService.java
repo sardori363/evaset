@@ -43,14 +43,13 @@ public class PurchaseService {
 
     public ApiResponse add(PurchaseDto purchaseDto) {
         Purchase purchase = new Purchase();
-        ApiResponse apiResponse = addPurchase(purchase, purchaseDto);
 
-        return apiResponse;
+        return addPurchase(purchase, purchaseDto);
     }
 
     public ApiResponse edit(Integer id, PurchaseDto purchaseDto) {
         Optional<Purchase> optionalPurchase = purchaseRepository.findById(id);
-        if (!optionalPurchase.isPresent()) return new ApiResponse("purchase not found", false);
+        if (optionalPurchase.isEmpty()) return new ApiResponse("purchase not found", false);
 
         Purchase purchase = optionalPurchase.get();
         ApiResponse apiResponse = addPurchase(purchase, purchaseDto);
@@ -72,23 +71,24 @@ public class PurchaseService {
 
     private ApiResponse addPurchase(Purchase purchase, PurchaseDto purchaseDto) {
         Optional<Supplier> optionalSupplier = supplierRepository.findById(purchaseDto.getDealerId());
-        if (!optionalSupplier.isPresent()) return new ApiResponse("supplier not found", false);
+        if (optionalSupplier.isEmpty()) return new ApiResponse("supplier not found", false);
         purchase.setDealer(optionalSupplier.get());
 
+
         Optional<User> optionalUser = userRepository.findById(purchaseDto.getSeller());
-        if (!optionalUser.isPresent()) return new ApiResponse("seller not found", false);
+        if (optionalUser.isEmpty()) return new ApiResponse("seller not found", false);
         purchase.setSeller(optionalUser.get());
 
         Optional<ExchangeStatus> optionalPurchaseStatus = exchangeStatusRepository.findById(purchaseDto.getPurchaseStatusId());
-        if (!optionalPurchaseStatus.isPresent()) return new ApiResponse("purchase status not found", false);
+        if (optionalPurchaseStatus.isEmpty()) return new ApiResponse("purchase status not found", false);
         purchase.setPurchaseStatus(optionalPurchaseStatus.get());
 
         Optional<PaymentStatus> optionalPaymentStatus = paymentStatusRepository.findById(purchaseDto.getPaymentStatusId());
-        if (!optionalPaymentStatus.isPresent()) return new ApiResponse("payment status not found", false);
+        if (optionalPaymentStatus.isEmpty()) return new ApiResponse("payment status not found", false);
         purchase.setPaymentStatus(optionalPaymentStatus.get());
 
         Optional<Branch> optionalBranch = branchRepository.findById(purchaseDto.getBranchId());
-        if (!optionalBranch.isPresent()) return new ApiResponse("branch not found", false);
+        if (optionalBranch.isEmpty()) return new ApiResponse("branch not found", false);
         purchase.setBranch(optionalBranch.get());
 
         List<PurchaseProductDto> purchaseProductsDto = purchaseDto.getPurchaseProductsDto();
