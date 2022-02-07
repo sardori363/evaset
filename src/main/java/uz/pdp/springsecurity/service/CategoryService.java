@@ -2,11 +2,11 @@ package uz.pdp.springsecurity.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import uz.pdp.springsecurity.entity.Branch;
+import uz.pdp.springsecurity.entity.Business;
 import uz.pdp.springsecurity.entity.Category;
 import uz.pdp.springsecurity.payload.ApiResponse;
 import uz.pdp.springsecurity.payload.CategoryDto;
-import uz.pdp.springsecurity.repository.BranchRepository;
+import uz.pdp.springsecurity.repository.BusinessRepository;
 import uz.pdp.springsecurity.repository.CategoryRepository;
 
 import java.util.List;
@@ -18,17 +18,17 @@ public class CategoryService {
     CategoryRepository categoryRepository;
 
     @Autowired
-    BranchRepository branchRepository;
+    BusinessRepository businessRepository;
 
     public ApiResponse add(CategoryDto categoryDto) {
-        Optional<Branch> optionalBranch = branchRepository.findById(categoryDto.getBranchId());
-        if (optionalBranch.isEmpty()) {
-            return new ApiResponse("NOT FOUND BRANCH", false);
+        Optional<Business> optionalBusiness = businessRepository.findById(categoryDto.getBusinessId());
+        if (optionalBusiness.isEmpty()) {
+            return new ApiResponse("NOT FOUND BUSINESS", false);
         }
 
         Category category = new Category(
                 categoryDto.getName(),
-                optionalBranch.get()
+                optionalBusiness.get()
         );
 
         categoryRepository.save(category);
@@ -58,14 +58,9 @@ public class CategoryService {
         return new ApiResponse("Category deleted", true);
     }
 
-    public ApiResponse getAllByBranchId(Integer branch_id) {
-        List<Category> allByBranch_id = categoryRepository.findAllByBranch_Id(branch_id);
-        if (allByBranch_id.isEmpty()) return new ApiResponse("not found",false);
-        return new ApiResponse("found",true,allByBranch_id);
-    }
 
     public ApiResponse getAllByBusinessId(Integer businessId) {
-        List<Category> allByBusinessId = categoryRepository.findAllByBusinessId(businessId);
+        List<Category> allByBusinessId = categoryRepository.findAllByBusiness_Id(businessId);
         if (allByBusinessId.isEmpty()) return new ApiResponse("not found",false);
         return new ApiResponse("found",true,allByBusinessId);
     }

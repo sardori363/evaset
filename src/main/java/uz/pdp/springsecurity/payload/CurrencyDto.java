@@ -14,5 +14,5 @@ public class CurrencyDto {
     private String name;
     @NotNull(message = "required line")
     private double currentCourse;
-    private Integer branchId;
+    private Integer businessId;
 }
