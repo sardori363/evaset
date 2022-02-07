@@ -43,12 +43,6 @@ public class PayMethodController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_PAY_METHOD")
-    @GetMapping("/get-by-branch/{branch_id}")
-    public HttpEntity<?> getAllByBranch(@PathVariable Integer branch_id) {
-        ApiResponse apiResponse = payMethodService.getAllByBranch(branch_id);
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
-    }
 
     @CheckPermission("VIEW_PAY_METHOD_ADMIN")
     @GetMapping("/get-by-business/{business_id}")

@@ -12,5 +12,6 @@ import javax.validation.constraints.NotNull;
 public class MeasurementDto {
     @NotNull(message = "required line")
     private String name;
-    private Integer branchId;
+    @NotNull(message = "required line")
+    private Integer businessId;
 }

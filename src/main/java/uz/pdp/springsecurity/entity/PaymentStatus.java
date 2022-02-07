@@ -21,5 +21,5 @@ public class PaymentStatus extends AbsEntity {
 
 
     @ManyToOne
-    private Branch branch;
+    private Business business;
 }

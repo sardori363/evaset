@@ -2,11 +2,11 @@ package uz.pdp.springsecurity.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import uz.pdp.springsecurity.entity.Branch;
+import uz.pdp.springsecurity.entity.Business;
 import uz.pdp.springsecurity.entity.Measurement;
 import uz.pdp.springsecurity.payload.ApiResponse;
 import uz.pdp.springsecurity.payload.MeasurementDto;
-import uz.pdp.springsecurity.repository.BranchRepository;
+import uz.pdp.springsecurity.repository.BusinessRepository;
 import uz.pdp.springsecurity.repository.MeasurementRepository;
 
 import java.util.List;
@@ -18,17 +18,17 @@ public class MeasurementService {
     MeasurementRepository measurementRepository;
 
     @Autowired
-    BranchRepository branchRepository;
+    BusinessRepository businessRepository;
 
     public ApiResponse add(MeasurementDto measurementDto) {
-        Optional<Branch> optionalBranch = branchRepository.findById(measurementDto.getBranchId());
+        Optional<Business> optionalBusiness = businessRepository.findById(measurementDto.getBusinessId());
 
-        if (optionalBranch.isEmpty()) {
-            return new ApiResponse("NOT FOUND BRANCH", false);
+        if (optionalBusiness.isEmpty()) {
+            return new ApiResponse("BUSINESS NOT FOUND", false);
         }
         Measurement measurement = new Measurement(
                 measurementDto.getName(),
-                optionalBranch.get()
+                optionalBusiness.get()
         );
         measurementRepository.save(measurement);
         return new ApiResponse("Measurement saved", true);
@@ -57,15 +57,9 @@ public class MeasurementService {
         return new ApiResponse("deleted", true);
     }
 
-    public ApiResponse getByBranch(Integer branch_id) {
-        List<Measurement> allByBranch_id = measurementRepository.findAllByBranch_Id(branch_id);
-        if (allByBranch_id.isEmpty()) return new ApiResponse("not found",false);
-        return new ApiResponse("found",true,allByBranch_id);
-    }
-
     public ApiResponse getByBusiness(Integer business_id) {
-        List<Measurement> allByBranch_business_id = measurementRepository.findAllByBranch_Business_Id(business_id);
-        if (allByBranch_business_id.isEmpty()) return new ApiResponse("not found",false);
-        return new ApiResponse("found",true,allByBranch_business_id);
+        List<Measurement> allByBranch_business_id = measurementRepository.findAllByBusiness_Id(business_id);
+        if (allByBranch_business_id.isEmpty()) return new ApiResponse("not found", false);
+        return new ApiResponse("found", true, allByBranch_business_id);
     }
 }

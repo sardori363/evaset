@@ -13,5 +13,5 @@ public class PayStatusDto {
     @NotNull(message = "required line")
     private String status;
 
-    private Integer branchId;
+    private Integer businessId;
 }

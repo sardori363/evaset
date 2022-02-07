@@ -2,11 +2,11 @@ package uz.pdp.springsecurity.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import uz.pdp.springsecurity.entity.Branch;
+import uz.pdp.springsecurity.entity.Business;
 import uz.pdp.springsecurity.entity.Customer;
 import uz.pdp.springsecurity.payload.ApiResponse;
 import uz.pdp.springsecurity.payload.CustomerDto;
-import uz.pdp.springsecurity.repository.BranchRepository;
+import uz.pdp.springsecurity.repository.BusinessRepository;
 import uz.pdp.springsecurity.repository.CustomerRepository;
 
 import java.util.List;
@@ -18,18 +18,18 @@ public class CustomerService {
     CustomerRepository customerRepository;
 
     @Autowired
-    BranchRepository branchRepository;
+    BusinessRepository businessRepository;
 
     public ApiResponse add(CustomerDto customerDto) {
-        Optional<Branch> optionalBranch = branchRepository.findById(customerDto.getBranchId());
-        if (optionalBranch.isEmpty()) {
+        Optional<Business> optionalBusiness = businessRepository.findById(customerDto.getBusinessId());
+        if (optionalBusiness.isEmpty()) {
             return new ApiResponse("NOT FOUND BRANCH", false);
         }
         Customer customer = new Customer(
                 customerDto.getName(),
                 customerDto.getPhoneNumber(),
                 customerDto.getTelegram(),
-                optionalBranch.get()
+                optionalBusiness.get()
         );
         customerRepository.save(customer);
         return new ApiResponse("Customer saved", true);
@@ -37,8 +37,8 @@ public class CustomerService {
 
     public ApiResponse edit(Integer id, CustomerDto customerDto) {
         if (!customerRepository.existsById(id)) return new ApiResponse("Customer not found", false);
-        Optional<Branch> optionalBranch = branchRepository.findById(customerDto.getBranchId());
-        if (optionalBranch.isEmpty()) {
+        Optional<Business> optionalBusiness = businessRepository.findById(customerDto.getBusinessId());
+        if (optionalBusiness.isEmpty()) {
             return new ApiResponse("NOT FOUND BRANCH", false);
         }
 
@@ -46,7 +46,7 @@ public class CustomerService {
         customer.setName(customerDto.getName());
         customer.setPhoneNumber(customerDto.getPhoneNumber());
         customer.setTelegram(customerDto.getTelegram());
-        customer.setBranch(optionalBranch.get());
+        customer.setBusiness(optionalBusiness.get());
 
         customerRepository.save(customer);
         return new ApiResponse("Customer updated", true);
@@ -63,14 +63,8 @@ public class CustomerService {
         return new ApiResponse("Customer deleted", true);
     }
 
-    public ApiResponse getAllByBranchId(Integer branch_id) {
-        List<Customer> allByBranch_id = customerRepository.findAllByBranch_Id(branch_id);
-        if (allByBranch_id.isEmpty()) return new ApiResponse("not found",false);
-        return new ApiResponse("found",true,allByBranch_id);
-    }
-
     public ApiResponse getAllByBusinessId(Integer businessId) {
-        List<Customer> allByBusinessId = customerRepository.findAllByBusinessId(businessId);
+        List<Customer> allByBusinessId = customerRepository.findAllByBusiness_Id(businessId);
         if (allByBusinessId.isEmpty()) return new ApiResponse("not found",false);
         return new ApiResponse("found",true,allByBusinessId);
     }

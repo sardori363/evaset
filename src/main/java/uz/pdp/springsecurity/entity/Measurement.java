@@ -19,7 +19,6 @@ public class Measurement extends AbsEntity {
     @Column(nullable = false)
     private String name;
 
-
     @ManyToOne
-    private Branch branch;
+    private Business business;
 }

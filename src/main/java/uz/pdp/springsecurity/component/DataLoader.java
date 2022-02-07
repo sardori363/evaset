@@ -276,34 +276,34 @@ public class DataLoader implements CommandLineRunner {
         if (all.isEmpty()) {
             paymentStatusRepository.save(new PaymentStatus(
                     "To'langan",
-                    branch
+                    business
             ));
 
             paymentStatusRepository.save(new PaymentStatus(
                     "Qisman to'langan",
-                    branch
+                    business
             ));
 
             paymentStatusRepository.save(new PaymentStatus(
                     "To'lanmagan",
-                    branch
+                    business
             ));
         }
         List<ExchangeStatus> exchangeStatusRepositoryAll = exchangeStatusRepository.findAll();
         if (exchangeStatusRepositoryAll.isEmpty()) {
             exchangeStatusRepository.save(new ExchangeStatus(
                     "Buyurtma berildi",
-                    branch
+                    business
             ));
 
             exchangeStatusRepository.save(new ExchangeStatus(
                     "Kutilmoqda",
-                    branch
+                    business
             ));
 
             exchangeStatusRepository.save(new ExchangeStatus(
                     "Qabul qilinndi",
-                    branch
+                    business
             ));
         }
 
@@ -311,17 +311,17 @@ public class DataLoader implements CommandLineRunner {
         if (all1.isEmpty()) {
             payMethodRepository.save(new PaymentMethod(
                     "Naqd",
-                    branch
+                    business
             ));
 
             payMethodRepository.save(new PaymentMethod(
                     "UzCard",
-                    branch
+                    business
             ));
 
             payMethodRepository.save(new PaymentMethod(
                     "Humo",
-                    branch
+                    business
             ));
         }
 

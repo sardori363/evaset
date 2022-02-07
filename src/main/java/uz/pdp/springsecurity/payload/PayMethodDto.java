@@ -12,4 +12,7 @@ import javax.validation.constraints.NotNull;
 public class PayMethodDto {
     @NotNull(message = "required line")
     private String type;
+
+    @NotNull(message = "required line")
+    private Integer businessId;
 }

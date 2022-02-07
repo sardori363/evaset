@@ -8,7 +8,5 @@ import java.util.List;
 public interface PayMethodRepository extends JpaRepository<PaymentMethod, Integer> {
     boolean existsByType(String type);
 
-    List<PaymentMethod> findAllByBranch_Id(Integer branch_id);
-
-    List<PaymentMethod> findAllByBranch_Business_Id(Integer business_id);
+    List<PaymentMethod> findAllByBusiness_Id(Integer business_id);
 }

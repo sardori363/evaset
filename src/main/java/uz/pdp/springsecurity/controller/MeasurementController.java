@@ -49,13 +49,6 @@ public class MeasurementController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_MEASUREMENT")
-    @GetMapping("/get-by-branch/{branch_id}")
-    public HttpEntity<?> getAllByBranch(@PathVariable Integer branch_id) {
-        ApiResponse apiResponse = measurementService.getByBranch(branch_id);
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
-    }
-
     @CheckPermission("VIEW_MEASUREMENT_ADMIN")
     @GetMapping("/get-by-business/{business_id}")
     public HttpEntity<?> getAllByBusiness(@PathVariable Integer business_id) {

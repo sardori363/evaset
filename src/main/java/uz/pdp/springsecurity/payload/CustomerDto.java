@@ -17,5 +17,5 @@ public class CustomerDto {
     @NotNull(message = "enter your telegram username")
     private String telegram;
 
-    private Integer branchId;
+    private Integer businessId;
 }

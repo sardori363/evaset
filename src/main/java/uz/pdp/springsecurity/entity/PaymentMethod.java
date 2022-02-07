@@ -20,5 +20,5 @@ public class PaymentMethod extends AbsEntity {
     private String type;
 
     @ManyToOne
-    private Branch branch;
+    private Business business;
 }

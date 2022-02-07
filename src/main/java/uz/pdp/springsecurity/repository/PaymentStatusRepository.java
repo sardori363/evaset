@@ -9,7 +9,5 @@ public interface PaymentStatusRepository extends JpaRepository<PaymentStatus , I
 
     boolean existsByStatus(String status);
 
-    List<PaymentStatus> findAllByBranch_Id(Integer branch_id);
-
-    List<PaymentStatus> findAllByBranch_Business_Id(Integer business_id);
+    List<PaymentStatus> findAllByBusiness_Id(Integer business_id);
 }
