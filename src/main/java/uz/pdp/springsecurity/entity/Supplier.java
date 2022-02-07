@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import uz.pdp.springsecurity.entity.template.AbsEntity;
 
 import javax.persistence.Column;
@@ -26,6 +28,7 @@ public class Supplier extends AbsEntity {
 
     private String supplierType;
 
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @ManyToOne
     private Business business;
 

@@ -42,6 +42,10 @@ public class Role {
     @UpdateTimestamp
     private Timestamp updateAt;
 
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Business business;
+
     public Role(String name, List<Permissions> permissions,Business business) {
         this.name = name;
         this.permissions = permissions;
@@ -52,8 +56,6 @@ public class Role {
         this.permissions = permissions;
     }
 
-    @ManyToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Business business;
+
 
 }
