@@ -145,4 +145,9 @@ public class ProductService {
         if (allByBusinessId.isEmpty()) return new ApiResponse("not found",false);
         return new ApiResponse("found",true,allByBusinessId);
     }
+
+    public ApiResponse deleteProducts(List<Integer> ids) {
+        productRepository.deleteAllById(ids);
+        return new ApiResponse("DELETED",true);
+    }
 }

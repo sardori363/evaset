@@ -11,6 +11,7 @@ import uz.pdp.springsecurity.service.ProductService;
 
 import javax.validation.Valid;
 import java.text.ParseException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/product")
@@ -44,6 +45,13 @@ public class ProductController {
     @DeleteMapping("/{id}")
     public HttpEntity<?> deleteOne(@PathVariable Integer id) {
         ApiResponse apiResponse = productService.deleteProduct(id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @CheckPermission("DELETE_PRODUCT")
+    @DeleteMapping("/delete-few")
+    public HttpEntity<?> deleteFew(@RequestBody List<Integer> ids) {
+        ApiResponse apiResponse = productService.deleteProducts(ids);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
