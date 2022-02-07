@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import uz.pdp.springsecurity.entity.template.AbsEntity;
 
 import javax.persistence.*;
@@ -27,6 +29,7 @@ public class Product extends AbsEntity {
     private long barcode;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Brand brand;
 
 

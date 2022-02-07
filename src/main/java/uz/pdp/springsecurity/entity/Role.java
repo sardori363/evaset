@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import uz.pdp.springsecurity.enums.Permissions;
@@ -51,6 +53,7 @@ public class Role {
     }
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Business business;
 
 }
