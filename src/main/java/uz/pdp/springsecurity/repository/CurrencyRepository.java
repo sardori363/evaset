@@ -6,5 +6,5 @@ import uz.pdp.springsecurity.entity.Currency;
 import java.util.List;
 
 public interface CurrencyRepository extends JpaRepository<Currency,Integer> {
-    List<Currency> findAllByBranch_Id(Integer branch_id);
+    List<Currency> findAllByBusiness_Id(Integer business_id);
 }

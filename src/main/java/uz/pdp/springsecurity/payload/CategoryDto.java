@@ -12,5 +12,5 @@ import javax.validation.constraints.NotNull;
 public class CategoryDto {
     @NotNull(message = "required line")
     private String name;
-    private Integer branchId;
+    private Integer businessId;
 }

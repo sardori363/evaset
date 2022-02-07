@@ -50,9 +50,9 @@ public class CurrencyController {
     }
 
     @CheckPermission("VIEW_CURRENCY")
-    @GetMapping("get-by-branchId/{branch_id}")
-    public HttpEntity<?> getAllByBranchId(@PathVariable Integer branch_id) {
-        ApiResponse apiResponse = currencyService.getAllByBranchId(branch_id);
+    @GetMapping("get-by-businessId/{business_id}")
+    public HttpEntity<?> getAllByBusinessId(@PathVariable Integer business_id) {
+        ApiResponse apiResponse = currencyService.getAllByBusinessId(business_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 }
