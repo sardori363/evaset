@@ -35,7 +35,7 @@ public class BranchController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_BRANCH")
+    @CheckPermission("VIEW_BRANCH_ADMIN")
     @GetMapping("/{id}")
     public HttpEntity<?> get(@PathVariable Integer id) {
         ApiResponse apiResponse = branchService.getBranch(id);
