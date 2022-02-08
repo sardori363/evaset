@@ -274,18 +274,15 @@ public class DataLoader implements CommandLineRunner {
         List<PaymentStatus> all = paymentStatusRepository.findAll();
         if (all.isEmpty()) {
             paymentStatusRepository.save(new PaymentStatus(
-                    "To'langan",
-                    business
+                    "To'langan"
             ));
 
             paymentStatusRepository.save(new PaymentStatus(
-                    "Qisman to'langan",
-                    business
+                    "Qisman to'langan"
             ));
 
             paymentStatusRepository.save(new PaymentStatus(
-                    "To'lanmagan",
-                    business
+                    "To'lanmagan"
             ));
         }
         List<ExchangeStatus> exchangeStatusRepositoryAll = exchangeStatusRepository.findAll();
