@@ -71,6 +71,6 @@ public class BusinessService {
 
         if (!businessRepository.existsById(id)) return new ApiResponse("not found",false);
         businessRepository.deleteById(id);
-        return new ApiResponse("deleted",true);
+        return new ApiResponse("DELETED",true);
     }
 }

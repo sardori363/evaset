@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import uz.pdp.springsecurity.entity.template.AbsEntity;
 
 import javax.persistence.Entity;
@@ -26,12 +28,15 @@ public class Purchase extends AbsEntity {
     private User seller;
 
     @OneToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private ExchangeStatus purchaseStatus;
 
     @OneToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private PaymentStatus paymentStatus;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Branch branch;
 
     private Date date;
@@ -43,6 +48,7 @@ public class Purchase extends AbsEntity {
     private double totalSum;
 
     @OneToMany
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<PurchaseProduct> purchaseProductList;
 
 }

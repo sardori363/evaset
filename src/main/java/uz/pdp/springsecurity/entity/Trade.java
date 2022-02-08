@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import uz.pdp.springsecurity.entity.template.AbsEntity;
 
 import javax.persistence.Entity;
@@ -23,6 +25,7 @@ public class Trade extends AbsEntity {
     private Customer customer;
 
     @OneToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User trader;
 
     @OneToMany
@@ -31,12 +34,15 @@ public class Trade extends AbsEntity {
     private Date payDate;
 
     @OneToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Branch branch;
 
     @OneToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private PaymentStatus paymentStatus;
 
     @OneToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private PaymentMethod payMethod;
 
     private Double totalSum;
@@ -46,8 +52,10 @@ public class Trade extends AbsEntity {
     private Double loan;
 
     @OneToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Currency currency;
 
     @OneToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Address address;
 }

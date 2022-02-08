@@ -28,8 +28,8 @@ public class Supplier extends AbsEntity {
 
     private String supplierType;
 
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Business business;
 
 

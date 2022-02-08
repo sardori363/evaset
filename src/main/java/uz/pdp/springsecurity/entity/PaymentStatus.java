@@ -21,7 +21,7 @@ public class PaymentStatus extends AbsEntity {
     @Column(nullable = false,unique = true)
     private String status;
 
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Business business;
 }

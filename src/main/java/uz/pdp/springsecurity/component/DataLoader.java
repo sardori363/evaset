@@ -93,7 +93,7 @@ public class DataLoader implements CommandLineRunner {
 
             Role admin = roleRepository.save(new Role(Constants.ADMIN, Arrays.asList(permissions), business));
 
-            Role superAdmin = roleRepository.save(new Role(Constants.SUPERADMIN, Arrays.asList(ADD_BUSINESS,EDIT_BUSINESS,VIEW_BUSINESS,DELETE_BUSINESS), business));
+            Role superAdmin = roleRepository.save(new Role(Constants.SUPERADMIN, Arrays.asList(ADD_BUSINESS,EDIT_BUSINESS,VIEW_BUSINESS,DELETE_BUSINESS)));
 
             Role manager = roleRepository.save(new Role(
                     Constants.MANAGER,
@@ -245,7 +245,6 @@ public class DataLoader implements CommandLineRunner {
                     passwordEncoder.encode("admin123"),
                     superAdmin,
                     true
-
             ));
             userRepository.save(new User(
                     "Manager",

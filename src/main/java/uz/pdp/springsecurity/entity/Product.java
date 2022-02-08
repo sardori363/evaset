@@ -34,14 +34,17 @@ public class Product extends AbsEntity {
 
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Category category;
 
     @OneToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Measurement measurement;
 
     private Integer minQuantity;
 
     @ManyToMany
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Attachment> photo;
 
     private double buyPrice;
@@ -51,6 +54,7 @@ public class Product extends AbsEntity {
     private double tax;
 
     @ManyToMany
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Branch> branch;
 
     private Date expireDate;

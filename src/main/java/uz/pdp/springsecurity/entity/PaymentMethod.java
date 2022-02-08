@@ -21,7 +21,7 @@ public class PaymentMethod extends AbsEntity {
     @Column(nullable = false,unique = true)
     private String type;
 
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Business business;
 }
