@@ -19,8 +19,8 @@ import javax.persistence.OneToOne;
 public class TradeProduct extends AbsEntity {
 
     private Integer tradedQuantity;
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @OneToOne
 
+    @OneToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Product product;
 }

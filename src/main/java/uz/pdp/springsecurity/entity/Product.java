@@ -25,13 +25,11 @@ public class Product extends AbsEntity {
     @Column(nullable = false)
     private Integer quantity;
 
-//    @Column(nullable = false,unique = true)
     private long barcode;
 
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Brand brand;
-
 
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)

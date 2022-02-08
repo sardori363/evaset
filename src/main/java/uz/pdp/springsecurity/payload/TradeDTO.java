@@ -28,13 +28,11 @@ public class TradeDTO {
 
     private Integer branchId;
 
-//    private Integer paymentStatusId;
 
     private Integer payMethodId;
     /**
      * umumiy summa
      */
-//    private Double totalSum;
     /**
      * to'langan summa
      */
@@ -45,7 +43,6 @@ public class TradeDTO {
 
     private Integer currencyId;
 
-//    private Double loan;
 
     private Integer addressId;
 
