@@ -9,7 +9,6 @@ import uz.pdp.springsecurity.payload.PayStatusDto;
 import uz.pdp.springsecurity.repository.BusinessRepository;
 import uz.pdp.springsecurity.repository.PaymentStatusRepository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,8 +30,7 @@ public class PayStatusService {
         }
 
         PaymentStatus paymentStatus = new PaymentStatus(
-                payStatusDto.getStatus(),
-                optionalBusiness.get()
+                payStatusDto.getStatus()
         );
         payStatusRepository.save(paymentStatus);
         return new ApiResponse("saved", true);
@@ -63,9 +61,9 @@ public class PayStatusService {
         return new ApiResponse("deleted", true);
     }
 
-    public ApiResponse getAllByBusiness(Integer business_id) {
-        List<PaymentStatus> allByBranch_business_id = payStatusRepository.findAllByBusiness_Id(business_id);
-        if (allByBranch_business_id.isEmpty()) return new ApiResponse("not found",false);
-        return new ApiResponse("found",true,allByBranch_business_id);
-    }
+//    public ApiResponse getAllByBusiness(Integer business_id) {
+//        List<PaymentStatus> allByBranch_business_id = payStatusRepository.findAllByBusiness_Id(business_id);
+//        if (allByBranch_business_id.isEmpty()) return new ApiResponse("not found",false);
+//        return new ApiResponse("found",true,allByBranch_business_id);
+//    }
 }
