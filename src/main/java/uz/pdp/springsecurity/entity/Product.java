@@ -59,4 +59,6 @@ public class Product extends AbsEntity {
 
     private Date dueDate;
 
+    private boolean active = true;
+
 }

@@ -92,13 +92,13 @@ public class ExchangeProductBranchService {
          */
         List<ExchangeProductDTO> exchangeProductDTOS = exchangeProductBranchDTO.getExchangeProductDTOS();
         for (ExchangeProductDTO productDTO : exchangeProductDTOS) {
-            Optional<Product> exchangeProduct = productRepository.findByIdAndBranch_Id(productDTO.getProductExchangeId(), optionalBranch.get().getId());
+            Optional<Product> exchangeProduct = productRepository.findByIdAndBranch_IdAndActiveTrue(productDTO.getProductExchangeId(), optionalBranch.get().getId());
 
             Product product = exchangeProduct.get();
             product.setQuantity(product.getQuantity() - productDTO.getExchangeProductQuantity());
             productRepository.save(product);
 
-            Optional<Product> optionalProduct = productRepository.findByBarcodeAndBranch_Id(product.getBarcode(), receivedBranch);
+            Optional<Product> optionalProduct = productRepository.findByBarcodeAndBranch_IdAndActiveTrue(product.getBarcode(), receivedBranch);
             if (optionalProduct.isPresent()) {
                 Product receiveProduct = optionalProduct.get();
                 receiveProduct.setQuantity(receiveProduct.getQuantity() + productDTO.getExchangeProductQuantity());

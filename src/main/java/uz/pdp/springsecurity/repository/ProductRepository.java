@@ -11,21 +11,20 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     Optional<Product> findByBarcode(long barcode);
 
-    Optional<Product> findByIdAndBranch_Id(Integer id, Integer branch_id);
+    Optional<Product> findByIdAndBranch_IdAndActiveTrue(Integer id, Integer branch_id);
 
-    Optional<Product> findByBarcodeAndBranch_Id(long barcode, Integer branch_id);
+    Optional<Product> findByBarcodeAndBranch_IdAndActiveTrue(long barcode, Integer branch_id);
 
-    List<Product> findAllByBarcode(long barcode);
+    List<Product> findAllByBarcodeAndActiveTrue(long barcode);
 
-    List<Product> findAllByCategory_Id(Integer category_id);
+    List<Product> findAllByCategory_IdAndActiveTrue(Integer category_id);
 
-    List<Product> findAllByBrand_Id(Integer brand_id);
+    List<Product> findAllByBrand_IdAndActiveTrue(Integer brand_id);
 
-    List<Product> findAllByBranch_Id(Integer branch_id);
+    List<Product> findAllByBranch_IdAndActiveTrue(Integer branch_id);
 
 
-
-    @Query(value = "select * from product inner join branches b on b.business_id = ",nativeQuery = true)
-    List<Product> findAllByBusinessId(Integer businessId);//tekshirib korish kere
+    @Query(value = "select * from product p inner join product_branch pb on p.id = pb.product_id inner join branches b on pb.branch_id = b.id where b.business_id = ?1 AND p.active =true ", nativeQuery = true)
+    List<Product> findAllByBusinessIdActiveTrue(Integer businessId);//tekshirib korish kere
 
 }
