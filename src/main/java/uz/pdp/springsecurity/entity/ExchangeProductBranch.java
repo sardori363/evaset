@@ -8,10 +8,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import uz.pdp.springsecurity.entity.template.AbsEntity;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
 
@@ -23,11 +20,9 @@ import java.util.List;
 public class ExchangeProductBranch extends AbsEntity {
 
     @OneToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Branch shippedBranch;
 
     @ManyToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Branch receivedBranch;
 
     private Date exchangeDate;
@@ -36,9 +31,9 @@ public class ExchangeProductBranch extends AbsEntity {
 
     @OneToMany
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn
     private List<ExchangeProduct> exchangeProduct;
 
     @OneToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private ExchangeStatus exchangeStatus;
 }
