@@ -2,10 +2,7 @@ package uz.pdp.springsecurity.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import uz.pdp.springsecurity.entity.Branch;
-import uz.pdp.springsecurity.entity.ExchangeProductBranch;
-import uz.pdp.springsecurity.entity.ExchangeStatus;
-import uz.pdp.springsecurity.entity.Product;
+import uz.pdp.springsecurity.entity.*;
 import uz.pdp.springsecurity.payload.ApiResponse;
 import uz.pdp.springsecurity.payload.ExchangeProductBranchDTO;
 import uz.pdp.springsecurity.payload.ExchangeProductDTO;
@@ -110,13 +107,16 @@ public class ExchangeProductBranchService {
                 product1.setCategory(product.getCategory());
                 product1.setMeasurement(product.getMeasurement());
                 product1.setMinQuantity(product.getMinQuantity());
-                product1.setPhoto(product.getPhoto());
+
+                List<Attachment> attachments = product.getPhoto();
+
+                product1.setPhoto(attachments);
                 product1.setBuyPrice(product.getBuyPrice());
                 product1.setSalePrice(product.getSalePrice());
                 product1.setTax(product.getTax());
                 product1.setQuantity(productDTO.getExchangeProductQuantity());
 
-                product1.setBranch(optionalBranch.get());
+                product1.setBranch(branchOptional.get());
 
 
                 productRepository.save(product1);
