@@ -100,26 +100,24 @@ public class ExchangeProductBranchService {
                 receiveProduct.setQuantity(receiveProduct.getQuantity() + productDTO.getExchangeProductQuantity());
                 productRepository.save(receiveProduct);
             } else {
-                Product product1 = new Product();
-                product1.setName(product.getName());
-                product1.setBrand(product.getBrand());
-                product1.setBarcode(product.getBarcode());
-                product1.setCategory(product.getCategory());
-                product1.setMeasurement(product.getMeasurement());
-                product1.setMinQuantity(product.getMinQuantity());
-
-                List<Attachment> attachments = product.getPhoto();
-
-                product1.setPhoto(attachments);
-                product1.setBuyPrice(product.getBuyPrice());
-                product1.setSalePrice(product.getSalePrice());
-                product1.setTax(product.getTax());
-                product1.setQuantity(productDTO.getExchangeProductQuantity());
-
-                product1.setBranch(branchOptional.get());
+                Product newProduct = new Product();
+                newProduct.setBranch(branchOptional.get());
+                newProduct.setName(product.getName());
+                newProduct.setBrand(product.getBrand());
+                newProduct.setBarcode(product.getBarcode());
+                newProduct.setCategory(product.getCategory());
+                newProduct.setMeasurement(product.getMeasurement());
+                newProduct.setMinQuantity(product.getMinQuantity());
+//                newProduct.setPhoto(product.getPhoto());
+                newProduct.setBuyPrice(product.getBuyPrice());
+                newProduct.setSalePrice(product.getSalePrice());
+                newProduct.setTax(product.getTax());
+                newProduct.setExpireDate(product.getExpireDate());
+                newProduct.setQuantity(productDTO.getExchangeProductQuantity());
 
 
-                productRepository.save(product1);
+
+                productRepository.save(newProduct);
             }
         }
         Optional<ExchangeStatus> optionalExchangeStatus = exchangeStatusRepository.findById(exchangeProductBranchDTO.getExchangeStatusId());

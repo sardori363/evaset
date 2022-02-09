@@ -115,41 +115,42 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0NDM4M
 Content-Type: application/json
 
 {
-  "name": "pepsi",
+  "name": "Lenovo cori 5",
   "quantity": 5050,
-  "barcode": 8252524,
+  "barcode": 825252,
   "brandId": 1,
   "categoryId": 1,
   "measurementId": 1,
   "photoIds": [
-    1
+    1,
+    2
   ],
   "minQuantity": 10,
   "buyPrice": 77,
   "salePrice": 777,
   "tax": 20,
   "branchId": [
-   2
+    2
   ],
   "expireDate": null,
   "dueDate": null
 }
 
 ###
-POST http://localhost:8080/api/exchange-product-brach
+POST http://localhost:8080/api/exchange-product-branch
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0NDM4MTYwMywiZXhwIjoxNjQ0NDE3NjAzLCJyb2xlIjoiQWRtaW4ifQ.yIiyEbBc_fnyJlZIk5vF4OmN0-k5YZZDFVCQQxNtNtKIZ5Ejog5Bo_dI5b6RVHG5r5MZvHyOEvNI_4gMkPQNZg
 Content-Type: application/json
 
 {
   "shippedBranchId": 2,
-  "receivedBranchId": 1,
+  "receivedBranchId": 3,
   "exchangeDate": "2020-07-18",
   "description": "dvsdvsdvsdv sadvsd vsadv sadvsad vs adv sd vs dav s dv s dv sd v sd v as dvsa dv asdv",
   "exchangeStatusId": 1,
   "exchangeProductDTOS": [
     {
-      "exchangeProductQuantity": 1,
-      "productExchangeId": 13
+      "exchangeProductQuantity": 100,
+      "productExchangeId": 444
     }
   ]
 }

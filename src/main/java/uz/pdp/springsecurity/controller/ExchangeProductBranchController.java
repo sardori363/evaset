@@ -13,7 +13,7 @@ import java.sql.Date;
 
 
 @RestController
-@RequestMapping("/api/exchange-product-brach")
+@RequestMapping("/api/exchange-product-branch")
 public class ExchangeProductBranchController {
     @Autowired
     ExchangeProductBranchService exchangeProductBranchService;
