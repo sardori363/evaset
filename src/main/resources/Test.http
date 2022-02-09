@@ -15,7 +15,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0NDM4M
 Content-Type: application/json
 
 {
-  "name": "Test 3  filial",
+  "name": "Test 4  filial",
   "addressId": 1,
   "businessId": 1
 }
@@ -126,7 +126,7 @@ Content-Type: application/json
 {
   "name": "Lenovo cori 5 ",
   "quantity": 5050,
-  "barcode": 7844,
+  "barcode": 8997,
   "brandId": 1,
   "categoryId": 1,
   "measurementId": 1,
@@ -139,7 +139,7 @@ Content-Type: application/json
   "salePrice": 777,
   "tax": 20,
   "branchId": [
-    1,2
+    3,4,5
   ],
   "expireDate": null,
   "dueDate": null

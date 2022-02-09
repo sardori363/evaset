@@ -35,25 +35,69 @@ public class ProductService {
     BranchRepository branchRepository;
 
     public ApiResponse addProduct(@Valid ProductDto productDto) throws ParseException {
-        Product product = new Product();
         for (Integer integer : productDto.getBranchId()) {
             Optional<Product> optionalProduct = productRepository.findByBarcodeAndBranch_IdAndActiveTrue(productDto.getBarcode(), integer);
             if (optionalProduct.isPresent()) {
                 return new ApiResponse("BUNDAY SHTRIX KODLI MAXSULOT BOR", false);
             }
         }
-        ApiResponse apiResponse = addProductDtotoProduct(productDto);
 
-        productRepository.save(product);
-        return new ApiResponse("SAVED", true, product);
+
+        ApiResponse apiResponse = addProductDtotoProduct(productDto);
+        return apiResponse;
     }
 
     public ApiResponse editProduct(Integer id, ProductDto productDto) {
         Optional<Product> optionalProduct = productRepository.findById(id);
+
+        for (Integer indexBranch : productDto.getBranchId()) {
+
         Product product = optionalProduct.get();
-        ApiResponse apiResponse = addProductDtotoProduct(productDto);
+
+        addProduct(productDto, product,indexBranch);
+
+        if (product.getExpireDate() == null) {
+            Date date = new Date(System.currentTimeMillis());
+            product.setExpireDate(date);
+        } else {
+            product.setExpireDate(productDto.getExpireDate());
+        }
+
+        product.setDueDate(productDto.getDueDate());
         productRepository.save(product);
-        return new ApiResponse(true, product);
+        }
+
+        return new ApiResponse("EDITED",true);
+    }
+
+    private ApiResponse addProduct(ProductDto productDto, Product product , Integer branchId) {
+        product.setName(productDto.getName());
+        product.setQuantity(productDto.getQuantity());
+
+            Optional<Product> optionalProduct = productRepository.findByBarcodeAndBranch_IdAndActiveTrue(productDto.getBarcode(), branchId);
+            if (optionalProduct.isPresent()) {
+                return new ApiResponse("BUNDAY SHTRIX KODLI MAXSULOT BOR", false);
+            }
+        product.setBarcode(productDto.getBarcode());
+
+        Optional<Brand> optionalBrand = brandRepository.findById(productDto.getBrandId());
+        optionalBrand.ifPresent(product::setBrand);
+
+        Optional<Category> optionalCategory = categoryRepository.findById(productDto.getCategoryId());
+        product.setCategory(optionalCategory.get());
+
+        Optional<Measurement> optionalMeasurement = measurementRepository.findById(productDto.getMeasurementId());
+        product.setMeasurement(optionalMeasurement.get());
+
+        product.setMinQuantity(productDto.getMinQuantity());
+
+        List<Attachment> repositoryAllById = attachmentRepository.findAllById(productDto.getPhotoIds());
+        product.setPhoto(repositoryAllById);
+
+        product.setBuyPrice(productDto.getBuyPrice());
+        product.setSalePrice(productDto.getSalePrice());
+        product.setTax(productDto.getTax());
+        return new ApiResponse(true);
     }
 
     public ApiResponse getProduct(Integer id) {
@@ -78,30 +122,9 @@ public class ProductService {
     ApiResponse addProductDtotoProduct(ProductDto productDto) {
         for (Integer indexBranch : productDto.getBranchId()) {
             Product product = new Product();
-            product.setName(productDto.getName());
-            product.setQuantity(productDto.getQuantity());
-            product.setBarcode(productDto.getBarcode());
+            addProduct(productDto, product , indexBranch);
 
-            Optional<Brand> optionalBrand = brandRepository.findById(productDto.getBrandId());
-            optionalBrand.ifPresent(product::setBrand);
 
-            Optional<Category> optionalCategory = categoryRepository.findById(productDto.getCategoryId());
-            product.setCategory(optionalCategory.get());
-
-            Optional<Measurement> optionalMeasurement = measurementRepository.findById(productDto.getMeasurementId());
-            product.setMeasurement(optionalMeasurement.get());
-
-            product.setMinQuantity(productDto.getMinQuantity());
-
-            List<Attachment> repositoryAllById = attachmentRepository.findAllById(productDto.getPhotoIds());
-            product.setPhoto(repositoryAllById);
-
-            product.setBuyPrice(productDto.getBuyPrice());
-            product.setSalePrice(productDto.getSalePrice());
-            product.setTax(productDto.getTax());
-
-//            List<Branch> branchRepositoryAllById = branchRepository.findAllById(productDto.getBranchId());
-//            product.setBranch(branchRepositoryAllById);
             Optional<Branch> optionalBranch = branchRepository.findById(indexBranch);
             product.setBranch(optionalBranch.get());
 
