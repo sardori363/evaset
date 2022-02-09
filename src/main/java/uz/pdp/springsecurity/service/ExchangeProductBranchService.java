@@ -6,12 +6,10 @@ import uz.pdp.springsecurity.entity.*;
 import uz.pdp.springsecurity.payload.ApiResponse;
 import uz.pdp.springsecurity.payload.ExchangeProductBranchDTO;
 import uz.pdp.springsecurity.payload.ExchangeProductDTO;
-import uz.pdp.springsecurity.repository.BranchRepository;
-import uz.pdp.springsecurity.repository.ExchangeProductBranchRepository;
-import uz.pdp.springsecurity.repository.ExchangeStatusRepository;
-import uz.pdp.springsecurity.repository.ProductRepository;
+import uz.pdp.springsecurity.repository.*;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +27,9 @@ public class ExchangeProductBranchService {
 
     @Autowired
     ExchangeStatusRepository exchangeStatusRepository;
+
+    @Autowired
+    ExchangeProductRepository exchangeProductRepository;
 
     public ApiResponse create(ExchangeProductBranchDTO exchangeProductBranchDTO) {
         ExchangeProductBranch exchangeProductBranch = new ExchangeProductBranch();
@@ -87,12 +88,29 @@ public class ExchangeProductBranchService {
          * JO'NATILGAN PRODUCTNI SAQLASH
          */
         List<ExchangeProductDTO> exchangeProductDTOS = exchangeProductBranchDTO.getExchangeProductDTOS();
+        List<ExchangeProduct> exchangeProductList = new ArrayList<>();
         for (ExchangeProductDTO productDTO : exchangeProductDTOS) {
+            Product product;
             Optional<Product> exchangeProduct = productRepository.findByIdAndBranch_IdAndActiveTrue(productDTO.getProductExchangeId(), optionalBranch.get().getId());
+            if (exchangeProduct.isPresent()) {
+                if ((exchangeProduct.get().getQuantity() < productDTO.getExchangeProductQuantity())) {
+                    return new ApiResponse("MAHSULOT MIQDORI O'TKAZISH UCHUN YETARLI EMAS!", false);
+                }
 
-            Product product = exchangeProduct.get();
-            product.setQuantity(product.getQuantity() - productDTO.getExchangeProductQuantity());
-            productRepository.save(product);
+                /**
+                 * EXCHANGE BO'LGAN PRODUCT SAQLANYABDI
+                 */
+                ExchangeProduct exchangeProduct1 = new ExchangeProduct(productDTO.getExchangeProductQuantity(), exchangeProduct.get());
+                exchangeProductList.add(exchangeProduct1);
+                exchangeProductRepository.save(exchangeProduct1);
+
+                product = exchangeProduct.get();
+                product.setQuantity(product.getQuantity() - productDTO.getExchangeProductQuantity());
+                productRepository.save(product);
+            } else {
+                return new ApiResponse("BUNDAY PRODUCT TOPILMADI");
+            }
+
 
             Optional<Product> optionalProduct = productRepository.findByBarcodeAndBranch_IdAndActiveTrue(product.getBarcode(), receivedBranch);
             if (optionalProduct.isPresent()) {
@@ -116,10 +134,13 @@ public class ExchangeProductBranchService {
                 newProduct.setQuantity(productDTO.getExchangeProductQuantity());
 
 
-
                 productRepository.save(newProduct);
             }
         }
+
+        exchangeProductBranch.setExchangeProduct(exchangeProductList);
+
+
         Optional<ExchangeStatus> optionalExchangeStatus = exchangeStatusRepository.findById(exchangeProductBranchDTO.getExchangeStatusId());
         exchangeProductBranch.setExchangeStatus(optionalExchangeStatus.get());
 
@@ -145,26 +166,26 @@ public class ExchangeProductBranchService {
     }
 
     public ApiResponse getByStatusId(Integer exchangeStatusId, Integer branch_id) {
-        List<ExchangeProductBranch> allByExchangeStatus_id = exchangeProductBranchRepository.findAllByExchangeStatus_IdAndShippedBranch_Id(exchangeStatusId,branch_id);
+        List<ExchangeProductBranch> allByExchangeStatus_id = exchangeProductBranchRepository.findAllByExchangeStatus_IdAndShippedBranch_Id(exchangeStatusId, branch_id);
         if (allByExchangeStatus_id.isEmpty()) return new ApiResponse("Not found", false);
         return new ApiResponse("found", true, allByExchangeStatus_id);
     }
 
     public ApiResponse getByBusinessId(Integer businessId) {
         List<ExchangeProductBranch> allByBusinessId = exchangeProductBranchRepository.findAllByBusinessId(businessId);
-        if (allByBusinessId.isEmpty()) return new ApiResponse("not found",false);
-        return new ApiResponse("found",true,allByBusinessId);
+        if (allByBusinessId.isEmpty()) return new ApiResponse("not found", false);
+        return new ApiResponse("found", true, allByBusinessId);
     }
 
     public ApiResponse getByShippedBranchId(Integer shippedBranch_id) {
         List<ExchangeProductBranch> allByShippedBranch_id = exchangeProductBranchRepository.findAllByShippedBranch_Id(shippedBranch_id);
-        if (allByShippedBranch_id.isEmpty()) return new ApiResponse("NOT FOUND",false);
-        return new ApiResponse("FOUND",true,allByShippedBranch_id);
+        if (allByShippedBranch_id.isEmpty()) return new ApiResponse("NOT FOUND", false);
+        return new ApiResponse("FOUND", true, allByShippedBranch_id);
     }
 
     public ApiResponse getByReceivedBranchId(Integer receivedBranch_id) {
         List<ExchangeProductBranch> allByShippedBranch_id = exchangeProductBranchRepository.findAllByReceivedBranch_Id(receivedBranch_id);
-        if (allByShippedBranch_id.isEmpty()) return new ApiResponse("NOT FOUND",false);
-        return new ApiResponse("FOUND",true,allByShippedBranch_id);
+        if (allByShippedBranch_id.isEmpty()) return new ApiResponse("NOT FOUND", false);
+        return new ApiResponse("FOUND", true, allByShippedBranch_id);
     }
 }

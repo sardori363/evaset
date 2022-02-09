@@ -117,7 +117,7 @@ Content-Type: application/json
 {
   "name": "Lenovo cori 5",
   "quantity": 5050,
-  "barcode": 825252,
+  "barcode": 77777,
   "brandId": 1,
   "categoryId": 1,
   "measurementId": 1,
@@ -142,15 +142,23 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0NDM4M
 Content-Type: application/json
 
 {
-  "shippedBranchId": 2,
-  "receivedBranchId": 3,
+  "shippedBranchId": 1,
+  "receivedBranchId": 5,
   "exchangeDate": "2020-07-18",
   "description": "dvsdvsdvsdv sadvsd vsadv sadvsad vs adv sd vs dav s dv s dv sd v sd v as dvsa dv asdv",
   "exchangeStatusId": 1,
   "exchangeProductDTOS": [
     {
       "exchangeProductQuantity": 100,
-      "productExchangeId": 444
+      "productExchangeId": 30
+    },
+    {
+      "exchangeProductQuantity": 80,
+      "productExchangeId": 31
+    },
+    {
+      "exchangeProductQuantity": 90,
+      "productExchangeId": 32
     }
   ]
 }
