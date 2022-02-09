@@ -116,8 +116,6 @@ public class ExchangeProductBranchService {
                 product1.setTax(product.getTax());
                 product1.setQuantity(productDTO.getExchangeProductQuantity());
 
-//                List<Branch> list = new ArrayList<>();
-//                list.add(branchOptional.get());
                 product1.setBranch(optionalBranch.get());
 
 
