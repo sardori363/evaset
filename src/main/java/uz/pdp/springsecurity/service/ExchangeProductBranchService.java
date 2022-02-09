@@ -15,7 +15,6 @@ import uz.pdp.springsecurity.repository.ExchangeStatusRepository;
 import uz.pdp.springsecurity.repository.ProductRepository;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -117,9 +116,9 @@ public class ExchangeProductBranchService {
                 product1.setTax(product.getTax());
                 product1.setQuantity(productDTO.getExchangeProductQuantity());
 
-                List<Branch> list = new ArrayList<>();
-                list.add(branchOptional.get());
-                product1.setBranch(list);
+//                List<Branch> list = new ArrayList<>();
+//                list.add(branchOptional.get());
+                product1.setBranch(optionalBranch.get());
 
 
                 productRepository.save(product1);

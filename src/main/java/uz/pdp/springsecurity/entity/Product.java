@@ -51,9 +51,9 @@ public class Product extends AbsEntity {
 
     private double tax;
 
-    @ManyToMany
+    @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private List<Branch> branch;
+    private Branch branch;
 
     private Date expireDate;
 

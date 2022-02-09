@@ -42,7 +42,8 @@ public class ProductService {
                 return new ApiResponse("BUNDAY SHTRIX KODLI MAXSULOT BOR", false);
             }
         }
-        product = addProductDtotoProduct(product, productDto);
+        ApiResponse apiResponse = addProductDtotoProduct(productDto);
+
         productRepository.save(product);
         return new ApiResponse("SAVED", true, product);
     }
@@ -50,7 +51,7 @@ public class ProductService {
     public ApiResponse editProduct(Integer id, ProductDto productDto) {
         Optional<Product> optionalProduct = productRepository.findById(id);
         Product product = optionalProduct.get();
-        product = addProductDtotoProduct(product, productDto);
+        ApiResponse apiResponse = addProductDtotoProduct(productDto);
         productRepository.save(product);
         return new ApiResponse(true, product);
     }
@@ -74,41 +75,47 @@ public class ProductService {
         return new ApiResponse("Deleted", true);
     }
 
-    Product addProductDtotoProduct(Product product, ProductDto productDto) {
-        product.setName(productDto.getName());
-        product.setQuantity(productDto.getQuantity());
-        product.setBarcode(productDto.getBarcode());
+    ApiResponse addProductDtotoProduct(ProductDto productDto) {
+        for (Integer indexBranch : productDto.getBranchId()) {
+            Product product = new Product();
+            product.setName(productDto.getName());
+            product.setQuantity(productDto.getQuantity());
+            product.setBarcode(productDto.getBarcode());
 
-        Optional<Brand> optionalBrand = brandRepository.findById(productDto.getBrandId());
-        optionalBrand.ifPresent(product::setBrand);
+            Optional<Brand> optionalBrand = brandRepository.findById(productDto.getBrandId());
+            optionalBrand.ifPresent(product::setBrand);
 
-        Optional<Category> optionalCategory = categoryRepository.findById(productDto.getCategoryId());
-        product.setCategory(optionalCategory.get());
+            Optional<Category> optionalCategory = categoryRepository.findById(productDto.getCategoryId());
+            product.setCategory(optionalCategory.get());
 
-        Optional<Measurement> optionalMeasurement = measurementRepository.findById(productDto.getMeasurementId());
-        product.setMeasurement(optionalMeasurement.get());
+            Optional<Measurement> optionalMeasurement = measurementRepository.findById(productDto.getMeasurementId());
+            product.setMeasurement(optionalMeasurement.get());
 
-        product.setMinQuantity(productDto.getMinQuantity());
+            product.setMinQuantity(productDto.getMinQuantity());
 
-        List<Attachment> repositoryAllById = attachmentRepository.findAllById(productDto.getPhotoIds());
-        product.setPhoto(repositoryAllById);
+            List<Attachment> repositoryAllById = attachmentRepository.findAllById(productDto.getPhotoIds());
+            product.setPhoto(repositoryAllById);
 
-        product.setBuyPrice(productDto.getBuyPrice());
-        product.setSalePrice(productDto.getSalePrice());
-        product.setTax(productDto.getTax());
+            product.setBuyPrice(productDto.getBuyPrice());
+            product.setSalePrice(productDto.getSalePrice());
+            product.setTax(productDto.getTax());
 
-        List<Branch> branchRepositoryAllById = branchRepository.findAllById(productDto.getBranchId());
-        product.setBranch(branchRepositoryAllById);
+//            List<Branch> branchRepositoryAllById = branchRepository.findAllById(productDto.getBranchId());
+//            product.setBranch(branchRepositoryAllById);
+            Optional<Branch> optionalBranch = branchRepository.findById(indexBranch);
+            product.setBranch(optionalBranch.get());
 
-        if (product.getExpireDate() == null) {
-            Date date = new Date(System.currentTimeMillis());
-            product.setExpireDate(date);
-        } else {
-            product.setExpireDate(productDto.getExpireDate());
+            if (product.getExpireDate() == null) {
+                Date date = new Date(System.currentTimeMillis());
+                product.setExpireDate(date);
+            } else {
+                product.setExpireDate(productDto.getExpireDate());
+            }
+
+            product.setDueDate(productDto.getDueDate());
+            productRepository.save(product);
         }
-
-        product.setDueDate(productDto.getDueDate());
-        return product;
+        return new ApiResponse("ADDED PRODUCT", true);
     }
 
 
@@ -142,12 +149,12 @@ public class ProductService {
 
     public ApiResponse getByBusiness(Integer businessId) {
         List<Product> allByBusinessId = productRepository.findAllByBusinessIdActiveTrue(businessId);
-        if (allByBusinessId.isEmpty()) return new ApiResponse("not found",false);
-        return new ApiResponse("found",true,allByBusinessId);
+        if (allByBusinessId.isEmpty()) return new ApiResponse("not found", false);
+        return new ApiResponse("found", true, allByBusinessId);
     }
 
     public ApiResponse deleteProducts(List<Integer> ids) {
         productRepository.deleteAllById(ids);
-        return new ApiResponse("DELETED",true);
+        return new ApiResponse("DELETED", true);
     }
 }
