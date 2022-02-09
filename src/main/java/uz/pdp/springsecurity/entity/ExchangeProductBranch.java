@@ -36,4 +36,7 @@ public class ExchangeProductBranch extends AbsEntity {
 
     @OneToOne
     private ExchangeStatus exchangeStatus;
+
+    @ManyToOne
+    private Business business;
 }

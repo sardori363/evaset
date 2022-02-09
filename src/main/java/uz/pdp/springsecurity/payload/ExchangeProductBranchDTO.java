@@ -23,4 +23,6 @@ public class ExchangeProductBranchDTO {
     private Integer exchangeStatusId;
 
     private List<ExchangeProductDTO> exchangeProductDTOS;
+
+    private Integer businessId;
 }

@@ -1,20 +1,18 @@
 package uz.pdp.springsecurity.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import uz.pdp.springsecurity.entity.ExchangeProductBranch;
 
 import java.sql.Date;
 import java.util.List;
 
 public interface ExchangeProductBranchRepository extends JpaRepository<ExchangeProductBranch,Integer> {
-    List<ExchangeProductBranch> findAllByExchangeDate(Date exchangeDate);
-    List<ExchangeProductBranch> findAllByExchangeStatus_IdAndShippedBranch_Id(Integer exchangeStatus_id, Integer branch_id);
+    List<ExchangeProductBranch> findAllByExchangeDateAndBusiness_Id(Date exchangeDate, Integer business_id);
 
-    @Query(value = "select * from exchange_product_branch inner join branches b on b.business_id = ?1",nativeQuery = true)
-    List<ExchangeProductBranch> findAllByBusinessId(Integer businessId);
+    List<ExchangeProductBranch> findAllByBusiness_Id(Integer business_id);
 
     List<ExchangeProductBranch> findAllByShippedBranch_Id(Integer shippedBranch_id);
     List<ExchangeProductBranch> findAllByReceivedBranch_Id(Integer receivedBranch_id);
 
+    List<ExchangeProductBranch> findAllByExchangeStatus_IdAndBusiness_Id(Integer exchangeStatusId, Integer business_id);
 }
