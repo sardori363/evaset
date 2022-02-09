@@ -34,9 +34,10 @@ public class ProductService {
     @Autowired
     BranchRepository branchRepository;
 
+
     public ApiResponse addProduct(@Valid ProductDto productDto) throws ParseException {
         for (Integer integer : productDto.getBranchId()) {
-            Optional<Product> optionalProduct = productRepository.findByBarcodeAndBranch_IdAndActiveTrue(productDto.getBarcode(), integer);
+            Optional<Product> optionalProduct = productRepository.findByBarcodeAndBranch_IdAndActiveTrue(productDto.getBarcode(),integer);
             if (optionalProduct.isPresent()) {
                 return new ApiResponse("BUNDAY SHTRIX KODLI MAXSULOT BOR", false);
             }
@@ -111,12 +112,12 @@ public class ProductService {
 
     public ApiResponse deleteProduct(Integer id) {
         Optional<Product> optionalProduct = productRepository.findById(id);
-        if (optionalProduct.isPresent()) {
-            productRepository.deleteById(id);
-        } else {
-            return new ApiResponse("NOT FOUND!", false);
-        }
-        return new ApiResponse("Deleted", true);
+        if (optionalProduct.isEmpty()) return new ApiResponse("not found", false);
+
+        Product product = optionalProduct.get();
+        product.setActive(false);
+        productRepository.save(product);
+        return new ApiResponse("deleted", true);
     }
 
     ApiResponse addProductDtotoProduct(ProductDto productDto) {

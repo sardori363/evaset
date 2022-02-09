@@ -67,6 +67,8 @@ public class TradeService {
     }
 
     public ApiResponse deleteTrade(Integer id) {
+        Optional<Trade> byId = tradeRepository.findById(id);
+        if (byId.isEmpty()) return new ApiResponse("not found",false);
         tradeRepository.deleteById(id);
         return new ApiResponse("DELATED", true);
     }

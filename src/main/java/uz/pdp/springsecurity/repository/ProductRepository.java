@@ -12,7 +12,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     Optional<Product> findByIdAndBranch_IdAndActiveTrue(Integer id, Integer branch_id);
 
-    Optional<Product> findByBarcodeAndBranch_IdAndActiveTrue(long barcode, Integer branch_id);
+    Optional<Product> findByBarcodeAndBranch_Id(long barcode, Integer branch_id);
 
     List<Product> findAllByBarcodeAndActiveTrue(long barcode);
 
@@ -26,4 +26,5 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Query(value = "select * from product p inner join branches b on p.branch_id = b.id where b.business_id = ?1 AND p.active =true", nativeQuery = true)
     List<Product> findAllByBusinessIdActiveTrue(Integer businessId);//tekshirib korish kere
 
+    Optional<Product> findByBarcodeAndBranch_IdAndActiveTrue(long barcode, Integer branch_id);
 }
