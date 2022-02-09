@@ -135,8 +135,8 @@ public class PurchaseService {
 
     public ApiResponse getByDealerId(Integer dealer_id) {
         List<Purchase> allByDealer_id = purchaseRepository.findAllByDealer_Id(dealer_id);
-        if (allByDealer_id.isEmpty()) return new ApiResponse("not found", false);
-        return new ApiResponse("found", true, allByDealer_id);
+        if (allByDealer_id.isEmpty()) return new ApiResponse("not found",false);
+        return new ApiResponse("found",true,allByDealer_id);
     }
 
     public ApiResponse getByPurchaseStatusId(Integer purchaseStatus_id) {
@@ -179,7 +179,7 @@ public class PurchaseService {
         return new ApiResponse("CREATED",true);
     }
 
-    public ApiResponse getAllByBusiness(Integer businessId) {
+    public ApiResponse getAllByBusiness( Integer businessId) {
         List<Purchase> allByBusinessId = purchaseRepository.findAllByBusinessId(businessId);
         if (allByBusinessId.isEmpty()) return new ApiResponse("not found",false);
         return new ApiResponse("found",true,allByBusinessId);

@@ -49,42 +49,42 @@ public class PurchaseController {
 
     @CheckPermission("VIEW_PURCHASE")
     @GetMapping("get-purchase-by-dealerId/{dealer_id}")
-    public HttpEntity<?> getByDealerId(Integer dealer_id) {
+    public HttpEntity<?> getByDealerId(@PathVariable Integer dealer_id) {
         ApiResponse apiResponse = purchaseService.getByDealerId(dealer_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
     @CheckPermission("VIEW_PURCHASE")
     @GetMapping("get-purchase-by-purchaseStatus/{purchaseStatus_id}")
-    public HttpEntity<?> getByPurchaseStatusId(Integer purchaseStatus_id) {
+    public HttpEntity<?> getByPurchaseStatusId(@PathVariable Integer purchaseStatus_id) {
         ApiResponse apiResponse = purchaseService.getByPurchaseStatusId(purchaseStatus_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
     @CheckPermission("VIEW_PURCHASE")
     @GetMapping("get-purchase-by-paymentStatus/{paymentStatus_id}")
-    public HttpEntity<?> getByPaymentStatusId(Integer paymentStatus_id) {
+    public HttpEntity<?> getByPaymentStatusId(@PathVariable Integer paymentStatus_id) {
         ApiResponse apiResponse = purchaseService.getByPaymentStatusId(paymentStatus_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
     @CheckPermission("VIEW_PURCHASE")
     @GetMapping("get-purchase-by-branch/{branch_id}")
-    public HttpEntity<?> getByBranchId(Integer branch_id) {
+    public HttpEntity<?> getByBranchId(@PathVariable Integer branch_id) {
         ApiResponse apiResponse = purchaseService.getByBranchId(branch_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
     @CheckPermission("VIEW_PURCHASE")
     @GetMapping("get-purchase-by-date/{date}")
-    public HttpEntity<?> getByDate(Date date) {
+    public HttpEntity<?> getByDate(@PathVariable  Date date) {
         ApiResponse apiResponse = purchaseService.getByDate(date);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
     @CheckPermission("VIEW_PURCHASE")
     @GetMapping("get-purchase-by-totalSum/{totalSum}")
-    public HttpEntity<?> getByTotalSum(double totalSum) {
+    public HttpEntity<?> getByTotalSum(@PathVariable double totalSum) {
         ApiResponse apiResponse = purchaseService.getByTotalSum(totalSum);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
