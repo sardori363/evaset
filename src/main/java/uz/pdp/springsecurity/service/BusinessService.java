@@ -27,37 +27,37 @@ public class BusinessService {
 
     public ApiResponse add(BusinessDto businessDto) {
         if (businessRepository.existsByName(businessDto.getName()))
-            return new ApiResponse("a business with that name already exists", false);
+            return new ApiResponse("A BUSINESS WITH THAT NAME ALREADY EXISTS", false);
         Business business = new Business();
         business.setName(businessDto.getName());
         business.setDescription(businessDto.getDescription());
 
         businessRepository.save(business);
-        return new ApiResponse("saved",true);
+        return new ApiResponse("ADDED",true);
     }
 
     public ApiResponse edit(Integer id, BusinessDto businessDto) {
         Optional<Business> optionalBusiness = businessRepository.findById(id);
-        if (optionalBusiness.isEmpty()) return new ApiResponse("business not found",false);
+        if (optionalBusiness.isEmpty()) return new ApiResponse("BUSINESS NOT FOUND",false);
 
         if (businessRepository.existsByName(businessDto.getName()))
-            return new ApiResponse("a business with that name already exists", false);
+            return new ApiResponse("A BUSINESS WITH THAT NAME ALREADY EXISTS", false);
 
         Business business = optionalBusiness.get();
         business.setName(businessDto.getName());
         business.setDescription(businessDto.getDescription());
 
         businessRepository.save(business);
-        return new ApiResponse("edited",true);
+        return new ApiResponse("EDITED",true);
     }
 
     public ApiResponse getOne(Integer id) {
-        if (!businessRepository.existsById(id)) return new ApiResponse("not found",false);
-        return new ApiResponse("found",true,businessRepository.findById(id).get());
+        if (!businessRepository.existsById(id)) return new ApiResponse("NOT FOUND",false);
+        return new ApiResponse("FOUND",true,businessRepository.findById(id).get());
     }
 
     public ApiResponse getAll() {
-        return new ApiResponse("catch",true,businessRepository.findAll());
+        return new ApiResponse("FOUND",true,businessRepository.findAll());
     }
 
     public ApiResponse deleteOne(Integer id) {
@@ -69,7 +69,7 @@ public class BusinessService {
             roleRepository.deleteById(role.getId());
         }
 
-        if (!businessRepository.existsById(id)) return new ApiResponse("not found",false);
+        if (!businessRepository.existsById(id)) return new ApiResponse("NOT FOUND",false);
         businessRepository.deleteById(id);
         return new ApiResponse("DELETED",true);
     }

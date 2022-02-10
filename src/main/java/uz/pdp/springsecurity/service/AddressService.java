@@ -24,11 +24,11 @@ public class AddressService {
         address.setHome(addressDto.getHome());
 
         addressRepository.save(address);
-        return new ApiResponse("Address successfully added", true);
+        return new ApiResponse("ADDED", true);
     }
 
     public ApiResponse editAddress(Integer id, AddressDto addressDto) {
-        if (!addressRepository.existsById(id)) return new ApiResponse("Address not found", false);
+        if (!addressRepository.existsById(id)) return new ApiResponse("ADDRESS NOT FOUND", false);
         Address address = addressRepository.getById(id);
         address.setCity(addressDto.getCity());
         address.setDistrict(addressDto.getDistrict());
@@ -36,27 +36,27 @@ public class AddressService {
         address.setHome(addressDto.getHome());
 
         addressRepository.save(address);
-        return new ApiResponse("Address successfully updated", true);
+        return new ApiResponse("EDITED", true);
     }
 
     public ApiResponse getAddress(Integer id) {
-        if (!addressRepository.existsById(id)) return new ApiResponse("Address not found", false);
-        return new ApiResponse("Address found", true, addressRepository.findById(id).get());
+        if (!addressRepository.existsById(id)) return new ApiResponse("ADDRESS NOT FOUND", false);
+        return new ApiResponse("FOUND", true, addressRepository.findById(id).get());
     }
 
     public ApiResponse getAddresses() {
-        return new ApiResponse("Catch", true, addressRepository.findAll());
+        return new ApiResponse("FOUND", true, addressRepository.findAll());
     }
 
     public ApiResponse deleteAddress(Integer id) {
-        if (!addressRepository.existsById(id)) return new ApiResponse("Address not found", false);
+        if (!addressRepository.existsById(id)) return new ApiResponse("ADDRESS NOT FOUND", false);
 
         addressRepository.deleteById(id);
-        return new ApiResponse("Address successfully deleted", true);
+        return new ApiResponse("DELETED", true);
     }
 
     public ApiResponse deleteAddresses() {
         addressRepository.deleteAll();
-        return new ApiResponse("Addresses successfully deleted", true);
+        return new ApiResponse("DELETED", true);
     }
 }

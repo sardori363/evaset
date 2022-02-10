@@ -42,7 +42,7 @@ public class UserService {
 
     public ApiResponse add(UserDto userDto) {
         boolean b = userRepository.existsByUsername(userDto.getUsername());
-        if (b) return new ApiResponse("User already exist", false);
+        if (b) return new ApiResponse("USER ALREADY EXISTS", false);
 
         ApiResponse response = roleService.get((int) userDto.getRoleId().longValue());
         if (!response.isSuccess())
@@ -56,30 +56,30 @@ public class UserService {
         user.setRole((Role) response.getObject());
 
         Optional<Branch> optionalBranch = branchRepository.findById(userDto.getBranchId());
-        if (optionalBranch.isEmpty()) return new ApiResponse("Branch not found", false);
+        if (optionalBranch.isEmpty()) return new ApiResponse("BRANCH NOT FOUND", false);
         user.setBranch(optionalBranch.get());
 
         if (!businessRepository.existsById(userDto.getBusinessId()))
-            return new ApiResponse("business not found", false);
+            return new ApiResponse("BUSINESS NOT FOUND", false);
         user.setBusiness(businessRepository.findById(userDto.getBusinessId()).get());
 
         user.setEnabled(userDto.getEnabled());
 
         Optional<Attachment> optionalPhoto = attachmentRepository.findById(userDto.getPhotoId());
-        if (optionalPhoto.isEmpty()) return new ApiResponse("photo not found", false);
+        if (optionalPhoto.isEmpty()) return new ApiResponse("PHOTO NOT FOUND", false);
 
         user.setPhoto(optionalPhoto.get());
         userRepository.save(user);
-        return new ApiResponse("Saved", true);
+        return new ApiResponse("ADDED", true);
     }
 
     public ApiResponse edit(Integer id, UserDto userDto) {
         Optional<User> optionalUser = userRepository.findById(id);
 
-        if (optionalUser.isEmpty()) return new ApiResponse("User not found", false);
+        if (optionalUser.isEmpty()) return new ApiResponse("USER NOT FOUND", false);
         boolean b = userRepository.existsByUsername(userDto.getUsername());
 
-        if (b) return new ApiResponse("Username already exist", false);
+        if (b) return new ApiResponse("USERNAME ALREADY EXISTS", false);
 
         ApiResponse response = roleService.get((int) userDto.getRoleId().longValue());
         if (!response.isSuccess())
@@ -92,22 +92,22 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
         Optional<Branch> optionalBranch = branchRepository.findById(userDto.getBranchId());
-        if (optionalBranch.isEmpty()) return new ApiResponse("Branch not found", false);
+        if (optionalBranch.isEmpty()) return new ApiResponse("BRANCH NOT FOUND", false);
         user.setBranch(optionalBranch.get());
 
         if (!businessRepository.existsById(userDto.getBusinessId()))
-            return new ApiResponse("business not found", false);
+            return new ApiResponse("BUSINESS NOT FOUND", false);
         user.setBusiness(businessRepository.findById(userDto.getBusinessId()).get());
 
         user.setRole((Role) response.getObject());
         user.setEnabled(userDto.getEnabled());
 
         Optional<Attachment> optionalPhoto = attachmentRepository.findById(userDto.getPhotoId());
-        if (optionalPhoto.isEmpty()) return new ApiResponse("photo not found", false);
+        if (optionalPhoto.isEmpty()) return new ApiResponse("PHOTO NOT FOUND", false);
 
         user.setPhoto(optionalPhoto.get());
         userRepository.save(user);
-        return new ApiResponse("edited", true);
+        return new ApiResponse("EDITED", true);
     }
 
     public ApiResponse get(Integer id) {
@@ -119,52 +119,52 @@ public class UserService {
 
     public ApiResponse delete(Integer id) {
         Optional<User> byId = userRepository.findById(id);
-        if (byId.isEmpty()) return new ApiResponse("User not found", false);
+        if (byId.isEmpty()) return new ApiResponse("USER NOT FOUND", false);
         userRepository.deleteById(id);
-        return new ApiResponse("Deleted", true);
+        return new ApiResponse("DELETED", true);
     }
 
     public ApiResponse editMyProfile(ProfileDto profileDto) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (userRepository.existsByUsernameAndIdNot(profileDto.getUserName(), user.getId()))
-            return new ApiResponse("Username already exists!", false);
+        if (userRepository.existsByUsernameAndIdNot(profileDto.getUsername(), user.getId()))
+            return new ApiResponse("USERNAME ALREADY EXISTS", false);
 
         if (!profileDto.getPassword().equals(profileDto.getPrePassword()))
-            return new ApiResponse("Passwords are not compatible!", false);
+            return new ApiResponse("PASSWORDS ARE NOT COMPATIBLE", false);
 
 
         user.setFirstName(profileDto.getFirstName());
         user.setLastName(profileDto.getLastName());
-        user.setUsername(profileDto.getUserName());
+        user.setUsername(profileDto.getUsername());
         user.setPassword(passwordEncoder.encode(profileDto.getPassword()));
 
         Optional<Attachment> optionalPhoto = attachmentRepository.findById(profileDto.getPhotoId());
-        if (optionalPhoto.isEmpty()) return new ApiResponse("photo not found", false);
+        if (optionalPhoto.isEmpty()) return new ApiResponse("PHOTO NOT FOUND", false);
 
         user.setPhoto(optionalPhoto.get());
 
         userRepository.save(user);
-        return new ApiResponse("User saved!", true);
+        return new ApiResponse("UPDATED", true);
     }
 
     public ApiResponse getByRole(Integer role_id) {
         List<User> allByRole_id = userRepository.findAllByRole_Id(role_id);
-        if (allByRole_id.isEmpty()) return new ApiResponse("not found", false);
+        if (allByRole_id.isEmpty()) return new ApiResponse("NOT FOUND", false);
 
-        return new ApiResponse("found", true, allByRole_id);
+        return new ApiResponse("FOUND", true, allByRole_id);
     }
 
     public ApiResponse getAllByBusinessId(Integer business_id) {
         List<User> allByBusiness_id = userRepository.findAllByBusiness_Id(business_id);
-        if (allByBusiness_id.isEmpty()) return new ApiResponse("business not found", false);
-        return new ApiResponse("found", true, allByBusiness_id);
+        if (allByBusiness_id.isEmpty()) return new ApiResponse("BUSINESS NOT FOUND", false);
+        return new ApiResponse("FOUND", true, allByBusiness_id);
     }
 
 
     public ApiResponse getAllByBranchId(Integer branch_id) {
         List<User> allByBranch_id = userRepository.findAllByBranch_Id(branch_id);
-        if (allByBranch_id.isEmpty()) return new ApiResponse("not found", false);
-        return new ApiResponse("found", true, allByBranch_id);
+        if (allByBranch_id.isEmpty()) return new ApiResponse("NOT FOUND", false);
+        return new ApiResponse("FOUND", true, allByBranch_id);
     }
 
 }

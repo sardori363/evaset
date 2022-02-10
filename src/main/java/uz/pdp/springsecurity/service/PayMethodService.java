@@ -22,52 +22,52 @@ public class PayMethodService {
 
     public ApiResponse add(PayMethodDto payMethodDto) {
         boolean b = payMethodRepository.existsByType(payMethodDto.getType());
-        if (b) return new ApiResponse("such a payment method already exists", false);
+        if (b) return new ApiResponse("SUCH A PAYMENT METHOD ALREADY EXISTS", false);
 
         PaymentMethod paymentMethod = new PaymentMethod();
         paymentMethod.setType(payMethodDto.getType());
 
         Optional<Business> optionalBusiness = businessRepository.findById(payMethodDto.getBusinessId());
-        if (optionalBusiness.isEmpty()) return new ApiResponse("business not found",false);
+        if (optionalBusiness.isEmpty()) return new ApiResponse("BUSINESS NOT FOUND",false);
         paymentMethod.setBusiness(optionalBusiness.get());
 
         payMethodRepository.save(paymentMethod);
-        return new ApiResponse("saved", true);
+        return new ApiResponse("ADDED", true);
     }
 
     public ApiResponse edit(Integer id, PayMethodDto payMethodDto) {
         Optional<PaymentMethod> optional = payMethodRepository.findById(id);
-        if (optional.isEmpty()) return new ApiResponse("not found", false);
+        if (optional.isEmpty()) return new ApiResponse("NOT FOUND", false);
 
         boolean b = payMethodRepository.existsByType(payMethodDto.getType());
-        if (b) return new ApiResponse("such a payment method already exists", false);
+        if (b) return new ApiResponse("SUCH A PAYMENT METHOD ALREADY EXISTS", false);
 
         PaymentMethod paymentMethod = payMethodRepository.getById(id);
         paymentMethod.setType(payMethodDto.getType());
 
         Optional<Business> optionalBusiness = businessRepository.findById(payMethodDto.getBusinessId());
-        if (optionalBusiness.isEmpty()) return new ApiResponse("business not found",false);
+        if (optionalBusiness.isEmpty()) return new ApiResponse("BUSINESS NOT FOUND",false);
         paymentMethod.setBusiness(optionalBusiness.get());
 
         payMethodRepository.save(paymentMethod);
-        return new ApiResponse("edited", true);
+        return new ApiResponse("EDITED", true);
     }
 
     public ApiResponse get(Integer id) {
-        if (!payMethodRepository.existsById(id)) return new ApiResponse("not found", false);
-        return new ApiResponse("found", true, payMethodRepository.findById(id).get());
+        if (!payMethodRepository.existsById(id)) return new ApiResponse("NOT FOUND", false);
+        return new ApiResponse("FOUND", true, payMethodRepository.findById(id).get());
     }
 
     public ApiResponse delete(Integer id) {
-        if (!payMethodRepository.existsById(id)) return new ApiResponse("not found", false);
+        if (!payMethodRepository.existsById(id)) return new ApiResponse("NOT FOUND", false);
 
         payMethodRepository.deleteById(id);
-        return new ApiResponse("deleted", true);
+        return new ApiResponse("DELETED", true);
     }
 
     public ApiResponse getAllByBusiness(Integer business_id) {
         List<PaymentMethod> allByBranch_business_id = payMethodRepository.findAllByBusiness_Id(business_id);
-        if (allByBranch_business_id.isEmpty()) return new ApiResponse("not found", false);
-        return new ApiResponse("found", true, allByBranch_business_id);
+        if (allByBranch_business_id.isEmpty()) return new ApiResponse("NOT FOUND", false);
+        return new ApiResponse("FOUND", true, allByBranch_business_id);
     }
 }

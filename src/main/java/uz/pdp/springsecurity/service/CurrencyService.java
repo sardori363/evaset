@@ -23,7 +23,7 @@ public class CurrencyService {
     public ApiResponse add(CurrencyDto currencyDto) {
         Optional<Business> optionalBusiness = businessRepository.findById(currencyDto.getBusinessId());
         if (optionalBusiness.isEmpty()) {
-            return new ApiResponse("NOT FOUND BUSINESS", false);
+            return new ApiResponse("BUSINESS NOT FOUND", false);
         }
         Currency currency = new Currency(
                 currencyDto.getName(),
@@ -31,15 +31,15 @@ public class CurrencyService {
                 optionalBusiness.get()
         );
         currencyRepository.save(currency);
-        return new ApiResponse("currency saved", true);
+        return new ApiResponse("NOT FOUND", true);
     }
 
 
     public ApiResponse edit(Integer id, CurrencyDto currencyDto) {
-        if (!currencyRepository.existsById(id)) return new ApiResponse("currency not found", false);
+        if (!currencyRepository.existsById(id)) return new ApiResponse("NOT FOUND", false);
         Optional<Business> optionalBusiness = businessRepository.findById(currencyDto.getBusinessId());
         if (optionalBusiness.isEmpty()) {
-            return new ApiResponse("NOT FOUND BUSINESS", false);
+            return new ApiResponse("BUSINESS NOT FOUND", false);
         }
         Currency currency = currencyRepository.getById(id);
         currency.setBusiness(optionalBusiness.get());
@@ -47,24 +47,24 @@ public class CurrencyService {
         currency.setCurrentCourse(currencyDto.getCurrentCourse());
 
         currencyRepository.save(currency);
-        return new ApiResponse("CURRENCY EDITED", true);
+        return new ApiResponse("EDITED", true);
     }
 
     public ApiResponse get(Integer id) {
-        if (!currencyRepository.existsById(id)) return new ApiResponse("currency not found", false);
-        return new ApiResponse("found", true, currencyRepository.findById(id).get());
+        if (!currencyRepository.existsById(id)) return new ApiResponse("NOT FOUND", false);
+        return new ApiResponse("FOUND", true, currencyRepository.findById(id).get());
     }
 
 
     public ApiResponse delete(Integer id) {
-        if (!currencyRepository.existsById(id)) return new ApiResponse("currency not found", false);
+        if (!currencyRepository.existsById(id)) return new ApiResponse("NOT FOUND", false);
         currencyRepository.deleteById(id);
-        return new ApiResponse("currency deleted", true);
+        return new ApiResponse("DELETED", true);
     }
 
     public ApiResponse getAllByBusinessId(Integer business_id) {
         List<Currency> allByBusiness_id = currencyRepository.findAllByBusiness_Id(business_id);
-        if (allByBusiness_id.isEmpty()) return new ApiResponse("not found",false);
-        return new ApiResponse("found",true,allByBusiness_id);
+        if (allByBusiness_id.isEmpty()) return new ApiResponse("NOT FOUND",false);
+        return new ApiResponse("FOUND",true,allByBusiness_id);
     }
 }

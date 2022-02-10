@@ -49,46 +49,46 @@ public class PurchaseService {
 
     public ApiResponse edit(Integer id, PurchaseDto purchaseDto) {
         Optional<Purchase> optionalPurchase = purchaseRepository.findById(id);
-        if (optionalPurchase.isEmpty()) return new ApiResponse("purchase not found", false);
+        if (optionalPurchase.isEmpty()) return new ApiResponse("NOT FOUND", false);
 
         Purchase purchase = optionalPurchase.get();
         ApiResponse apiResponse = addPurchase(purchase, purchaseDto);
 
-        if (!apiResponse.isSuccess()) return new ApiResponse("error", false);
-        return new ApiResponse("Edited", true);
+        if (!apiResponse.isSuccess()) return new ApiResponse("ERROR", false);
+        return new ApiResponse("EDITED", true);
     }
 
     public ApiResponse get(Integer id) {
-        if (!purchaseRepository.existsById(id)) return new ApiResponse("purchase not found", false);
-        return new ApiResponse("found", true, purchaseRepository.findById(id).get());
+        if (!purchaseRepository.existsById(id)) return new ApiResponse("NOT FOUND", false);
+        return new ApiResponse("FOUND", true, purchaseRepository.findById(id).get());
     }
 
     public ApiResponse delete(Integer id) {
-        if (!purchaseRepository.existsById(id)) return new ApiResponse("purchase not found", false);
+        if (!purchaseRepository.existsById(id)) return new ApiResponse("NOT FOUND", false);
         purchaseRepository.deleteById(id);
-        return new ApiResponse("purchase deleted", false);
+        return new ApiResponse("DELETED", false);
     }
 
     private ApiResponse addPurchase(Purchase purchase, PurchaseDto purchaseDto) {
         Optional<Supplier> optionalSupplier = supplierRepository.findById(purchaseDto.getDealerId());
-        if (optionalSupplier.isEmpty()) return new ApiResponse("supplier not found", false);
+        if (optionalSupplier.isEmpty()) return new ApiResponse("SUPPLIER NOT FOUND", false);
         purchase.setDealer(optionalSupplier.get());
 
 
         Optional<User> optionalUser = userRepository.findById(purchaseDto.getSeller());
-        if (optionalUser.isEmpty()) return new ApiResponse("seller not found", false);
+        if (optionalUser.isEmpty()) return new ApiResponse("SELLER NOT FOUND", false);
         purchase.setSeller(optionalUser.get());
 
         Optional<ExchangeStatus> optionalPurchaseStatus = exchangeStatusRepository.findById(purchaseDto.getPurchaseStatusId());
-        if (optionalPurchaseStatus.isEmpty()) return new ApiResponse("purchase status not found", false);
+        if (optionalPurchaseStatus.isEmpty()) return new ApiResponse("PURCHASE STATUS NOT FOUND", false);
         purchase.setPurchaseStatus(optionalPurchaseStatus.get());
 
         Optional<PaymentStatus> optionalPaymentStatus = paymentStatusRepository.findById(purchaseDto.getPaymentStatusId());
-        if (optionalPaymentStatus.isEmpty()) return new ApiResponse("payment status not found", false);
+        if (optionalPaymentStatus.isEmpty()) return new ApiResponse("PAYMENT STATUS NOT FOUND", false);
         purchase.setPaymentStatus(optionalPaymentStatus.get());
 
         Optional<Branch> optionalBranch = branchRepository.findById(purchaseDto.getBranchId());
-        if (optionalBranch.isEmpty()) return new ApiResponse("branch not found", false);
+        if (optionalBranch.isEmpty()) return new ApiResponse("BRANCH NOT FOUND", false);
         purchase.setBranch(optionalBranch.get());
 
         List<PurchaseProductDto> purchaseProductsDto = purchaseDto.getPurchaseProductsDto();
@@ -130,7 +130,7 @@ public class PurchaseService {
 
         purchaseRepository.save(purchase);
 
-        return new ApiResponse("SAVED", true);
+        return new ApiResponse("ADDED", true);
     }
 
     public ApiResponse getByDealerId(Integer dealer_id) {
@@ -141,32 +141,32 @@ public class PurchaseService {
 
     public ApiResponse getByPurchaseStatusId(Integer purchaseStatus_id) {
         List<Purchase> allByPurchaseStatus_id = purchaseRepository.findAllByPurchaseStatus_Id(purchaseStatus_id);
-        if (allByPurchaseStatus_id.isEmpty()) return new ApiResponse("not found", false);
-        return new ApiResponse("found", true, allByPurchaseStatus_id);
+        if (allByPurchaseStatus_id.isEmpty()) return new ApiResponse("NOT FOUND", false);
+        return new ApiResponse("FOUND", true, allByPurchaseStatus_id);
     }
 
     public ApiResponse getByPaymentStatusId(Integer paymentStatus_id) {
         List<Purchase> allByPaymentStatus_id = purchaseRepository.findAllByPaymentStatus_Id(paymentStatus_id);
-        if (allByPaymentStatus_id.isEmpty()) return new ApiResponse("not found", false);
-        return new ApiResponse("found", true, allByPaymentStatus_id);
+        if (allByPaymentStatus_id.isEmpty()) return new ApiResponse("NOT FOUND", false);
+        return new ApiResponse("FOUND", true, allByPaymentStatus_id);
     }
 
     public ApiResponse getByBranchId(Integer branch_id) {
         List<Purchase> allByBranch_id = purchaseRepository.findAllByBranch_Id(branch_id);
-        if (allByBranch_id.isEmpty()) return new ApiResponse("not found", false);
-        return new ApiResponse("found", true, allByBranch_id);
+        if (allByBranch_id.isEmpty()) return new ApiResponse("NOT FOUND", false);
+        return new ApiResponse("FOUND", true, allByBranch_id);
     }
 
     public ApiResponse getByDate(Date date) {
         List<Purchase> allByDate = purchaseRepository.findAllByDate(date);
-        if (allByDate.isEmpty()) return new ApiResponse("not found", false);
-        return new ApiResponse("found", true, allByDate);
+        if (allByDate.isEmpty()) return new ApiResponse("NOT FOUND", false);
+        return new ApiResponse("FOUND", true, allByDate);
     }
 
     public ApiResponse getByTotalSum(double totalSum) {
         List<Purchase> allByTotalSum = purchaseRepository.findAllByTotalSum(totalSum);
-        if (allByTotalSum.isEmpty()) return new ApiResponse("not found", false);
-        return new ApiResponse("found", true, allByTotalSum);
+        if (allByTotalSum.isEmpty()) return new ApiResponse("NOT FOUND", false);
+        return new ApiResponse("FOUND", true, allByTotalSum);
     }
 
     public ApiResponse getPdfFile(Integer id, HttpServletResponse response) throws IOException {
@@ -181,7 +181,7 @@ public class PurchaseService {
 
     public ApiResponse getAllByBusiness( Integer businessId) {
         List<Purchase> allByBusinessId = purchaseRepository.findAllByBusinessId(businessId);
-        if (allByBusinessId.isEmpty()) return new ApiResponse("not found",false);
-        return new ApiResponse("found",true,allByBusinessId);
+        if (allByBusinessId.isEmpty()) return new ApiResponse("NOT FOUND",false);
+        return new ApiResponse("FOUND",true,allByBusinessId);
     }
 }

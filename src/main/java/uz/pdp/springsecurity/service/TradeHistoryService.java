@@ -29,19 +29,19 @@ public class TradeHistoryService {
 
         Optional<Trade> optionalTrade = tradeRepository.findById(tradeHistoryDto.getTradeId());
         TradeHistory tradeHistory = new TradeHistory();
-        if (optionalTrade.isEmpty()) return new ApiResponse("not found",false);
+        if (optionalTrade.isEmpty()) return new ApiResponse("TRADE NOT FOUND",false);
         tradeHistory.setTrade(optionalTrade.get());
         tradeHistory.setDescription(tradeHistoryDto.getDescription());
         Optional<PaymentMethod> optionalPaymentMethod = payMethodRepository.findById(tradeHistoryDto.getPaymentMethodId());
         tradeHistory.setPaymentMethod(optionalPaymentMethod.get().getType());
 
         tradeHistoryRepository.save(tradeHistory);
-        return new ApiResponse("saved",true);
+        return new ApiResponse("ADDED",true);
     }
 
     public ApiResponse edit(Integer id, TradeHistoryDto tradeHistoryDto) {
         Optional<TradeHistory> optionalHistory = tradeHistoryRepository.findById(id);
-        if (optionalHistory.isEmpty()) return new ApiResponse("not found",false);
+        if (optionalHistory.isEmpty()) return new ApiResponse("NOT FOUND",false);
 
         TradeHistory tradeHistory = optionalHistory.get();
 
@@ -49,14 +49,14 @@ public class TradeHistoryService {
         tradeHistory.setPaidDate(tradeHistoryDto.getPaidDate());
 
         Optional<Trade> optionalTrade = tradeRepository.findById(tradeHistoryDto.getTradeId());
-        if (optionalTrade.isEmpty()) return new ApiResponse("not found",false);
+        if (optionalTrade.isEmpty()) return new ApiResponse("NOT FOUND",false);
         tradeHistory.setTrade(optionalTrade.get());
         tradeHistory.setDescription(tradeHistoryDto.getDescription());
         Optional<PaymentMethod> optionalPaymentMethod = payMethodRepository.findById(tradeHistoryDto.getPaymentMethodId());
         tradeHistory.setPaymentMethod(optionalPaymentMethod.get().getType());
 
         tradeHistoryRepository.save(tradeHistory);
-        return new ApiResponse("updated",true);
+        return new ApiResponse("EDITED",true);
     }
 
     public ApiResponse getOne(Integer id) {
@@ -81,29 +81,29 @@ public class TradeHistoryService {
 
     public ApiResponse getByTradeIdAndId(Integer id, Integer trade_id) {
         Optional<TradeHistory> byIdAndTrade_id = tradeHistoryRepository.findByIdAndTrade_Id(id, trade_id);
-        if (byIdAndTrade_id.isEmpty()) return new ApiResponse("not found",false);
-        return new ApiResponse("found",true,byIdAndTrade_id);
+        if (byIdAndTrade_id.isEmpty()) return new ApiResponse("NOT FOUND",false);
+        return new ApiResponse("FOUND",true,byIdAndTrade_id);
     }
 
     public ApiResponse deleteByTradeId(Integer trade_id) {
         tradeHistoryRepository.deleteByTrade_Id(trade_id);
-        return new ApiResponse("deleted",true);
+        return new ApiResponse("DELETED",true);
     }
 
     public ApiResponse getByTradeId(Integer trade_id) {
-        if (tradeHistoryRepository.existsById(trade_id)) return new ApiResponse("not found",false);
-        return new ApiResponse("found",true,tradeHistoryRepository.findByTrade_Id(trade_id).get());
+        if (tradeHistoryRepository.existsById(trade_id)) return new ApiResponse("NOT FOUND",false);
+        return new ApiResponse("FOUND",true,tradeHistoryRepository.findByTrade_Id(trade_id).get());
     }
 
     public ApiResponse getAllByBranch(Integer trade_branch_id) {
         List<TradeHistory> allByTrade_branch_id = tradeHistoryRepository.findAllByTrade_Branch_Id(trade_branch_id);
-        if (allByTrade_branch_id.isEmpty()) return new ApiResponse("not found",false);
-        return new ApiResponse("found",true,allByTrade_branch_id);
+        if (allByTrade_branch_id.isEmpty()) return new ApiResponse("NOT FOUND",false);
+        return new ApiResponse("FOUND",true,allByTrade_branch_id);
     }
 
     public ApiResponse getAllByBusiness(Integer business_id) {
         List<TradeHistory> allByTrade_branch_business_id = tradeHistoryRepository.findAllByTrade_Branch_Business_Id(business_id);
-        if (allByTrade_branch_business_id.isEmpty()) return new ApiResponse("not found",false);
-        return new ApiResponse("found",true,allByTrade_branch_business_id);
+        if (allByTrade_branch_business_id.isEmpty()) return new ApiResponse("NOT FOUND",false);
+        return new ApiResponse("FOUND",true,allByTrade_branch_business_id);
     }
 }

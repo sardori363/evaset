@@ -26,46 +26,46 @@ public class BrandService {
         brand.setName(brandDto.getName());
         Optional<Business> optionalBusiness = businessRepository.findById(brandDto.getBusinessId());
         if (optionalBusiness.isEmpty()) {
-            return new ApiResponse("NOT FOUND BUSINESS", false);
+            return new ApiResponse("BUSINESS NOT FOUND", false);
         }
         brand.setBusiness(optionalBusiness.get());
         brandRepository.save(brand);
-        return new ApiResponse("Brand successfully added", true);
+        return new ApiResponse("ADDED", true);
     }
 
     public ApiResponse editBrand(Integer id, BrandDto brandDto) {
 
-        if (!brandRepository.existsById(id)) return new ApiResponse("Brand not found", false);
+        if (!brandRepository.existsById(id)) return new ApiResponse("BRAND NOT FOUND", false);
 
         Brand brand = brandRepository.getById(id);
         brand.setName(brandDto.getName());
 
         Optional<Business> optionalBusiness = businessRepository.findById(brandDto.getBusinessId());
         if (optionalBusiness.isEmpty()) {
-            return new ApiResponse("NOT FOUND BUSINESS", false);
+            return new ApiResponse("BUSINESS NOT FOUND", false);
         }
 
         brand.setBusiness(optionalBusiness.get());
 
         brandRepository.save(brand);
-        return new ApiResponse("Brand successfully updated", true);
+        return new ApiResponse("EDITED", true);
     }
 
     public ApiResponse getBrand(Integer id) {
-        if (!brandRepository.existsById(id)) return new ApiResponse("Brand not found", false);
-        return new ApiResponse("Found", true, brandRepository.findById(id).get());
+        if (!brandRepository.existsById(id)) return new ApiResponse("BRAND NOT FOUND", false);
+        return new ApiResponse("FOUND", true, brandRepository.findById(id).get());
     }
 
     public ApiResponse deleteBrand(Integer id) {
-        if (!brandRepository.existsById(id)) return new ApiResponse("Brand not found", false);
+        if (!brandRepository.existsById(id)) return new ApiResponse("BRAND NOT FOUND", false);
         brandRepository.deleteById(id);
-        return new ApiResponse("Brand deleted", true);
+        return new ApiResponse("DELETED", true);
     }
 
     public ApiResponse getAllByBusiness(Integer business_id) {
         List<Brand> allByBranch_id = brandRepository.findAllByBusiness_Id(business_id);
-        if (allByBranch_id.isEmpty()) return new ApiResponse("not found", false);
+        if (allByBranch_id.isEmpty()) return new ApiResponse("NOT FOUND", false);
 
-        return new ApiResponse("found", true, allByBranch_id);
+        return new ApiResponse("FOUND", true, allByBranch_id);
     }
 }

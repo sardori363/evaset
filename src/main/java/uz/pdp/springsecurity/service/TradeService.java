@@ -68,7 +68,7 @@ public class TradeService {
 
     public ApiResponse deleteTrade(Integer id) {
         Optional<Trade> byId = tradeRepository.findById(id);
-        if (byId.isEmpty()) return new ApiResponse("not found",false);
+        if (byId.isEmpty()) return new ApiResponse("NOT FOUND",false);
         tradeRepository.deleteById(id);
         return new ApiResponse("DELATED", true);
     }
@@ -254,55 +254,55 @@ public class TradeService {
 
     public ApiResponse getByTraderId(Integer trader_id) {
         List<Trade> allByTrader_id = tradeRepository.findAllByTrader_Id(trader_id);
-        if (allByTrader_id.isEmpty()) return new ApiResponse("not found", false);
-        return new ApiResponse("found", true, allByTrader_id);
+        if (allByTrader_id.isEmpty()) return new ApiResponse("NOT FOUND", false);
+        return new ApiResponse("FOUND", true, allByTrader_id);
     }
 
     public ApiResponse getByBranchId(Integer branch_id) {
         List<Trade> allByBranch_id = tradeRepository.findAllByBranch_Id(branch_id);
-        if (allByBranch_id.isEmpty()) return new ApiResponse("not found", false);
-        return new ApiResponse("found", true, allByBranch_id);
+        if (allByBranch_id.isEmpty()) return new ApiResponse("NOT FOUND", false);
+        return new ApiResponse("FOUND", true, allByBranch_id);
     }
 
     public ApiResponse getByCustomerId(Integer customer_id) {
         List<Trade> allByCustomer_id = tradeRepository.findAllByCustomer_Id(customer_id);
-        if (allByCustomer_id.isEmpty()) return new ApiResponse("not found", false);
-        return new ApiResponse("found", true, allByCustomer_id);
+        if (allByCustomer_id.isEmpty()) return new ApiResponse("NOT FOUND", false);
+        return new ApiResponse("FOUND", true, allByCustomer_id);
     }
 
     public ApiResponse getByPayDate(java.sql.Date payDate) throws ParseException {
         List<Trade> allByPayDate = tradeRepository.findTradeByOneDate(payDate);
-        if (allByPayDate.isEmpty()) return new ApiResponse("not found", false);
-        return new ApiResponse("found", true, allByPayDate);
+        if (allByPayDate.isEmpty()) return new ApiResponse("NOT FOUND", false);
+        return new ApiResponse("FOUND", true, allByPayDate);
     }
 
     public ApiResponse getByPayStatus(Integer paymentStatus_id) {
         List<Trade> allByPaymentStatus_id = tradeRepository.findAllByPaymentStatus_Id(paymentStatus_id);
-        if (allByPaymentStatus_id.isEmpty()) return new ApiResponse("not found", false);
-        return new ApiResponse("found", true, allByPaymentStatus_id);
+        if (allByPaymentStatus_id.isEmpty()) return new ApiResponse("NOT FOUND", false);
+        return new ApiResponse("FOUND", true, allByPaymentStatus_id);
     }
 
     public ApiResponse getByPayMethod(Integer payMethod_id) {
         List<Trade> allByPaymentMethod_id = tradeRepository.findAllByPayMethod_Id(payMethod_id);
-        if (allByPaymentMethod_id.isEmpty()) return new ApiResponse("not found", false);
-        return new ApiResponse("found", true, allByPaymentMethod_id);
+        if (allByPaymentMethod_id.isEmpty()) return new ApiResponse("NOT FOUND", false);
+        return new ApiResponse("FOUND", true, allByPaymentMethod_id);
     }
 
     public ApiResponse getByAddress(Integer address_id) {
         List<Trade> allByAddress_id = tradeRepository.findAllByAddress_Id(address_id);
-        if (allByAddress_id.isEmpty()) return new ApiResponse("not found", false);
-        return new ApiResponse("found", true, allByAddress_id);
+        if (allByAddress_id.isEmpty()) return new ApiResponse("NOT FOUND", false);
+        return new ApiResponse("FOUND", true, allByAddress_id);
     }
 
     public ApiResponse deleteByTraderId(Integer trader_id) {
         tradeRepository.deleteByTrader_Id(trader_id);
-        return new ApiResponse("deleted", true);
+        return new ApiResponse("DELETED", true);
     }
 
     public ApiResponse deleteAllByTraderId(Integer trader_id) {
 
         tradeRepository.deleteAllByTrader_Id(trader_id);
-        return new ApiResponse("deleted", true);
+        return new ApiResponse("DELETED", true);
     }
 
 
@@ -318,7 +318,7 @@ public class TradeService {
 
     public ApiResponse getAllByBusinessId(Integer businessId) {
         List<Trade> allByBusinessId = tradeRepository.findAllByBusinessId(businessId);
-        if (allByBusinessId.isEmpty()) return new ApiResponse("not found",false);
-        return new ApiResponse("found",true,allByBusinessId);
+        if (allByBusinessId.isEmpty()) return new ApiResponse("NOT FOUND",false);
+        return new ApiResponse("FOUND",true,allByBusinessId);
     }
 }

@@ -34,7 +34,7 @@ public class BenefitAndLostService {
 
         List<Trade> allTrade = tradeRepository.findAllByPayDateIsBetweenAndBranch_Id(benefitAndLostDto.getFirstDate(), benefitAndLostDto.getSecondDate(), benefitAndLostDto.getBranchId());
         if (allTrade.isEmpty()) {
-            return new ApiResponse("NOT FOUND", false, "BU VAQT ORALIGIDA MALUMOT TOPILMADI");
+            return new ApiResponse("NOT FOUND", false, "NO INFORMATION WAS FOUND DURING THIS TIME");
         }
 
         double totalBuySum = 0;
@@ -78,7 +78,7 @@ public class BenefitAndLostService {
         List<Trade> allTrade = tradeRepository.findTradeByOneDate(benefitAndLostDto.getFirstDate());
 
         if (allTrade.isEmpty()) {
-            return new ApiResponse("NOT FOUND", false, "BU VAQT ORALIGIDA MALUMOT TOPILMADI");
+            return new ApiResponse("NOT FOUND", false, "NO INFORMATION WAS FOUND DURING THIS TIME");
         }
 
         double totalBuySum = 0;
