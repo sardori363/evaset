@@ -21,6 +21,12 @@ public class SupplierController {
     @Autowired
     SupplierService supplierService;
 
+    /**
+     * TA'MINOTCHI QOSHISH
+     *
+     * @param supplierDto
+     * @return ApiResponse(success - > true, message - > ADDED)
+     */
     @CheckPermission("ADD_SUPPLIER")
     @PostMapping
     public HttpEntity<?> add(@Valid @RequestBody SupplierDto supplierDto) {
@@ -28,6 +34,13 @@ public class SupplierController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * ID ORQALI TA'MINOTCHINI TAHRIRLASH
+     *
+     * @param id
+     * @param supplierDto
+     * @return ApiResponse(success - > true, message - > EDITED)
+     */
     @CheckPermission("EDIT_SUPPLIER")
     @PutMapping("/{id}")
     public HttpEntity<?> edit(@PathVariable Integer id, @RequestBody SupplierDto supplierDto) {
@@ -35,6 +48,12 @@ public class SupplierController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * ID ORQALI BITTA TA'MINOTCHINI OLIB CHIQISH
+     *
+     * @param id
+     * @return ApiResponse(success - > true, message - > FOUND)
+     */
     @CheckPermission("VIEW_SUPPLIER")
     @GetMapping("/{id}")
     public HttpEntity<?> get(@PathVariable Integer id) {
@@ -42,6 +61,12 @@ public class SupplierController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * ID ORQALI BITTA TA'MINOTCHINI DELETE QILISH
+     *
+     * @param id
+     * @return ApiResponse(success - > true, message - > DELETED)
+     */
     @CheckPermission("DELETE_SUPPLIER")
     @DeleteMapping("/{id}")
     public HttpEntity<?> delete(@PathVariable Integer id) {
@@ -49,6 +74,12 @@ public class SupplierController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * BUSINESS ID'SI ORQALI BARCHA TA'MINOTCHILARNI OLIB CHIQISH
+     *
+     * @param businessId
+     * @return ApiResponse(success - > true, message - > FOUND)
+     */
     @CheckPermission("VIEW_SUPPLIER_ADMIN")
     @GetMapping("/get-by-business/{businessId}")
     public HttpEntity<?> getAllByBusiness(@PathVariable Integer businessId) {
