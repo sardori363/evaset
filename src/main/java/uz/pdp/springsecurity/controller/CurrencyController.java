@@ -21,6 +21,12 @@ public class CurrencyController {
     @Autowired
     CurrencyService currencyService;
 
+    /**
+     * YANGI CURRENCY QO'SHISH
+     *
+     * @param currencyDto
+     * @return ApiResponse(success - > true message - > ADDED)
+     */
     @CheckPermission("ADD_CURRENCY")
     @PostMapping
     public HttpEntity<?> add(@Valid @RequestBody CurrencyDto currencyDto) {
@@ -28,6 +34,13 @@ public class CurrencyController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * CURRENCYNI EDIT QILISH
+     *
+     * @param id
+     * @param currencyDto
+     * @return ApiResponse(success - > true message - > EDITED)
+     */
     @CheckPermission("EDIT_CURRENCY")
     @PutMapping("/{id}")
     public HttpEntity<?> edit(@PathVariable Integer id, @RequestBody CurrencyDto currencyDto) {
@@ -35,6 +48,12 @@ public class CurrencyController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * CURRENCYNI ID BO'YICHA OLIB CHIQISH
+     *
+     * @param id
+     * @return ApiResponse(success - > true object - > value)
+     */
     @CheckPermission("VIEW_CURRENCY")
     @GetMapping("/{id}")
     public HttpEntity<?> get(@PathVariable Integer id) {
@@ -42,6 +61,12 @@ public class CurrencyController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * ID ORQALI CURRENCYNI DELETE QILSIH
+     *
+     * @param id
+     * @return ApiResponse(success - > true message - > DELETED)
+     */
     @CheckPermission("DELETE_CURRENCY")
     @DeleteMapping("/{id}")
     public HttpEntity<?> delete(@PathVariable Integer id) {
@@ -49,6 +74,12 @@ public class CurrencyController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * BITTA BUSINESSGA TEGILSHLI CURRENCYLARNI OLIB CHIQISH
+     *
+     * @param business_id
+     * @return ApiResponse(success - > true object - > value)
+     */
     @CheckPermission("VIEW_CURRENCY")
     @GetMapping("get-by-businessId/{business_id}")
     public HttpEntity<?> getAllByBusinessId(@PathVariable Integer business_id) {

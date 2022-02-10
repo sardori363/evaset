@@ -21,6 +21,12 @@ public class MeasurementController {
     @Autowired
     MeasurementService measurementService;
 
+    /**
+     * YANGI BIRLIK QO'SHISH
+     *
+     * @param measurementDto
+     * @return ApiResponse(success - > true message - > ADDED)
+     */
     @CheckPermission("ADD_MEASUREMENT")
     @PostMapping
     public HttpEntity<?> add(@Valid @RequestBody MeasurementDto measurementDto) {
@@ -28,6 +34,13 @@ public class MeasurementController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * BIRLIKNI ID ORQALI EDIT QILSIH
+     *
+     * @param id
+     * @param measurementDto
+     * @return ApiResponse(success - > true message - > EDITED)
+     */
     @CheckPermission("EDIT_MEASUREMENT")
     @PutMapping("/{id}")
     public HttpEntity<?> edit(@PathVariable Integer id, @RequestBody MeasurementDto measurementDto) {
@@ -35,6 +48,12 @@ public class MeasurementController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * BITTA BIRLIKNI OLIB CHIQISH ID ORQALI
+     *
+     * @param id
+     * @return ApiResponse(success - > true object - > value)
+     */
     @CheckPermission("VIEW_MEASUREMENT")
     @GetMapping("/{id}")
     public HttpEntity<?> get(@PathVariable Integer id) {
@@ -42,6 +61,12 @@ public class MeasurementController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * ID ORQALI DELETE QILISH
+     *
+     * @param id
+     * @return ApiResponse(success - > true message - > DELETED)
+     */
     @CheckPermission("DELETE_MEASUREMENT")
     @DeleteMapping("/{id}")
     public HttpEntity<?> delete(@PathVariable Integer id) {
@@ -49,6 +74,12 @@ public class MeasurementController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * BUSINESSGA TEGISHLI BARCHA BIRLIKLARNI OLIB CHIQISH
+     *
+     * @param business_id
+     * @return ApiResponse(success - > true object - > value)
+     */
     @CheckPermission("VIEW_MEASUREMENT_ADMIN")
     @GetMapping("/get-by-business/{business_id}")
     public HttpEntity<?> getAllByBusiness(@PathVariable Integer business_id) {

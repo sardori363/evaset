@@ -15,6 +15,12 @@ public class PayMethodController {
     @Autowired
     PayMethodService payMethodService;
 
+    /**
+     * YANGI TO'LASH USULINI KIRITISH
+     *
+     * @param payMethodDto
+     * @return ApiResponse(success - > true message - > ADDED)
+     */
     @CheckPermission("ADD_PAY_METHOD")
     @PostMapping
     public HttpEntity<?> add(@RequestBody PayMethodDto payMethodDto) {
@@ -22,6 +28,13 @@ public class PayMethodController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * TO'LASH USULINI TAXRIRLASH
+     *
+     * @param id
+     * @param payMethodDto
+     * @return ApiResponse(success - > true message - > EDITED)
+     */
     @CheckPermission("EDIT_PAY_METHOD")
     @PutMapping("/{id}")
     public HttpEntity<?> edit(@PathVariable Integer id, @RequestBody PayMethodDto payMethodDto) {
@@ -29,6 +42,12 @@ public class PayMethodController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * ID ORQLI BITTA TO'LASH USULINI OLIB CHIQISH
+     *
+     * @param id
+     * @return ApiResponse(success - > true object - > value)
+     */
     @CheckPermission("VIEW_PAY_METHOD")
     @GetMapping("/{id}")
     public HttpEntity<?> get(@PathVariable Integer id) {
@@ -36,6 +55,12 @@ public class PayMethodController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * BITTA ID ORQALI DELETE QILSIH
+     *
+     * @param id
+     * @return ApiResponse(success - > true message - > DELETED)
+     */
     @CheckPermission("DELETE_PAY_METHOD")
     @DeleteMapping("/{id}")
     public HttpEntity<?> delete(@PathVariable Integer id) {
@@ -43,7 +68,11 @@ public class PayMethodController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-
+    /**
+     * BUSINESSGA TEGISHLI BARCHA TO'LASH USULLLARNI OLIB CHIQISH
+     * @param business_id
+     * @return  ApiResponse(success - > true object - > value)
+     */
     @CheckPermission("VIEW_PAY_METHOD_ADMIN")
     @GetMapping("/get-by-business/{business_id}")
     public HttpEntity<?> getAllByBusiness(@PathVariable Integer business_id) {

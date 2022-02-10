@@ -21,6 +21,12 @@ public class CustomerController {
     @Autowired
     CustomerService customerService;
 
+    /**
+     * YANGI CUSTOMER QO'SHISH MIJOZ YANI
+     *
+     * @param customerDto
+     * @return ApiResponse(success - > true message - > ADDED)
+     */
     @CheckPermission("ADD_CUSTOMER")
     @PostMapping
     public HttpEntity<?> addAddress(@Valid @RequestBody CustomerDto customerDto) {
@@ -28,6 +34,13 @@ public class CustomerController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * CUSTOMERNI EDIT QILSIH ID ORQALI
+     *
+     * @param id
+     * @param customerDto
+     * @return ApiResponse(success - > true message - > EDITED)
+     */
     @CheckPermission("EDIT_CUSTOMER")
     @PutMapping("/{id}")
     public HttpEntity<?> edit(@PathVariable Integer id, @RequestBody CustomerDto customerDto) {
@@ -35,6 +48,12 @@ public class CustomerController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * ID ORQALI BITTA MIJOZNI CUSTOMERNI OLIB CIQISH
+     *
+     * @param id
+     * @return ApiResponse(success - > true object - > value)
+     */
     @CheckPermission("VIEW_CUSTOMER")
     @GetMapping("/{id}")
     public HttpEntity<?> get(@PathVariable Integer id) {
@@ -42,6 +61,12 @@ public class CustomerController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * CUSTOMERNI MIJOZNI DELETE QILSIH
+     *
+     * @param id
+     * @return ApiResponse(success - > true message - > DELETED)
+     */
     @CheckPermission("DELETE_CUSTOMER")
     @DeleteMapping("/{id}")
     public HttpEntity<?> delete(@PathVariable Integer id) {
@@ -49,6 +74,12 @@ public class CustomerController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * BUSINESSGA TEGISHLI BARCHA CUSTOMERLARNI OLIB CHIQISH
+     *
+     * @param businessId
+     * @return ApiResponse(success - > true object - > value)
+     */
     @CheckPermission("VIEW_CUSTOMER_ADMIN")
     @GetMapping("/get-by-businessId/{businessId}")
     public HttpEntity<?> getAllByBusinessId(@PathVariable Integer businessId) {

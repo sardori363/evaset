@@ -23,8 +23,9 @@ public class BrandController {
 
     /**
      * YANGI BRAND QO'SHISH
+     *
      * @param brandDto
-     * @return ApiResponse(success->true message->ADDED)
+     * @return ApiResponse(success - > true message - > ADDED)
      */
     @CheckPermission("ADD_BRAND")
     @PostMapping
@@ -35,9 +36,10 @@ public class BrandController {
 
     /**
      * BRANDNI EDIT QILISH
+     *
      * @param id
      * @param brandDto
-     * @return ApiResponse(success->true message->EDITED)
+     * @return ApiResponse(success - > true message - > EDITED)
      */
     @CheckPermission("EDIT_BRAND")
     @PutMapping("/{id}")
@@ -48,8 +50,9 @@ public class BrandController {
 
     /**
      * IDSI ORQALI BITTA BRAND OLISH
+     *
      * @param id
-     * @return ApiResponse(success->true object->value)
+     * @return ApiResponse(success - > true object - > value)
      */
     @CheckPermission("VIEW_BRAND")
     @GetMapping("/{id}")
@@ -60,8 +63,9 @@ public class BrandController {
 
     /**
      * ID ORQALI BRANDNI DELETE QILISH
+     *
      * @param id
-     * @return ApiResponse(success->true message->DELETED)
+     * @return ApiResponse(success - > true message - > DELETED)
      */
     @CheckPermission("DELETE_BRAND")
     @DeleteMapping("/{id}")
@@ -72,8 +76,9 @@ public class BrandController {
 
     /**
      * BUSINESS ID ORQALI BITTA BUSINESSDAGI BARCHA BRANDLARNI OLIB CHIQISH
+     *
      * @param business_id
-     * @return ApiResponse(success->true object->value)
+     * @return ApiResponse(success - > true object - > value)
      */
     @CheckPermission("VIEW_BRAND")
     @GetMapping("by-businessId/{business_id}")

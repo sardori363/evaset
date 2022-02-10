@@ -21,6 +21,12 @@ public class CategoryController {
     @Autowired
     CategoryService categoryService;
 
+    /**
+     * YANGI MAHSULOTLAR CATEGORYSINI QO'SHISH
+     *
+     * @param categoryDto
+     * @return ApiResponse(success - > true message - > ADDED)
+     */
     @CheckPermission("ADD_CATEGORY")
     @PostMapping
     public HttpEntity<?> add(@Valid @RequestBody CategoryDto categoryDto) {
@@ -28,6 +34,13 @@ public class CategoryController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * CATEGORYNI EDIT QILSIH
+     *
+     * @param id
+     * @param categoryDto
+     * @return ApiResponse(success - > true message - > EDITED)
+     */
     @CheckPermission("EDIT_CATEGORY")
     @PutMapping("/{id}")
     public HttpEntity<?> edit(@PathVariable Integer id, @RequestBody CategoryDto categoryDto) {
@@ -35,6 +48,12 @@ public class CategoryController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * ID ORQALI BITTA CATEGORYNI OLIB CHIQISH
+     *
+     * @param id
+     * @return ApiResponse(success - > true object - > value)
+     */
     @CheckPermission("VIEW_CATEGORY")
     @GetMapping("/{id}")
     public HttpEntity<?> get(@PathVariable Integer id) {
@@ -42,6 +61,12 @@ public class CategoryController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * ID ORQALI CATEGORYNI O'CHIRISH
+     *
+     * @param id
+     * @return ApiResponse(success - > true message - > DELETED)
+     */
     @CheckPermission("DELETE_CATEGORY")
     @DeleteMapping("/{id}")
     public HttpEntity<?> delete(@PathVariable Integer id) {
@@ -49,6 +74,12 @@ public class CategoryController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * BUSINESS ID ORQALI CATEGORYI OLIB CHIQISH
+     *
+     * @param businessId
+     * @return ApiResponse(success - > true object - > value)
+     */
 
     @CheckPermission("VIEW_CATEGORY_ADMIN")
     @GetMapping("/get-by-businessId/{businessId}")

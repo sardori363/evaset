@@ -16,6 +16,12 @@ public class BusinessController {
     @Autowired
     BusinessService businessService;
 
+    /**
+     * YANGI BUSINESS QO'SHISH
+     *
+     * @param businessDto
+     * @return ApiResponse(success - > true message - > ADDED)
+     */
     @CheckPermission("ADD_BUSINESS")
     @PostMapping
     public HttpEntity<?> add(@RequestBody BusinessDto businessDto) {
@@ -23,6 +29,13 @@ public class BusinessController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * BUSINESSNI IDSI ORQALI EDIT QILISH
+     *
+     * @param id
+     * @param businessDto
+     * @return ApiResponse(success - > true message - > EDITED)
+     */
     @CheckPermission("EDIT_BUSINESS")
     @PutMapping("/{id}")
     public HttpEntity<?> edit(@PathVariable Integer id, @RequestBody BusinessDto businessDto) {
@@ -30,6 +43,12 @@ public class BusinessController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * BITTA ID ORQALI BUSINESSNI OLIB CHIQISH
+     *
+     * @param id
+     * @return ApiResponse(success - > true object - > value)
+     */
     @CheckPermission("VIEW_BUSINESS")
     @GetMapping("/{id}")
     public HttpEntity<?> getOne(@PathVariable Integer id) {
@@ -37,6 +56,12 @@ public class BusinessController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * HAMMA BUSINESSLARNI  OLIB CHIQISH
+     *
+     * @param id
+     * @return ApiResponse(success - > true object - > value)
+     */
     @CheckPermission("VIEW_BUSINESS")
     @GetMapping
     public HttpEntity<?> getAll() {
@@ -44,6 +69,12 @@ public class BusinessController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * ID ORQALI O'CHIRISH
+     *
+     * @param id
+     * @return ApiResponse(success - > true object - > value)
+     */
     @CheckPermission("DELETE_BUSINESS")
     @DeleteMapping("/{id}")
     public HttpEntity<?> deleteOne(@PathVariable Integer id) {
