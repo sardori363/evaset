@@ -20,6 +20,12 @@ public class BenefitAndLostController {
     @Autowired
     BenefitAndLostService benefitAndLostService;
 
+    /**
+     * IKKTA VAQT ORASIDAGI FOYDA VA ZARARLARNI OLIB CHIQISH
+     * @param benefitAndLostDto
+     * @return
+     * @throws ParseException
+     */
     @CheckPermission("VIEW_BENEFIT_AND_LOST")
     @PostMapping
     public HttpEntity<?> find(@RequestBody BenefitAndLostDto benefitAndLostDto) throws ParseException {
@@ -27,9 +33,15 @@ public class BenefitAndLostController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * BITTA SANADAGI FOYDA VA ZARARLARNI OLIB CHIQISH
+     * @param benefitAndLostDto
+     * @return
+     * @throws ParseException
+     */
     @CheckPermission("VIEW_BENEFIT_AND_LOST")
     @PostMapping("/one-date")
-    public HttpEntity<?> getPayDate(@RequestBody BenefitAndLostDto benefitAndLostDto) throws ParseException {
+    public HttpEntity<?> findOneDate(@RequestBody BenefitAndLostDto benefitAndLostDto) throws ParseException {
         ApiResponse apiResponse = benefitAndLostService.findBenefitAndLostByDate(benefitAndLostDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }

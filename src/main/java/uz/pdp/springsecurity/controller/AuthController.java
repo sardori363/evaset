@@ -32,6 +32,11 @@ public class    AuthController {
     @Autowired
     JwtProvider jwtProvider;
 
+    /**
+     * LOGIN YO'LI
+     * @param loginDto
+     * @return
+     */
     @PostMapping("/login")
     public HttpEntity<?> loginUser(@Valid @RequestBody LoginDto loginDto) {
         Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword()));

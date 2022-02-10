@@ -26,6 +26,13 @@ public class AttachmentController {
     @Autowired
     AttachmentContentRepository attachmentContentRepository;
 
+    /**
+     * YANGI FILE YOKI RASM QO'SHISH
+     *
+     * @param request FILE KELADI
+     * @throws IOException
+     * @return ApiResponse(message - > FILE SUCCESSFULLY SAVED, success - > true)
+     */
     @CheckPermission("UPLOAD_MEDIA")
     @PostMapping("/upload")
     public ApiResponse uploadFile(MultipartHttpServletRequest request) throws IOException {
@@ -51,6 +58,11 @@ public class AttachmentController {
         return new ApiResponse("Error", false);
     }
 
+    /**
+     *  FILE INFOLARINI KO'RISH
+     * @param response
+     * @return
+     */
     @CheckPermission("VIEW_MEDIA_INFO")
     @GetMapping("/info")
     public List<Attachment> getInfo(HttpServletResponse response) {
@@ -58,6 +70,12 @@ public class AttachmentController {
         return all;
     }
 
+    /**
+     * ID ORQALI FILE MALUMOTLAARINI KO'RISH
+     * @param id
+     * @param response
+     * @return
+     */
     @CheckPermission("VIEW_MEDIA_INFO")
     @GetMapping("/info/{id}")
     public Attachment getInfo(@PathVariable Integer id, HttpServletResponse response) {
@@ -68,6 +86,12 @@ public class AttachmentController {
         return null;
     }
 
+    /**
+     * ID ORQALI RASMNI YUKLASH
+     * @param id
+     * @param response
+     * @throws IOException
+     */
     @CheckPermission("DOWNLOAD_MEDIA")
     @GetMapping("/download/{id}")
     public void download(@PathVariable Integer id, HttpServletResponse response) throws IOException {
@@ -86,6 +110,12 @@ public class AttachmentController {
         }
     }
 
+    /**
+     * NAME ORQALI FILENI YUKLASH
+     * @param name
+     * @param response
+     * @throws IOException
+     */
     @CheckPermission("DOWNLOAD_MEDIA")
     @GetMapping("/downloadWithName")
     public void downloadWithName(@RequestBody String name, HttpServletResponse response) throws IOException {
@@ -102,6 +132,11 @@ public class AttachmentController {
         }
     }
 
+    /**
+     * ID ORQALI RASM YOKI FILENI O'CHIRISH
+     * @param id
+     * @return
+     */
     @CheckPermission("DELETE_MEDIA")
     @DeleteMapping("/{id}")
     public ApiResponse deleteMedia(@PathVariable Integer id) {
@@ -116,6 +151,12 @@ public class AttachmentController {
         return new ApiResponse("NOT FOUND", false);
     }
 
+    /**
+     * BIR NECHTA FILENI BIR VAQTDA DB GA SAQLASH
+     * @param request
+     * @return
+     * @throws IOException
+     */
     @CheckPermission("UPLOAD_MEDIA")
     @PostMapping("/uploadAnyFile")
     public ApiResponse uploadAnyFiles(MultipartHttpServletRequest request) throws IOException {

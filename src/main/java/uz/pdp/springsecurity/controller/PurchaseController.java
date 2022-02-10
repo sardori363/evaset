@@ -19,6 +19,12 @@ public class PurchaseController {
     @Autowired
     PurchaseService purchaseService;
 
+    /**
+     * YANGI XARID QO'SHISH
+     *
+     * @param purchaseDto
+     * @return  ApiResponse(success - > true message - > ADDED)
+     */
     @CheckPermission("ADD_PURCHASE")
     @PostMapping
     public HttpEntity<?> add(@RequestBody PurchaseDto purchaseDto) {
@@ -26,6 +32,12 @@ public class PurchaseController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * XARIDNI MALUMOTLARINI TAXRIRLASH
+     * @param id
+     * @param purchaseDto
+     * @return
+     */
     @CheckPermission("EDIT_PURCHASE")
     @PutMapping("/{id}")
     public HttpEntity<?> edit(@PathVariable Integer id, @RequestBody PurchaseDto purchaseDto) {
@@ -77,7 +89,7 @@ public class PurchaseController {
 
     @CheckPermission("VIEW_PURCHASE")
     @GetMapping("get-purchase-by-date/{date}")
-    public HttpEntity<?> getByDate(@PathVariable  Date date) {
+    public HttpEntity<?> getByDate(@PathVariable Date date) {
         ApiResponse apiResponse = purchaseService.getByDate(date);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
@@ -98,7 +110,7 @@ public class PurchaseController {
 
     @CheckPermission("VIEW_PURCHASE_ADMIN")
     @GetMapping("/get-by-business/{businessId}")
-    public HttpEntity<?> getAllByBusiness(@PathVariable Integer businessId){
+    public HttpEntity<?> getAllByBusiness(@PathVariable Integer businessId) {
         ApiResponse apiResponse = purchaseService.getAllByBusiness(businessId);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }

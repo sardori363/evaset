@@ -15,6 +15,12 @@ public class PayStatusController {
     @Autowired
     PayStatusService payStatusService;
 
+    /**
+     * YANGI TO'LANGANLIK STATUSINI QO'SHISH
+     *
+     * @param payStatusDto
+     * @return ApiResponse(success - > true message - > ADDED)
+     */
     @CheckPermission("ADD_PAY_STATUS")
     @PostMapping
     public HttpEntity<?> add(@RequestBody PayStatusDto payStatusDto) {
@@ -22,6 +28,13 @@ public class PayStatusController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * TO'LANGANLIK STATUSINI TAXRIRLASH
+     *
+     * @param id
+     * @param payStatusDto
+     * @return ApiResponse(success - > true message - > EDITED)
+     */
     @CheckPermission("EDIT_PAY_STATUS")
     @PutMapping("/{id}")
     public HttpEntity<?> edit(@PathVariable Integer id, @RequestBody PayStatusDto payStatusDto) {
@@ -29,6 +42,12 @@ public class PayStatusController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * ID ORQLI BITTA TO'LANGANLIK STATUSINI QO'SHISH
+     *
+     * @param id
+     * @return ApiResponse(success - > true object - > value)
+     */
     @CheckPermission("VIEW_PAY_STATUS")
     @GetMapping("/{id}")
     public HttpEntity<?> get(@PathVariable Integer id) {
@@ -36,6 +55,12 @@ public class PayStatusController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * ID ORQALI DELETE QILSIH
+     *
+     * @param id
+     * @return ApiResponse(success - > true message - > DELETED)
+     */
     @CheckPermission("DELETE_PAY_STATUS")
     @DeleteMapping("/{id}")
     public HttpEntity<?> delete(@PathVariable Integer id) {
@@ -43,10 +68,4 @@ public class PayStatusController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-//    @CheckPermission("VIEW_PAY_STATUS_ADMIN")
-//    @GetMapping("/get-by-business/{business_id}")
-//    public HttpEntity<?> getAllByBusiness(@PathVariable Integer business_id) {
-//        ApiResponse apiResponse = payStatusService.getAllByBusiness(business_id);
-//        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
-//    }
 }
