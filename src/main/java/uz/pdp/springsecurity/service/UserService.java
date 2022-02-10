@@ -4,12 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import uz.pdp.springsecurity.entity.Attachment;
 import uz.pdp.springsecurity.entity.Branch;
 import uz.pdp.springsecurity.entity.Role;
 import uz.pdp.springsecurity.entity.User;
 import uz.pdp.springsecurity.payload.ApiResponse;
 import uz.pdp.springsecurity.payload.ProfileDto;
 import uz.pdp.springsecurity.payload.UserDto;
+import uz.pdp.springsecurity.repository.AttachmentRepository;
 import uz.pdp.springsecurity.repository.BranchRepository;
 import uz.pdp.springsecurity.repository.BusinessRepository;
 import uz.pdp.springsecurity.repository.UserRepository;
@@ -35,6 +37,9 @@ public class UserService {
     @Autowired
     BusinessRepository businessRepository;
 
+    @Autowired
+    AttachmentRepository attachmentRepository;
+
     public ApiResponse add(UserDto userDto) {
         boolean b = userRepository.existsByUsername(userDto.getUsername());
         if (b) return new ApiResponse("User already exist", false);
@@ -59,6 +64,11 @@ public class UserService {
         user.setBusiness(businessRepository.findById(userDto.getBusinessId()).get());
 
         user.setEnabled(userDto.getEnabled());
+
+        Optional<Attachment> optionalPhoto = attachmentRepository.findById(userDto.getPhotoId());
+        if (optionalPhoto.isEmpty()) return new ApiResponse("photo not found", false);
+
+        user.setPhoto(optionalPhoto.get());
         userRepository.save(user);
         return new ApiResponse("Saved", true);
     }
@@ -92,6 +102,10 @@ public class UserService {
         user.setRole((Role) response.getObject());
         user.setEnabled(userDto.getEnabled());
 
+        Optional<Attachment> optionalPhoto = attachmentRepository.findById(userDto.getPhotoId());
+        if (optionalPhoto.isEmpty()) return new ApiResponse("photo not found", false);
+
+        user.setPhoto(optionalPhoto.get());
         userRepository.save(user);
         return new ApiResponse("edited", true);
     }
@@ -123,6 +137,11 @@ public class UserService {
         user.setLastName(profileDto.getLastName());
         user.setUsername(profileDto.getUserName());
         user.setPassword(passwordEncoder.encode(profileDto.getPassword()));
+
+        Optional<Attachment> optionalPhoto = attachmentRepository.findById(profileDto.getPhotoId());
+        if (optionalPhoto.isEmpty()) return new ApiResponse("photo not found", false);
+
+        user.setPhoto(optionalPhoto.get());
 
         userRepository.save(user);
         return new ApiResponse("User saved!", true);

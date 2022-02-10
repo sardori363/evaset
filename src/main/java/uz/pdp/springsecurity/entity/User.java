@@ -48,6 +48,9 @@ public class User extends AbsEntity implements UserDetails {
     @ManyToOne
     private Business business;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    private Attachment photo;
+
     //yoqilgan
     private boolean enabled = false;
     //muddati tugamagan

@@ -15,9 +15,11 @@ public class ProfileDto {
     @NotNull(message = "required line")
     private String lastName;
     @NotNull(message = "required line")
-    private String userName;
+    private String username;
     @NotNull(message = "required line")
     private String password;
     @NotNull(message = "required line")
     private String prePassword;
+
+    private Integer photoId;
 }
