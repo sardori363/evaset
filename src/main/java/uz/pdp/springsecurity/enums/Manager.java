@@ -16,6 +16,9 @@ public enum Manager {
     VIEW_BRAND,
     DELETE_BRAND,
 
+    VIEW_BRANCH_ADMIN,
+    VIEW_BRANCH,
+
     ADD_CATEGORY,
     EDIT_CATEGORY,
     VIEW_CATEGORY,

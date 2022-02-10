@@ -15,6 +15,7 @@ public enum Permissions {
     ADD_BRANCH,
     EDIT_BRANCH,
     VIEW_BRANCH_ADMIN,
+    VIEW_BRANCH,
     DELETE_BRANCH,
 
     ADD_BRAND,

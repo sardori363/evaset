@@ -21,6 +21,11 @@ public class BranchController {
     @Autowired
     BranchService branchService;
 
+    /**
+     * YANGI BRANCH QO'SHISH
+     * @param branchDto
+     * @return ApiResponse(success->true message->ADDED)
+     */
     @CheckPermission("ADD_BRANCH")
     @PostMapping
     public HttpEntity<?> add(@Valid @RequestBody BranchDto branchDto) {
@@ -28,6 +33,12 @@ public class BranchController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * ID ORQALI BITTA BRANCHNI MALUMOTLARINI TAXRIRLASH
+     * @param id
+     * @param branchDto
+     * @return ApiResponse(success->true message->EDITED)
+     */
     @CheckPermission("EDIT_BRANCH")
     @PutMapping("/{id}")
     public HttpEntity<?> edit(@PathVariable Integer id, @RequestBody BranchDto branchDto) {
@@ -35,13 +46,23 @@ public class BranchController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_BRANCH_ADMIN")
+    /**
+     * ID ORQALI BITTA BRANCHNI OLISH
+     * @param id
+     * @return ApiResponse(success->true object->value)
+     */
+    @CheckPermission("VIEW_BRANCH")
     @GetMapping("/{id}")
     public HttpEntity<?> get(@PathVariable Integer id) {
         ApiResponse apiResponse = branchService.getBranch(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     *  BUSINESSGA TEGISHLI BRANCHNNI O'CHIRISH
+     * @param id
+     * @return ApiResponse(success->true message->DELETED)
+     */
 
     @CheckPermission("DELETE_BRANCH")
     @DeleteMapping("/{id}")
@@ -50,6 +71,11 @@ public class BranchController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * BUSINESSGA TEGISHLI BARCHA BRANCHLARNI OLIB CHIQISH
+     * @param business_id
+     * @return ApiResponse(success->true object->value)
+     */
     @CheckPermission("VIEW_BRANCH_ADMIN")
     @GetMapping("get-all-by-business-id/{business_id}")
     public HttpEntity<?> getByBusinessId(@PathVariable Integer business_id) {
