@@ -19,6 +19,12 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    /**
+     * YANGI USER QOSHISH
+     *
+     * @param userDto
+     * @return ApiResponse(success - > true, message - > ADDED)
+     */
     @CheckPermission("ADD_USER")
     @PostMapping()
     public HttpEntity<?> add(@Valid @RequestBody UserDto userDto) {
@@ -26,6 +32,13 @@ public class UserController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * USERNI TAXRIRLASH
+     *
+     * @param id
+     * @param userDto
+     * @return ApiResponse(success - > true, message - > EDITED)
+     */
     @CheckPermission("EDIT_USER")
     @PutMapping("/{id}")
     public HttpEntity<?> editUser(@PathVariable Integer id, @RequestBody UserDto userDto) {
@@ -33,7 +46,12 @@ public class UserController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-
+    /**
+     * ID OQALI BITTA USERNI OLIB CHIQISH
+     *
+     * @param id
+     * @return ApiResponse(success - > true object - > value)
+     */
     @CheckPermission("VIEW_USER")
     @GetMapping("/{id}")
     public HttpEntity<?> get(@PathVariable Integer id) {
@@ -41,6 +59,12 @@ public class UserController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * ID ORQALI BITTA USERNI DELETE QILISH
+     *
+     * @param id
+     * @return ApiResponse(success - > true, message - > DELETED)
+     */
     @CheckPermission("DELETE_USER")
     @DeleteMapping("/{id}")
     public HttpEntity<?> deleteById(@PathVariable Integer id) {
@@ -48,7 +72,12 @@ public class UserController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 404).body(apiResponse);
     }
 
-
+    /**
+     * OZINI PROFILINI TAXRIRLASH
+     *
+     * @param profileDto
+     * @return ApiResponse(success - > true, message - > UPDATED)
+     */
     @CheckPermission("EDIT_MY_PROFILE")
     @PutMapping
     public ResponseEntity<?> editMyProfile(@Valid @RequestBody ProfileDto profileDto) {
@@ -56,6 +85,12 @@ public class UserController {
         return ResponseEntity.status(apiResponse.isSuccess() ? HttpStatus.OK : HttpStatus.CONFLICT).body(apiResponse);
     }
 
+    /**
+     * ROLE_ID ORQALI USERNI OLIB CHIQISH
+     *
+     * @param role_id
+     * @return ApiResponse(success - > true, message - > FOUND)
+     */
     @CheckPermission("VIEW_USER")
     @GetMapping("/get-by-role/{role_id}")
     public HttpEntity<?> getByRole(@PathVariable Integer role_id) {
@@ -63,6 +98,12 @@ public class UserController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * BUSINESS_ID ORQALI USERLARNI OLIB CHIQISH
+     *
+     * @param business_id
+     * @return ApiResponse(success - > true, message - > FOUND)
+     */
     @CheckPermission("VIEW_USER_ADMIN")
     @GetMapping("/get-by-business/{business_id}")
     public HttpEntity<?> getAllByBusinessId(@PathVariable Integer business_id) {
@@ -70,6 +111,12 @@ public class UserController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * BRANCH_iD ORQALI USERLARNI OLIB CHIQISH
+     *
+     * @param branch_id
+     * @return ApiResponse(success - > true, message - > FOUND)
+     */
     @CheckPermission("VIEW_USER")
     @GetMapping("/get-by-branchId/{branch_id}")
     public HttpEntity<?> getAllByBranchId(@PathVariable Integer branch_id) {

@@ -17,6 +17,12 @@ public class RoleController {
     @Autowired
     RoleService roleService;
 
+    /**
+     * ROLE (LAVOZIM) QOSHISH
+     *
+     * @param roleDto
+     * @return ApiResponse(success - > true, message - > ADDED)
+     */
     @CheckPermission("ADD_ROLE")
     @PostMapping
     public HttpEntity<?> add(@Valid @RequestBody RoleDto roleDto) {
@@ -24,6 +30,13 @@ public class RoleController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * ID ORQALI LAVOZIMNI TAHRIRLASH
+     *
+     * @param id
+     * @param roleDto
+     * @return ApiResponse(success - > true, message - > EDITED)
+     */
     @CheckPermission("EDIT_ROLE")
     @PutMapping("/{id}")
     public HttpEntity<?> edit(@PathVariable Integer id, @Valid @RequestBody RoleDto roleDto) {
@@ -31,6 +44,12 @@ public class RoleController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * ID ORQALI LAVOZIMNI OLIB CHIQISH
+     *
+     * @param id
+     * @return ApiResponse(success - > true, message - > FOUND)
+     */
     @CheckPermission("VIEW_ROLE")
     @GetMapping("/{id}")
     public HttpEntity<?> get(@PathVariable Integer id) {
@@ -38,6 +57,12 @@ public class RoleController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * ID ORQALI LAVOZIMNI DELETE QILISH
+     *
+     * @param id
+     * @return ApiResponse(success - > true, message - > DELETED)
+     */
     @CheckPermission("DELETE_ROLE")
     @DeleteMapping("/{id}")
     public HttpEntity<?> delete(@PathVariable Integer id) {
@@ -45,6 +70,12 @@ public class RoleController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * BUSINESS_ID ORQALI BARCHA LAVOZIMLARNI OLIB CHIQISH
+     *
+     * @param business_id
+     * @return ApiResponse(success - > true, message - > FOUND)
+     */
     @CheckPermission("VIEW_ROLE_ADMIN")
     @GetMapping("/get-by-business/{business_id}")
     public HttpEntity<?> getAllByBusiness(@PathVariable Integer business_id) {

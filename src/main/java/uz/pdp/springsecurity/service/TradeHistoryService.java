@@ -79,12 +79,6 @@ public class TradeHistoryService {
         return new ApiResponse("FOUND", true, allByTrade_id);
     }
 
-    public ApiResponse getByTradeIdAndId(Integer id, Integer trade_id) {
-        Optional<TradeHistory> byIdAndTrade_id = tradeHistoryRepository.findByIdAndTrade_Id(id, trade_id);
-        if (byIdAndTrade_id.isEmpty()) return new ApiResponse("NOT FOUND",false);
-        return new ApiResponse("FOUND",true,byIdAndTrade_id);
-    }
-
     public ApiResponse deleteByTradeId(Integer trade_id) {
         tradeHistoryRepository.deleteByTrade_Id(trade_id);
         return new ApiResponse("DELETED",true);
@@ -95,8 +89,8 @@ public class TradeHistoryService {
         return new ApiResponse("FOUND",true,tradeHistoryRepository.findByTrade_Id(trade_id).get());
     }
 
-    public ApiResponse getAllByBranch(Integer trade_branch_id) {
-        List<TradeHistory> allByTrade_branch_id = tradeHistoryRepository.findAllByTrade_Branch_Id(trade_branch_id);
+    public ApiResponse getAllByBranch(Integer branch_id) {
+        List<TradeHistory> allByTrade_branch_id = tradeHistoryRepository.findAllByTrade_Branch_Id(branch_id);
         if (allByTrade_branch_id.isEmpty()) return new ApiResponse("NOT FOUND",false);
         return new ApiResponse("FOUND",true,allByTrade_branch_id);
     }

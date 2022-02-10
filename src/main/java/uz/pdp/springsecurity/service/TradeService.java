@@ -252,13 +252,13 @@ public class TradeService {
         return new ApiResponse("SAVED!", true);
     }
 
-    public ApiResponse getByTraderId(Integer trader_id) {
+    public ApiResponse getAllByTraderId(Integer trader_id) {
         List<Trade> allByTrader_id = tradeRepository.findAllByTrader_Id(trader_id);
         if (allByTrader_id.isEmpty()) return new ApiResponse("NOT FOUND", false);
         return new ApiResponse("FOUND", true, allByTrader_id);
     }
 
-    public ApiResponse getByBranchId(Integer branch_id) {
+    public ApiResponse getAllByBranchId(Integer branch_id) {
         List<Trade> allByBranch_id = tradeRepository.findAllByBranch_Id(branch_id);
         if (allByBranch_id.isEmpty()) return new ApiResponse("NOT FOUND", false);
         return new ApiResponse("FOUND", true, allByBranch_id);

@@ -19,7 +19,7 @@ public class PayMethodController {
      * YANGI TO'LASH USULINI KIRITISH
      *
      * @param payMethodDto
-     * @return ApiResponse(success - > true message - > ADDED)
+     * @return ApiResponse(success - > true, message - > ADDED)
      */
     @CheckPermission("ADD_PAY_METHOD")
     @PostMapping
@@ -33,7 +33,7 @@ public class PayMethodController {
      *
      * @param id
      * @param payMethodDto
-     * @return ApiResponse(success - > true message - > EDITED)
+     * @return ApiResponse(success - > true, message - > EDITED)
      */
     @CheckPermission("EDIT_PAY_METHOD")
     @PutMapping("/{id}")
@@ -43,10 +43,10 @@ public class PayMethodController {
     }
 
     /**
-     * ID ORQLI BITTA TO'LASH USULINI OLIB CHIQISH
+     * ID ORQALI BITTA TO'LASH USULINI OLIB CHIQISH
      *
      * @param id
-     * @return ApiResponse(success - > true object - > value)
+     * @return ApiResponse(success - > true, object - > value)
      */
     @CheckPermission("VIEW_PAY_METHOD")
     @GetMapping("/{id}")
@@ -56,10 +56,10 @@ public class PayMethodController {
     }
 
     /**
-     * BITTA ID ORQALI DELETE QILSIH
+     * ID ORQALI BITTA TOLOV USULINI DELETE QILISH
      *
      * @param id
-     * @return ApiResponse(success - > true message - > DELETED)
+     * @return ApiResponse(success - > true, message - > DELETED)
      */
     @CheckPermission("DELETE_PAY_METHOD")
     @DeleteMapping("/{id}")
@@ -71,7 +71,7 @@ public class PayMethodController {
     /**
      * BUSINESSGA TEGISHLI BARCHA TO'LASH USULLLARNI OLIB CHIQISH
      * @param business_id
-     * @return  ApiResponse(success - > true object - > value)
+     * @return  ApiResponse(success - > true, object - > value)
      */
     @CheckPermission("VIEW_PAY_METHOD_ADMIN")
     @GetMapping("/get-by-business/{business_id}")

@@ -15,9 +15,16 @@ import javax.validation.Valid;
 @RequestMapping("/api/trade-history")
 public class TradeHistoryController {
 
+
     @Autowired
     TradeHistoryService tradeHistoryService;
 
+    /**
+     * YANGI SAVDO TARIXI QOSHISH
+     *
+     * @param tradeHistoryDto
+     * @return ApiResponse(success - > true, message - > ADDED)
+     */
     @CheckPermission("ADD_TRADE")
     @PostMapping
     public HttpEntity<?> add(@Valid @RequestBody TradeHistoryDto tradeHistoryDto) {
@@ -25,6 +32,12 @@ public class TradeHistoryController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * ID ORQALI SAVDO TARIXINI TAHRIRLASH
+     *
+     * @param tradeHistoryDto
+     * @return ApiResponse(success - > true, message - > ADDED)
+     */
     @CheckPermission("EDIT_TRADE")
     @PutMapping("/{id}")
     public HttpEntity<?> edit(@PathVariable Integer id, @Valid @RequestBody TradeHistoryDto tradeHistoryDto) {
@@ -32,6 +45,12 @@ public class TradeHistoryController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * ID ORQALI BITTA SAVDO TARIXINI OLIB CHIQISH
+     *
+     * @param id
+     * @return ApiResponse(success - > true, object - > value)
+     */
     @CheckPermission("VIEW_TRADE")
     @GetMapping("/get-one/{id}")
     public HttpEntity<?> getOne(@PathVariable Integer id) {
@@ -39,6 +58,12 @@ public class TradeHistoryController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * ID ORQALI BITTA SAVDO TARIXINI DELETE QILISH
+     *
+     * @param id
+     * @return ApiResponse(success - > true, message - > DELETED)
+     */
     @CheckPermission("DELETE_TRADE")
     @DeleteMapping("/{id}")
     public HttpEntity<?> deleteOne(@PathVariable Integer id) {
@@ -46,6 +71,12 @@ public class TradeHistoryController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * SAVDO ID'SI ORQALI BITTA SAVDO TARIXINI DELETE QILISH
+     *
+     * @param trade_id
+     * @return ApiResponse(success - > true, message - > DELETED)
+     */
     @CheckPermission("DELETE_MY_TRADE")
     @DeleteMapping("/delete-trade/{trade_id}")
     public HttpEntity<?> deleteByTradeId(@PathVariable Integer trade_id) {
@@ -53,6 +84,12 @@ public class TradeHistoryController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * SAVDO ID'SI ORQALI BARCHA SAVDO TARIXLARINI DELETE QILISH
+     *
+     * @param trade_id
+     * @return ApiResponse(success - > true, message - > DELETED)
+     */
     @CheckPermission("DELETE_MY_TRADE")
     @DeleteMapping("/{trade_id}")
     public HttpEntity<?> deleteAllByTradeId(@PathVariable Integer trade_id) {
@@ -60,6 +97,12 @@ public class TradeHistoryController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * SAVDO ID'SI ORQALI BARCHA SAVDO TARIXLARINI OLIB CHIQISH
+     *
+     * @param trade_id
+     * @return ApiResponse(success - > true, object - > value)
+     */
     @CheckPermission("VIEW_MY_TRADE")
     @GetMapping("/get-all-by-tradeId/{trade_id}")
     public HttpEntity<?> getAllByTradeId(@PathVariable Integer trade_id) {
@@ -67,28 +110,38 @@ public class TradeHistoryController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * SAVDO ID'SI ORQALI BITTA SAVDO TARIXINI OLIB CHIQISH
+     *
+     * @param trade_id
+     * @return ApiResponse(success - > true, object - > value)
+     */
     @CheckPermission("VIEW_MY_TRADE")
-
     @GetMapping("/{trade_id}")
     public HttpEntity<?> getByTradeId(@PathVariable Integer trade_id) {
         ApiResponse apiResponse = tradeHistoryService.getByTradeId(trade_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @CheckPermission("VIEW_MY_TRADE")
-    @GetMapping("/{id}/{trade_id}")
-    public HttpEntity<?> getByTradeIdAndId(@PathVariable Integer id, @PathVariable Integer trade_id) {
-        ApiResponse apiResponse = tradeHistoryService.getByTradeIdAndId(id, trade_id);
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
-    }
-
+    /**
+     * FILIAL ID'SI ORQALI BARCHA SAVDO TARIXLARINI OLIB CHIQISH
+     *
+     * @param branch_id
+     * @return ApiResponse(success - > true, object - > value)
+     */
     @CheckPermission("VIEW_ALL_TRADE")
-    @GetMapping("/get-by-branch/{trade_branch_id}")
-    public HttpEntity<?> getAllByBranch(@PathVariable Integer trade_branch_id) {
-        ApiResponse apiResponse = tradeHistoryService.getAllByBranch(trade_branch_id);
+    @GetMapping("/get-by-branch/{branch_id}")
+    public HttpEntity<?> getAllByBranch(@PathVariable Integer branch_id) {
+        ApiResponse apiResponse = tradeHistoryService.getAllByBranch(branch_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * BUSINESS ID'SI ORQALI BARCHA SAVDO TARIXLARINI OLIB CHIQISH
+     *
+     * @param business_id
+     * @return ApiResponse(success - > true, object - > value)
+     */
     @CheckPermission("VIEW_ALL_TRADE")
     @GetMapping("/get-by-business/{business_id}")
     public HttpEntity<?> getAllByBusiness(@PathVariable Integer business_id) {
