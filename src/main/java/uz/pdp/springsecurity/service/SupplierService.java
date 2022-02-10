@@ -37,11 +37,11 @@ public class SupplierService {
                 optionalBusiness.get()
         );
             supplierRepository.save(supplier);
-        return new ApiResponse("Saved", true);
+        return new ApiResponse("ADDED", true);
     }
 
     public ApiResponse edit(Integer id, SupplierDto supplierDto) {
-        if (!supplierRepository.existsById(id)) return new ApiResponse("supplier not found",false);
+        if (!supplierRepository.existsById(id)) return new ApiResponse("supplier NOT FOUND",false);
 
         Supplier supplier = supplierRepository.getById(id);
         supplier.setName(supplierDto.getName());
@@ -50,24 +50,24 @@ public class SupplierService {
         supplier.setSupplierType(supplierDto.getSupplierType());
 
         supplierRepository.save(supplier);
-        return new ApiResponse("edited", true);
+        return new ApiResponse("EDITED", true);
     }
 
     public ApiResponse get(Integer id) {
-        if (!supplierRepository.existsById(id)) return new ApiResponse("supplier not found",false);
-        return new ApiResponse("found",true,supplierRepository.findById(id).get());
+        if (!supplierRepository.existsById(id)) return new ApiResponse("SUPPLIER NOT FOUND",false);
+        return new ApiResponse("FOUND",true,supplierRepository.findById(id).get());
     }
 
     public ApiResponse delete(Integer id) {
-        if (!supplierRepository.existsById(id)) return new ApiResponse("supplier not found",false);
+        if (!supplierRepository.existsById(id)) return new ApiResponse("SUPPLIER NOT FOUND",false);
         supplierRepository.deleteById(id);
-        return new ApiResponse("deleted",true);
+        return new ApiResponse("DELETED",true);
     }
 
 
     public ApiResponse getAllByBusiness(Integer businessId) {
         List<Supplier> allByBusinessId = supplierRepository.findAllByBusinessId(businessId);
-        if (allByBusinessId.isEmpty()) return new ApiResponse("not found",false);
-        return new ApiResponse("found",true,allByBusinessId);
+        if (allByBusinessId.isEmpty()) return new ApiResponse("NOT FOUND",false);
+        return new ApiResponse("FOUND",true,allByBusinessId);
     }
 }

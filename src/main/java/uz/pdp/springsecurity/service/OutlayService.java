@@ -35,82 +35,82 @@ public class OutlayService {
         Outlay outlay = new Outlay();
 
         Optional<OutlayCategory> optionalCategory = outlayCategoryRepository.findById(outlayDto.getOutlayCategoryId());
-        if (!optionalCategory.isPresent()) return new ApiResponse("Outlay category not found", false);
+        if (optionalCategory.isEmpty()) return new ApiResponse("OUTLAY CATEGORY NOT FOUND", false);
         outlay.setOutlayCategory(optionalCategory.get());
 
         outlay.setTotalSum(outlayDto.getTotalSum());
 
         Optional<Branch> optionalBranch = branchRepository.findById(outlayDto.getBranchId());
         if (optionalBranch.isEmpty()) {
-            return new ApiResponse("NOT FOUND BRANCH", false);
+            return new ApiResponse("BRANCH NOT FOUND", false);
         }
         outlay.setBranch(optionalBranch.get());
 
         Optional<User> spender = userRepository.findById(outlayDto.getSpenderId());
-        if (!spender.isPresent()) return new ApiResponse("spender not found", false);
+        if (spender.isEmpty()) return new ApiResponse("SPENDER NOT FOUND", false);
         outlay.setSpender(spender.get());
 
         outlay.setDescription(outlayDto.getDescription());
         outlay.setDate(outlayDto.getDate());
 
         outlayRepository.save(outlay);
-        return new ApiResponse("Outlay saved", true);
+        return new ApiResponse("ADDED", true);
     }
 
     public ApiResponse edit(Integer id, OutlayDto outlayDto) {
-        if (!outlayRepository.existsById(id)) return new ApiResponse("Outlay not found", false);
+        if (!outlayRepository.existsById(id)) return new ApiResponse("NOT FOUND", false);
 
         Outlay outlay = outlayRepository.getById(id);
 
         Optional<OutlayCategory> optionalCategory = outlayCategoryRepository.findById(outlayDto.getOutlayCategoryId());
-        if (!optionalCategory.isPresent()) return new ApiResponse("Outlay category not found", false);
+        if (optionalCategory.isEmpty()) return new ApiResponse("OUTLAY CATEGORY NOT FOUND", false);
         outlay.setOutlayCategory(optionalCategory.get());
 
         outlay.setTotalSum(outlayDto.getTotalSum());
 
         Optional<Branch> optionalBranch = branchRepository.findById(outlayDto.getBranchId());
         if (optionalBranch.isEmpty()) {
-            return new ApiResponse("NOT FOUND BRANCH", false);
+            return new ApiResponse("BRANCH NOT FOUND", false);
         }
         outlay.setBranch(optionalBranch.get());
 
         Optional<User> spender = userRepository.findById(outlayDto.getSpenderId());
-        if (!spender.isPresent()) return new ApiResponse("spender not found", false);
+        if (spender.isEmpty()) return new ApiResponse("SPENDER NOT FOUND", false);
         outlay.setSpender(spender.get());
 
         outlay.setDescription(outlayDto.getDescription());
         outlay.setDate(outlayDto.getDate());
 
         outlayRepository.save(outlay);
-        return new ApiResponse("Outlay updated", true);
+        return new ApiResponse("EDITED", true);
     }
 
     public ApiResponse get(Integer id) {
-        if (!outlayRepository.existsById(id)) return new ApiResponse("Outlay not found", false);
-        return new ApiResponse("found", true, outlayRepository.findById(id).get());
+        if (!outlayRepository.existsById(id)) return new ApiResponse("NOT FOUND", false);
+        return new ApiResponse("FOUND", true, outlayRepository.findById(id).get());
     }
 
     public ApiResponse delete(Integer id) {
-        if (!outlayRepository.existsById(id)) return new ApiResponse("Outlay not found", false);
+        if (!outlayRepository.existsById(id)) return new ApiResponse("NOT FOUND", false);
         outlayRepository.deleteById(id);
-        return new ApiResponse("Outlay deleted", true);
+        return new ApiResponse("DELETED", true);
     }
 
     public ApiResponse getByDate(Date date , Integer branch_id) {
         List<Outlay> allByDate = outlayRepository.findAllByDate(date,branch_id);
-        if (allByDate.isEmpty()) return new ApiResponse("not found",false);
-        return new ApiResponse("found",true,allByDate);
+        if (allByDate.isEmpty()) return new ApiResponse("NOT FOUND",false);
+        return new ApiResponse("FOUND",true,allByDate);
     }
 
     public ApiResponse getAllByBranchId(Integer branch_id) {
         List<Outlay> allByBranch_id = outlayRepository.findAllByBranch_Id(branch_id);
-        if (allByBranch_id.isEmpty()) return new ApiResponse("not found",false);
-        return new ApiResponse("found",true,allByBranch_id);
+        if (allByBranch_id.isEmpty()) return new ApiResponse("NOT FOUND",false);
+        return new ApiResponse("FOUND",true,allByBranch_id);
     }
 
     public ApiResponse getAllByBusinessId(Integer businessId) {
         List<Outlay> allByBusinessId = outlayRepository.findAllByBusinessId(businessId);
-        if (allByBusinessId.isEmpty()) return new ApiResponse("not found",false);
-        return new ApiResponse("found",true,allByBusinessId);
+        if (allByBusinessId.isEmpty()) return new ApiResponse("NOT FOUND",false);
+        return new ApiResponse("FOUND",true,allByBusinessId);
     }
 }

@@ -20,9 +20,12 @@ public class UserDto {
     private String password;
     @NotNull(message = "required line")
     private Integer roleId;
+    @NotNull(message = "required line")
     private Integer branchId;
     @NotNull(message = "required line")
     private Integer businessId;
     @NotNull(message = "required line")
     private Boolean enabled;
+
+    private Integer photoId;
 }

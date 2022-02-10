@@ -39,14 +39,14 @@ public class ExchangeProductBranchService {
 
     public ApiResponse edit(Integer id, ExchangeProductBranchDTO exchangeProductBranchDTO) {
         Optional<ExchangeProductBranch> optionalExchange = exchangeProductBranchRepository.findById(id);
-        if (optionalExchange.isEmpty()) return new ApiResponse("Exchange not found", false);
+        if (optionalExchange.isEmpty()) return new ApiResponse("NOT FOUND", false);
         ExchangeProductBranch exchange = optionalExchange.get();
         return add(exchange, exchangeProductBranchDTO);
     }
 
     public ApiResponse add(ExchangeProductBranch exchangeProductBranch, ExchangeProductBranchDTO exchangeProductBranchDTO) {
         if ((exchangeProductBranchDTO.getShippedBranchId() == exchangeProductBranchDTO.getReceivedBranchId())) {
-            return new ApiResponse("JO'NATISH UCHUN BOSHQA FILIALNI KIRITING", false);
+            return new ApiResponse("SELECT ANOTHER BRANCH TO SEND", false);
         }
 
         /**
@@ -55,7 +55,7 @@ public class ExchangeProductBranchService {
         Integer shippedBranchId = exchangeProductBranchDTO.getShippedBranchId();
         Optional<Branch> optionalBranch = branchRepository.findById(shippedBranchId);
         if (optionalBranch.isEmpty()) {
-            return new ApiResponse("NOT FOUND SHIPPED BRANCH", false);
+            return new ApiResponse("SHIPPED BRANCH NOT FOUND", false);
         }
         exchangeProductBranch.setShippedBranch(optionalBranch.get());
 
@@ -65,7 +65,7 @@ public class ExchangeProductBranchService {
         Integer receivedBranch = exchangeProductBranchDTO.getReceivedBranchId();
         Optional<Branch> branchOptional = branchRepository.findById(receivedBranch);
         if (branchOptional.isEmpty()) {
-            return new ApiResponse("NOT FOUND RECEIVED BRANCH", false);
+            return new ApiResponse("RECEIVED BRANCH NOT FOUND", false);
         }
         exchangeProductBranch.setReceivedBranch(branchOptional.get());
 
@@ -94,7 +94,7 @@ public class ExchangeProductBranchService {
             Optional<Product> exchangeProduct = productRepository.findByIdAndBranch_IdAndActiveTrue(productDTO.getProductExchangeId(), optionalBranch.get().getId());
             if (exchangeProduct.isPresent()) {
                 if ((exchangeProduct.get().getQuantity() < productDTO.getExchangeProductQuantity())) {
-                    return new ApiResponse("MAHSULOT MIQDORI O'TKAZISH UCHUN YETARLI EMAS!", false);
+                    return new ApiResponse("THE QUANTITY OF PRODUCT IS NOT ENOUGH TO SELL!", false);
                 }
 
                 /**
@@ -108,7 +108,7 @@ public class ExchangeProductBranchService {
                 product.setQuantity(product.getQuantity() - productDTO.getExchangeProductQuantity());
                 productRepository.save(product);
             } else {
-                return new ApiResponse("BUNDAY PRODUCT TOPILMADI");
+                return new ApiResponse("PRODUCT NOT FOUND");
             }
 
 
@@ -147,35 +147,35 @@ public class ExchangeProductBranchService {
 
         exchangeProductBranchRepository.save(exchangeProductBranch);
 
-        return new ApiResponse("JO'NATILDI", true);
+        return new ApiResponse("SENT", true);
     }
 
     public ApiResponse getOne(Integer id) {
-        if (exchangeProductBranchRepository.findById(id).isEmpty()) return new ApiResponse("not found", false);
-        return new ApiResponse("found", true, exchangeProductBranchRepository.getById(id));
+        if (exchangeProductBranchRepository.findById(id).isEmpty()) return new ApiResponse("NOT FOUND", false);
+        return new ApiResponse("FOUND", true, exchangeProductBranchRepository.getById(id));
     }
 
     public ApiResponse deleteOne(Integer id) {
-        if (exchangeProductBranchRepository.findById(id).isEmpty()) return new ApiResponse("not found", false);
+        if (exchangeProductBranchRepository.findById(id).isEmpty()) return new ApiResponse("NOT FOUND", false);
         exchangeProductBranchRepository.deleteById(id);
-        return new ApiResponse("deleted", true);
+        return new ApiResponse("DELETED", true);
     }
 
     public ApiResponse getByDate(Date exchangeDate, Integer business_id) {
         List<ExchangeProductBranch> allByExchangeDate = exchangeProductBranchRepository.findAllByExchangeDateAndBusiness_Id(exchangeDate, business_id);
-        return new ApiResponse("catch", true, allByExchangeDate);
+        return new ApiResponse("FOUND", true, allByExchangeDate);
     }
 
     public ApiResponse getByStatusId(Integer exchangeStatusId, Integer branch_id) {
         List<ExchangeProductBranch> allByExchangeStatus_id = exchangeProductBranchRepository.findAllByExchangeStatus_IdAndBusiness_Id(exchangeStatusId, branch_id);
-        if (allByExchangeStatus_id.isEmpty()) return new ApiResponse("Not found", false);
-        return new ApiResponse("found", true, allByExchangeStatus_id);
+        if (allByExchangeStatus_id.isEmpty()) return new ApiResponse("NOT FOUND", false);
+        return new ApiResponse("FOUND", true, allByExchangeStatus_id);
     }
 
     public ApiResponse getByBusinessId(Integer businessId) {
         List<ExchangeProductBranch> allByBusinessId = exchangeProductBranchRepository.findAllByBusiness_Id(businessId);
-        if (allByBusinessId.isEmpty()) return new ApiResponse("not found", false);
-        return new ApiResponse("found", true, allByBusinessId);
+        if (allByBusinessId.isEmpty()) return new ApiResponse("NOT FOUND", false);
+        return new ApiResponse("FOUND", true, allByBusinessId);
     }
 
     public ApiResponse getByShippedBranchId(Integer shippedBranch_id) {

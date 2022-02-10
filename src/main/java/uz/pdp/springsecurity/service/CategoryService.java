@@ -23,7 +23,7 @@ public class CategoryService {
     public ApiResponse add(CategoryDto categoryDto) {
         Optional<Business> optionalBusiness = businessRepository.findById(categoryDto.getBusinessId());
         if (optionalBusiness.isEmpty()) {
-            return new ApiResponse("NOT FOUND BUSINESS", false);
+            return new ApiResponse("BUSINESS NOT FOUND", false);
         }
 
         Category category = new Category(
@@ -32,36 +32,36 @@ public class CategoryService {
         );
 
         categoryRepository.save(category);
-        return new ApiResponse("Category added", true);
+        return new ApiResponse("ADDED", true);
     }
 
     public ApiResponse edit(Integer id, CategoryDto categoryDto) {
-        if (!categoryRepository.existsById(id)) return new ApiResponse("Category not found", false);
+        if (!categoryRepository.existsById(id)) return new ApiResponse("NOT FOUND", false);
 
         Category category = categoryRepository.getById(id);
         category.setName(categoryDto.getName());
 
         categoryRepository.save(category);
-        return new ApiResponse("Category updated", true);
+        return new ApiResponse("EDITED", true);
     }
 
     public ApiResponse get(Integer id) {
-        if (!categoryRepository.existsById(id)) return new ApiResponse("Category not found", false);
+        if (!categoryRepository.existsById(id)) return new ApiResponse("NOT FOUND", false);
 
-        return new ApiResponse("found", true, categoryRepository.findById(id).get());
+        return new ApiResponse("FOUND", true, categoryRepository.findById(id).get());
     }
 
     public ApiResponse delete(Integer id) {
-        if (!categoryRepository.existsById(id)) return new ApiResponse("Category not found", false);
+        if (!categoryRepository.existsById(id)) return new ApiResponse("NOT FOUND", false);
 
         categoryRepository.deleteById(id);
-        return new ApiResponse("Category deleted", true);
+        return new ApiResponse("DELETED", true);
     }
 
 
     public ApiResponse getAllByBusinessId(Integer businessId) {
         List<Category> allByBusinessId = categoryRepository.findAllByBusiness_Id(businessId);
-        if (allByBusinessId.isEmpty()) return new ApiResponse("not found",false);
-        return new ApiResponse("found",true,allByBusinessId);
+        if (allByBusinessId.isEmpty()) return new ApiResponse("NOT FOUND",false);
+        return new ApiResponse("FOUND",true,allByBusinessId);
     }
 }
