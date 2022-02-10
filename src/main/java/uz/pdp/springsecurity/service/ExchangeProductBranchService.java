@@ -126,12 +126,13 @@ public class ExchangeProductBranchService {
                 newProduct.setCategory(product.getCategory());
                 newProduct.setMeasurement(product.getMeasurement());
                 newProduct.setMinQuantity(product.getMinQuantity());
-//                newProduct.setPhoto(product.getPhoto());
+//                newProduct.setPhoto(product.getPhoto());                  xato beryapti iltimos ochma!!!
                 newProduct.setBuyPrice(product.getBuyPrice());
                 newProduct.setSalePrice(product.getSalePrice());
                 newProduct.setTax(product.getTax());
                 newProduct.setExpireDate(product.getExpireDate());
                 newProduct.setQuantity(productDTO.getExchangeProductQuantity());
+
 
 
                 productRepository.save(newProduct);
@@ -160,19 +161,19 @@ public class ExchangeProductBranchService {
         return new ApiResponse("deleted", true);
     }
 
-    public ApiResponse getByDate(Date exchangeDate) {
-        List<ExchangeProductBranch> allByExchangeDate = exchangeProductBranchRepository.findAllByExchangeDate(exchangeDate);
+    public ApiResponse getByDate(Date exchangeDate, Integer business_id) {
+        List<ExchangeProductBranch> allByExchangeDate = exchangeProductBranchRepository.findAllByExchangeDateAndBusiness_Id(exchangeDate, business_id);
         return new ApiResponse("catch", true, allByExchangeDate);
     }
 
     public ApiResponse getByStatusId(Integer exchangeStatusId, Integer branch_id) {
-        List<ExchangeProductBranch> allByExchangeStatus_id = exchangeProductBranchRepository.findAllByExchangeStatus_IdAndShippedBranch_Id(exchangeStatusId, branch_id);
+        List<ExchangeProductBranch> allByExchangeStatus_id = exchangeProductBranchRepository.findAllByExchangeStatus_IdAndBusiness_Id(exchangeStatusId, branch_id);
         if (allByExchangeStatus_id.isEmpty()) return new ApiResponse("Not found", false);
         return new ApiResponse("found", true, allByExchangeStatus_id);
     }
 
     public ApiResponse getByBusinessId(Integer businessId) {
-        List<ExchangeProductBranch> allByBusinessId = exchangeProductBranchRepository.findAllByBusinessId(businessId);
+        List<ExchangeProductBranch> allByBusinessId = exchangeProductBranchRepository.findAllByBusiness_Id(businessId);
         if (allByBusinessId.isEmpty()) return new ApiResponse("not found", false);
         return new ApiResponse("found", true, allByBusinessId);
     }

@@ -48,16 +48,16 @@ public class ExchangeProductBranchController {
     }
 
     @CheckPermission("VIEW_EXCHANGE")
-    @GetMapping("/get-byDate/{exchangeDate}")
-    public HttpEntity<?> getByDate(Date exchangeDate) {
-        ApiResponse apiResponse = exchangeProductBranchService.getByDate(exchangeDate);
+    @GetMapping("/get-byDate/{exchangeDate}/{business_id}")
+    public HttpEntity<?> getByDate(@PathVariable Date exchangeDate,@PathVariable Integer business_id) {
+        ApiResponse apiResponse = exchangeProductBranchService.getByDate(exchangeDate, business_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
     @CheckPermission("VIEW_EXCHANGE")
-    @GetMapping("/get-by-statusId/{exchangeStatus_id}/{branch_id}")
-    public HttpEntity<?> getByExchangeStatus(@PathVariable Integer exchangeStatus_id, @PathVariable Integer branch_id) {
-        ApiResponse apiResponse = exchangeProductBranchService.getByStatusId(exchangeStatus_id, branch_id);
+    @GetMapping("/get-by-statusId/{exchangeStatus_id}/{business_id}")
+    public HttpEntity<?> getByExchangeStatus(@PathVariable Integer exchangeStatus_id, @PathVariable Integer business_id) {
+        ApiResponse apiResponse = exchangeProductBranchService.getByStatusId(exchangeStatus_id, business_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
