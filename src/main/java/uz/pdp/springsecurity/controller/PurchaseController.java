@@ -23,7 +23,7 @@ public class PurchaseController {
      * YANGI XARID QO'SHISH
      *
      * @param purchaseDto
-     * @return  ApiResponse(success - > true message - > ADDED)
+     * @return ApiResponse(success - > true message - > ADDED)
      */
     @CheckPermission("ADD_PURCHASE")
     @PostMapping
@@ -33,10 +33,11 @@ public class PurchaseController {
     }
 
     /**
-     * XARIDNI MALUMOTLARINI TAXRIRLASH
+     * ID ORQALI XARIDNI TAHRIRLASH
+     *
      * @param id
      * @param purchaseDto
-     * @return
+     * @return ApiResponse(success - > true message - > EDITED)
      */
     @CheckPermission("EDIT_PURCHASE")
     @PutMapping("/{id}")
@@ -45,6 +46,12 @@ public class PurchaseController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * ID ORQALI XARIDNI OLIB CHIQISH
+     *
+     * @param id
+     * @return ApiResponse(success - > true message - > FOUND)
+     */
     @CheckPermission("VIEW_PURCHASE")
     @GetMapping("/{id}")
     public HttpEntity<?> get(@PathVariable Integer id) {
@@ -52,6 +59,12 @@ public class PurchaseController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * ID ORQALI XARIDNI OLIB DELETE QILISH
+     *
+     * @param id
+     * @return ApiResponse(success - > true message - > DELETED)
+     */
     @CheckPermission("DELETE_PURCHASE")
     @DeleteMapping("/{id}")
     public HttpEntity<?> delete(@PathVariable Integer id) {
@@ -59,6 +72,12 @@ public class PurchaseController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * YETKAZIB BERUVCHI (SUPPLIER) ID'SI ORQALI BARCHA XARIDLARNI OLIB CHIQISH
+     *
+     * @param dealer_id
+     * @return ApiResponse(success - > true message - > FOUND)
+     */
     @CheckPermission("VIEW_PURCHASE")
     @GetMapping("get-purchase-by-dealerId/{dealer_id}")
     public HttpEntity<?> getByDealerId(@PathVariable Integer dealer_id) {
@@ -66,6 +85,12 @@ public class PurchaseController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * XARID STATUSI ORQALI BARCHA XARIDLARNI OLIB CHIQISH
+     *
+     * @param purchaseStatus_id
+     * @return ApiResponse(success - > true message - > FOUND)
+     */
     @CheckPermission("VIEW_PURCHASE")
     @GetMapping("get-purchase-by-purchaseStatus/{purchaseStatus_id}")
     public HttpEntity<?> getByPurchaseStatusId(@PathVariable Integer purchaseStatus_id) {
@@ -73,6 +98,12 @@ public class PurchaseController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * TOLOV STATUSI ORQALI BARCHA XARIDLARNI OLIB CHIQISH
+     *
+     * @param paymentStatus_id
+     * @return ApiResponse(success - > true message - > FOUND)
+     */
     @CheckPermission("VIEW_PURCHASE")
     @GetMapping("get-purchase-by-paymentStatus/{paymentStatus_id}")
     public HttpEntity<?> getByPaymentStatusId(@PathVariable Integer paymentStatus_id) {
@@ -80,6 +111,12 @@ public class PurchaseController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * FILIAL ID'SI ORQALI BARCHA XARIDLARNI OLIB CHIQISH
+     *
+     * @param branch_id
+     * @return ApiResponse(success - > true message - > FOUND)
+     */
     @CheckPermission("VIEW_PURCHASE")
     @GetMapping("get-purchase-by-branch/{branch_id}")
     public HttpEntity<?> getByBranchId(@PathVariable Integer branch_id) {
@@ -87,6 +124,12 @@ public class PurchaseController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * XARID SANASI ORQALI BARCHA XARIDLARNI OLIB CHIQISH
+     *
+     * @param date
+     * @return ApiResponse(success - > true message - > FOUND)
+     */
     @CheckPermission("VIEW_PURCHASE")
     @GetMapping("get-purchase-by-date/{date}")
     public HttpEntity<?> getByDate(@PathVariable Date date) {
@@ -94,6 +137,12 @@ public class PurchaseController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * JAMI SUMMA ORQALI BARCHA XARIDLARNI OLIB CHIQISH
+     *
+     * @param totalSum
+     * @return ApiResponse(success - > true message - > FOUND)
+     */
     @CheckPermission("VIEW_PURCHASE")
     @GetMapping("get-purchase-by-totalSum/{totalSum}")
     public HttpEntity<?> getByTotalSum(@PathVariable double totalSum) {
@@ -101,6 +150,12 @@ public class PurchaseController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * XARID ID'SI ORQALI XARIDNING PDF CHEKINI DOWNLOAD QILISH
+     *
+     * @param id
+     * @return ApiResponse(success - > true message - > CREATED)
+     */
     @CheckPermission("VIEW_PURCHASE")
     @GetMapping("/get-pdf/{id}")
     public HttpEntity<?> getPdf(@PathVariable Integer id, HttpServletResponse response) throws IOException {
@@ -108,6 +163,12 @@ public class PurchaseController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    /**
+     * BUSINESS ID'SI ORQALI BARCHA XARIDLARNI OLIB CHIQISH
+     *
+     * @param businessId
+     * @return ApiResponse(success - > true message - > FOUND)
+     */
     @CheckPermission("VIEW_PURCHASE_ADMIN")
     @GetMapping("/get-by-business/{businessId}")
     public HttpEntity<?> getAllByBusiness(@PathVariable Integer businessId) {
