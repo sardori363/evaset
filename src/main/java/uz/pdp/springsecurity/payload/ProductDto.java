@@ -16,7 +16,7 @@ public class ProductDto {
     private String name;
 
     @NotNull(message = "required line")
-    private Integer quantity;
+    private Double quantity;
 
     @NotNull(message = "required line")
     private long barcode;
@@ -31,7 +31,7 @@ public class ProductDto {
 
     private List<Integer> photoIds;
 
-    private Integer minQuantity;
+    private Double minQuantity;
 
     @NotNull(message = "required line")
 

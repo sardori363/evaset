@@ -23,7 +23,7 @@ public class Product extends AbsEntity {
     private String name;
 
     @Column(nullable = false)
-    private Integer quantity;
+    private Double quantity;
 
     private long barcode;
 
@@ -39,7 +39,7 @@ public class Product extends AbsEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Measurement measurement;
 
-    private Integer minQuantity;
+    private Double minQuantity;
 
     @ManyToMany
     @OnDelete(action = OnDeleteAction.CASCADE)

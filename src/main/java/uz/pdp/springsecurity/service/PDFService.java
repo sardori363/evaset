@@ -150,7 +150,7 @@ public class PDFService {
         sub.add(new Paragraph(totalsum));
 
 
-        Integer subTotal = 0;
+        Double subTotal = 0D;
         List<TradeProduct> tradeProductList = trade.getTradeProductList();
         for (TradeProduct tradeProduct : tradeProductList) {
             col1.add(new Paragraph(new Text(tradeProduct.getProduct().getName())));

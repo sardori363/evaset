@@ -112,7 +112,7 @@ public class TradeService {
         List<TradeProduct> tradeProducts = new ArrayList<>();
         for (ProductTradeDto productTradeDto : productTraderDto) {
 
-            Integer tradedQuantity = productTradeDto.getTradedQuantity();
+            Double tradedQuantity = productTradeDto.getTradedQuantity();
             Optional<Product> optionalProduct = productRepository.findById(productTradeDto.getProductTradeId());
             Product product = optionalProduct.get();
 
@@ -142,7 +142,7 @@ public class TradeService {
         double sum = 0d;
         for (ProductTradeDto productTradeDto : productTraderDto) {
             double salePrice = productRepository.findById(productTradeDto.getProductTradeId()).get().getSalePrice();
-            Integer tradedQuantity = productTradeDto.getTradedQuantity();
+            Double tradedQuantity = productTradeDto.getTradedQuantity();
             double parseDouble = Double.parseDouble(String.valueOf(tradedQuantity));
             sum = sum + (salePrice * parseDouble);
         }

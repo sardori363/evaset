@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -13,7 +12,7 @@ import java.util.List;
 public class ProductTradeDto {
 
     @NotNull(message = "required line")
-    private Integer tradedQuantity;
+    private Double tradedQuantity;
 
     @NotNull(message = "required line")
     private Integer productTradeId;

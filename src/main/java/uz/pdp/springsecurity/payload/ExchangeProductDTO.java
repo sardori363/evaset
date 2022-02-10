@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 public class ExchangeProductDTO {
 
     @NotNull(message = "required line")
-    private Integer exchangeProductQuantity;
+    private Double exchangeProductQuantity;
 
     @NotNull(message = "required line")
     private Integer productExchangeId;

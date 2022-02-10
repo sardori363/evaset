@@ -17,7 +17,7 @@ import javax.persistence.OneToOne;
 @NoArgsConstructor
 @Data
 public class PurchaseProduct extends AbsEntity {
-    private Integer purchasedQuantity;
+    private Double purchasedQuantity;
 
      @OneToOne
     @OnDelete(action = OnDeleteAction.CASCADE)

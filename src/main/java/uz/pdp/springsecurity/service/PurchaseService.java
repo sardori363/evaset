@@ -102,7 +102,7 @@ public class PurchaseService {
             Optional<Product> optionalProduct = productRepository.findById(productPurchaseId);
             Product product = optionalProduct.get();
 
-            Integer purchasedQuantity = purchaseProductDto.getPurchasedQuantity();
+            Double purchasedQuantity = purchaseProductDto.getPurchasedQuantity();
 
             double buyPrice = optionalProduct.get().getBuyPrice();
 
@@ -135,8 +135,8 @@ public class PurchaseService {
 
     public ApiResponse getByDealerId(Integer dealer_id) {
         List<Purchase> allByDealer_id = purchaseRepository.findAllByDealer_Id(dealer_id);
-        if (allByDealer_id.isEmpty()) return new ApiResponse("not found",false);
-        return new ApiResponse("found",true,allByDealer_id);
+        if (allByDealer_id.isEmpty()) return new ApiResponse("NOT FOUND",false);
+        return new ApiResponse("FOUND",true,allByDealer_id);
     }
 
     public ApiResponse getByPurchaseStatusId(Integer purchaseStatus_id) {

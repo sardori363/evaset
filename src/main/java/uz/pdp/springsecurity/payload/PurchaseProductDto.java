@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class PurchaseProductDto {
     @NotNull(message = "required line")
-    private Integer purchasedQuantity;
+    private Double purchasedQuantity;
     @NotNull(message = "required line")
     private Integer productPurchaseId;
 }

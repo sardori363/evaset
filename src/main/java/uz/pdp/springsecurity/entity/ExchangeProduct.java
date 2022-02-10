@@ -17,7 +17,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class ExchangeProduct  extends AbsEntity {
 
-    private Integer exchangeProductQuantity;
+    private Double exchangeProductQuantity;
 
     @OneToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
