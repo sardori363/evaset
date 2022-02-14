@@ -27,4 +27,9 @@ public class Attachment {
     @ManyToOne
     private Branch branch;
 
+    public Attachment(String fileOriginalName, long size, String contentType) {
+        this.fileOriginalName = fileOriginalName;
+        this.size = size;
+        this.contentType = contentType;
+    }
 }

@@ -17,4 +17,11 @@ public class AttachmentContent {
     private byte[] mainContent;
     @OneToOne
     private Attachment attachment;
+
+    public AttachmentContent(byte[] mainContent, Attachment attachment) {
+        this.mainContent = mainContent;
+        this.attachment = attachment;
+    }
+
+
 }

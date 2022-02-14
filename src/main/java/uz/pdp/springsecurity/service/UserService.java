@@ -69,6 +69,7 @@ public class UserService {
         if (optionalPhoto.isEmpty()) return new ApiResponse("PHOTO NOT FOUND", false);
 
         user.setPhoto(optionalPhoto.get());
+
         userRepository.save(user);
         return new ApiResponse("ADDED", true);
     }
