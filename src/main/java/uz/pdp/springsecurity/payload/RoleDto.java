@@ -20,4 +20,6 @@ public class RoleDto {
     private List<Permissions> permissions;
 
     private String description;
+
+    private Integer businessId;
 }

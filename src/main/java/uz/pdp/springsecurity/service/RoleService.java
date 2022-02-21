@@ -2,10 +2,12 @@ package uz.pdp.springsecurity.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import uz.pdp.springsecurity.entity.Business;
 import uz.pdp.springsecurity.entity.Role;
 import uz.pdp.springsecurity.exeptions.RescuersNotFoundEx;
 import uz.pdp.springsecurity.payload.ApiResponse;
 import uz.pdp.springsecurity.payload.RoleDto;
+import uz.pdp.springsecurity.repository.BusinessRepository;
 import uz.pdp.springsecurity.repository.RoleRepository;
 
 import java.util.List;
@@ -15,6 +17,8 @@ import java.util.Optional;
 public class RoleService {
     @Autowired
     RoleRepository roleRepository;
+    @Autowired
+    BusinessRepository businessRepository;
 
     public ApiResponse add(RoleDto roleDto) {
         boolean b = roleRepository.existsByName(roleDto.getName());
@@ -23,6 +27,11 @@ public class RoleService {
         role.setName(roleDto.getName());
         role.setPermissions(roleDto.getPermissions());
         role.setDescription(roleDto.getDescription());
+
+        Optional<Business> optionalBusiness = businessRepository.findById(roleDto.getBusinessId());
+        if (optionalBusiness.isEmpty()) return new ApiResponse("BUSINESS NOT FOUND", false);
+        role.setBusiness(optionalBusiness.get());
+
         roleRepository.save(role);
         return new ApiResponse("ADDED", true);
     }
@@ -35,6 +44,11 @@ public class RoleService {
         role.setName(roleDto.getName());
         role.setPermissions(roleDto.getPermissions());
         role.setDescription(roleDto.getDescription());
+
+        Optional<Business> optionalBusiness = businessRepository.findById(roleDto.getBusinessId());
+        if (optionalBusiness.isEmpty()) return new ApiResponse("BUSINESS NOT FOUND", false);
+        role.setBusiness(optionalBusiness.get());
+
         roleRepository.save(role);
         return new ApiResponse("EDITED", true);
     }
