@@ -9,6 +9,7 @@ import uz.pdp.springsecurity.payload.PayStatusDto;
 import uz.pdp.springsecurity.repository.BusinessRepository;
 import uz.pdp.springsecurity.repository.PaymentStatusRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -59,5 +60,11 @@ public class PayStatusService {
         if (!payStatusRepository.existsById(id)) return new ApiResponse("NOT FOUND", false);
         payStatusRepository.deleteById(id);
         return new ApiResponse("DELETED", true);
+    }
+
+    public ApiResponse getAll() {
+        List<PaymentStatus> all = payStatusRepository.findAll();
+        if (all.isEmpty()) return new ApiResponse("NOT FOUND", false);
+        return new ApiResponse("FOUND", true,all);
     }
 }

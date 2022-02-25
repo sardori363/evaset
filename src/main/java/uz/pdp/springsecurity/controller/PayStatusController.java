@@ -56,6 +56,18 @@ public class PayStatusController {
     }
 
     /**
+     * ID ORQLI BARCHA TO'LANGANLIK STATUSINI QO'SHISH
+     *
+     * @return ApiResponse(success - > true object - > value)
+     */
+    @CheckPermission("VIEW_PAY_STATUS")
+    @GetMapping
+    public HttpEntity<?> getAll() {
+        ApiResponse apiResponse = payStatusService.getAll();
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    /**
      * ID ORQALI DELETE QILSIH
      *
      * @param id
