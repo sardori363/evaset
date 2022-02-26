@@ -22,6 +22,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     List<Product> findAllByBranch_IdAndActiveTrue(Integer branch_id);
 
+    List<Product> findAllByMeasurement_IdAndActiveTrue(Integer measurement_id);
 
     @Query(value = "select * from product p inner join branches b on p.branch_id = b.id where b.business_id = ?1 AND p.active =true", nativeQuery = true)
     List<Product> findAllByBusinessIdActiveTrue(Integer businessId);//tekshirib korish kere

@@ -180,4 +180,10 @@ public class ProductService {
         productRepository.deleteAllById(ids);
         return new ApiResponse("DELETED", true);
     }
+
+    public ApiResponse getByMeasurement(Integer measurement_id) {
+        List<Product> allByMeasurement_idAndActiveTrue = productRepository.findAllByMeasurement_IdAndActiveTrue(measurement_id);
+        if (allByMeasurement_idAndActiveTrue.isEmpty()) return new ApiResponse("NOT FOUND",false);
+        return new ApiResponse("FOUND",true,allByMeasurement_idAndActiveTrue);
+    }
 }

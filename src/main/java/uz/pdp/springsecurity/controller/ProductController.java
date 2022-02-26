@@ -140,6 +140,19 @@ public class ProductController {
     }
 
     /**
+     * MEASUREMENT GA TEGISHLI BARCHA MAHSULOTLARNI OLIB CHIQISH
+     *
+     * @param measurement_id
+     * @return ApiResponse(success - > true object - > value)
+     */
+    @CheckPermission("VIEW_PRODUCT")
+    @GetMapping("/get-by-measurement/{measurement_id}")
+    public HttpEntity<?> getByMeasurement(@PathVariable Integer measurement_id) {
+        ApiResponse apiResponse = productService.getByMeasurement(measurement_id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    /**
      * BUSINESSGA TEGISHLI BARCHA PRODUCTLARNI OLIB CHIQISH
      *
      * @param businessId
