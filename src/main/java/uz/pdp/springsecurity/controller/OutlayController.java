@@ -94,8 +94,8 @@ public class OutlayController {
      * @return ApiResponse(success - > true message - > VALUE)
      */
     @CheckPermission("VIEW_OUTLAY")
-    @GetMapping("/get-all-by-date/{date}/{business_id}")
-    public HttpEntity<?> getByAllDate(@PathVariable Date date, @PathVariable Integer business_id) {
+    @GetMapping("/get-all-by-date/{business_id}/{date}")
+    public HttpEntity<?> getByAllDate(@PathVariable Integer business_id, @PathVariable Date date) {
         ApiResponse apiResponse = outlayService.getAllByDate(date, business_id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }

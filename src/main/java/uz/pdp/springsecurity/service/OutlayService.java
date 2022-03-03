@@ -115,7 +115,7 @@ public class OutlayService {
     }
 
     public ApiResponse getAllByDate(Date date, Integer business_id) {
-        List<Outlay> allByDateAndBusinessId = outlayRepository.findAllByDateAndBusinessId(date, business_id);
+        List<Outlay> allByDateAndBusinessId = outlayRepository.findAllByDateAndBusinessId(business_id,date);
         if (allByDateAndBusinessId.isEmpty()) return new ApiResponse("NOT FOUND",false);
         return new ApiResponse("FOUND",true,allByDateAndBusinessId);
     }
