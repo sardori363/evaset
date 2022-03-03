@@ -96,21 +96,27 @@ public class OutlayService {
         return new ApiResponse("DELETED", true);
     }
 
-    public ApiResponse getByDate(Date date , Integer branch_id) {
-        List<Outlay> allByDate = outlayRepository.findAllByDate(date,branch_id);
-        if (allByDate.isEmpty()) return new ApiResponse("NOT FOUND",false);
-        return new ApiResponse("FOUND",true,allByDate);
+    public ApiResponse getByDate(Date date, Integer branch_id) {
+        List<Outlay> allByDate = outlayRepository.findAllByDate(date, branch_id);
+        if (allByDate.isEmpty()) return new ApiResponse("NOT FOUND", false);
+        return new ApiResponse("FOUND", true, allByDate);
     }
 
     public ApiResponse getAllByBranchId(Integer branch_id) {
         List<Outlay> allByBranch_id = outlayRepository.findAllByBranch_Id(branch_id);
-        if (allByBranch_id.isEmpty()) return new ApiResponse("NOT FOUND",false);
-        return new ApiResponse("FOUND",true,allByBranch_id);
+        if (allByBranch_id.isEmpty()) return new ApiResponse("NOT FOUND", false);
+        return new ApiResponse("FOUND", true, allByBranch_id);
     }
 
     public ApiResponse getAllByBusinessId(Integer businessId) {
         List<Outlay> allByBusinessId = outlayRepository.findAllByBusinessId(businessId);
-        if (allByBusinessId.isEmpty()) return new ApiResponse("NOT FOUND",false);
-        return new ApiResponse("FOUND",true,allByBusinessId);
+        if (allByBusinessId.isEmpty()) return new ApiResponse("NOT FOUND", false);
+        return new ApiResponse("FOUND", true, allByBusinessId);
+    }
+
+    public ApiResponse getAllByDate(Date date, Integer business_id) {
+        List<Outlay> allByDateAndBusinessId = outlayRepository.findAllByDateAndBusinessId(date, business_id);
+        if (allByDateAndBusinessId.isEmpty()) return new ApiResponse("NOT FOUND",false);
+        return new ApiResponse("FOUND",true,allByDateAndBusinessId);
     }
 }

@@ -87,6 +87,20 @@ public class OutlayController {
     }
 
     /**
+     * KIRITLGAN SANADAGI VA BUSINESSGA TEGISHLI CHIQIMNI OLIB CHIQISH
+     *
+     * @param date
+     * @param
+     * @return ApiResponse(success - > true message - > VALUE)
+     */
+    @CheckPermission("VIEW_OUTLAY")
+    @GetMapping("/get-all-by-date/{date}/{business_id}")
+    public HttpEntity<?> getByAllDate(@PathVariable Date date, @PathVariable Integer business_id) {
+        ApiResponse apiResponse = outlayService.getAllByDate(date, business_id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    /**
      * BRANCHGA TEGISHLI CHIQMLARNI OLIB CHIQISH
      *
      * @param branch_id
